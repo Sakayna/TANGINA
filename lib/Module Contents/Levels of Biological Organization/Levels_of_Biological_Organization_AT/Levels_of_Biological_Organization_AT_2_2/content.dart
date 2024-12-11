@@ -37,6 +37,8 @@ class _LevelsOfOrganizationDragDropState
 
   List<String> targetOrder = List<String>.filled(9, '');
   List<String> remainingItems = [];
+  int currentQuestionIndex = 0;
+  bool isAnswerEmpty = true;
 
   @override
   void initState() {
@@ -67,9 +69,9 @@ class _LevelsOfOrganizationDragDropState
   Future<bool> handleWillPop() async {
     if (targetOrder.every((element) => element.isEmpty)) {
       showWarningDialog();
-      return false; // Prevents going back
+      return false;
     }
-    return false; // Always prevent going back
+    return false;
   }
 
   void submitOrder() {
@@ -80,9 +82,8 @@ class _LevelsOfOrganizationDragDropState
       }
     }
 
-    bool passed = score >= 6; // Example passing score (6 out of 9)
+    bool passed = score >= 6;
 
-    // Update global variables for progress tracking
     var globalVariables = Provider.of<GlobalVariables>(context, listen: false);
     globalVariables.setQuizTaken('lesson2', 'quiz1', true);
     globalVariables.unlockNextLesson('lesson2');
@@ -105,6 +106,36 @@ class _LevelsOfOrganizationDragDropState
     );
   }
 
+  void goToNextQuestion() {
+    if (targetOrder[currentQuestionIndex].isEmpty) {
+      setState(() {
+        isAnswerEmpty = true;
+      });
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('Answer is required'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      setState(() {
+        currentQuestionIndex++;
+        isAnswerEmpty = false;
+      });
+    }
+  }
+
   void returnItemToOriginalPosition(String item) {
     setState(() {
       int index = targetOrder.indexOf(item);
@@ -123,7 +154,7 @@ class _LevelsOfOrganizationDragDropState
         appBar: AppBar(
           title: Text(
             'Lesson 2 Quiz 1',
-            style: TextStyle(color: Colors.white), // Set text color to white
+            style: TextStyle(color: Colors.white),
           ),
           backgroundColor: Color(0xFF9463FF),
           leading: IconButton(
@@ -140,9 +171,7 @@ class _LevelsOfOrganizationDragDropState
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                SizedBox(height: 20),
                 Container(
-                  width: double.infinity,
                   padding: EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -220,21 +249,12 @@ class _LevelsOfOrganizationDragDropState
                                 decoration: BoxDecoration(
                                   color: Color(0xFF9463FF),
                                   borderRadius: BorderRadius.circular(10.0),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.01),
-                                      spreadRadius: 0.01,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 4),
-                                    ),
-                                  ],
                                 ),
                                 child: Center(
                                   child: Text(
                                     remainingItems[index],
                                     style: TextStyle(
                                         fontSize: 12, color: Colors.white),
-                                    textAlign: TextAlign.center,
                                   ),
                                 ),
                               ),
@@ -244,21 +264,12 @@ class _LevelsOfOrganizationDragDropState
                               decoration: BoxDecoration(
                                 color: Colors.grey[200],
                                 borderRadius: BorderRadius.circular(10.0),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.01),
-                                    spreadRadius: 0.01,
-                                    blurRadius: 4,
-                                    offset: Offset(0, 4),
-                                  ),
-                                ],
                               ),
                               child: Center(
                                 child: Text(
                                   remainingItems[index],
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.center,
                                 ),
                               ),
                             ),
@@ -274,87 +285,99 @@ class _LevelsOfOrganizationDragDropState
                   ),
                 ),
                 SizedBox(height: 20),
-                Column(
-                  children: List.generate(targetOrder.length, (index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 24.0),
-                      child: Container(
-                        padding: EdgeInsets.all(12.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.01),
-                              spreadRadius: 0.01,
-                              blurRadius: 4,
-                              offset: Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              questions[index],
-                              style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.normal),
-                            ),
-                            SizedBox(height: 12),
-                            DragTarget<String>(
-                              onAccept: (receivedItem) {
-                                setState(() {
-                                  targetOrder[index] = receivedItem;
-                                });
-                              },
-                              builder: (context, acceptedItems, rejectedItems) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    if (targetOrder[index].isNotEmpty) {
-                                      returnItemToOriginalPosition(
-                                          targetOrder[index]);
-                                    }
-                                  },
-                                  child: Container(
-                                    width: double.infinity,
-                                    padding: EdgeInsets.all(12.0),
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFF9463FF),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.01),
-                                          spreadRadius: 0.01,
-                                          blurRadius: 4,
-                                          offset: Offset(0, 4),
-                                        ),
-                                      ],
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        targetOrder[index],
-                                        style: TextStyle(
-                                            fontSize: 12, color: Colors.white),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
-                        ),
+                Container(
+                  padding: EdgeInsets.all(12.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.01),
+                        spreadRadius: 0.01,
+                        blurRadius: 4,
+                        offset: Offset(0, 4),
                       ),
-                    );
-                  }),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        questions[currentQuestionIndex],
+                        style: TextStyle(fontSize: 14),
+                      ),
+                      SizedBox(height: 12),
+                      DragTarget<String>(
+                        onAccept: (receivedItem) {
+                          setState(() {
+                            targetOrder[currentQuestionIndex] = receivedItem;
+                            isAnswerEmpty = false;
+                          });
+                        },
+                        builder: (context, acceptedItems, rejectedItems) {
+                          return GestureDetector(
+                            onTap: () {
+                              if (targetOrder[currentQuestionIndex]
+                                  .isNotEmpty) {
+                                returnItemToOriginalPosition(
+                                    targetOrder[currentQuestionIndex]);
+                              }
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.all(12.0),
+                              decoration: BoxDecoration(
+                                color: targetOrder[currentQuestionIndex].isEmpty
+                                    ? Colors.grey[200]
+                                    : Color(0xFF9463FF),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  targetOrder[currentQuestionIndex],
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: targetOrder[currentQuestionIndex]
+                                            .isEmpty
+                                        ? Colors.grey
+                                        : Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
                 SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: submitOrder,
-                  child: Text('Submit'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF9463FF),
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    if (currentQuestionIndex < levels.length - 1)
+                      ElevatedButton(
+                        onPressed: goToNextQuestion,
+                        child: Text(
+                          'Next',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFF9463FF),
+                        ),
+                      ),
+                    if (currentQuestionIndex == levels.length - 1)
+                      ElevatedButton(
+                        onPressed: submitOrder,
+                        child: Text(
+                          'Submit',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFF9463FF),
+                        ),
+                      ),
+                  ],
                 ),
               ],
             ),
