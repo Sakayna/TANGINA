@@ -1,0 +1,63 @@
+      
+[
+    {
+        "description" : "Move you camera until white dots will display in your screen. Touch at any white dots to start your learning!",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "Calling all science detectives! Today we'll be putting on our detective hats to crack",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "the case of the microorganisms!  Are they beneficial buddies or harmful villains? Let's analyze some clues!",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "I'll show you a series of images featuring various microorganisms. analyze each image and decide whether",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "it represents a microorganism that is: Harmful: Can cause diseases or damage living tissues.",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "Beneficial: Play a positive role in our lives, like aiding digestion or food production.",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "Are you ready?",
+        "choices": ["Yes"],
+        "answer": ""
+    },
+    {
+        "description": "That's good to hear! Let's start!",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "A close-up of mold growing on bread?",
+        "choices": ["Harmful microorganism", "Beneficial microorganism"],
+        "answer": "Harmful microorganism"
+    },
+    {
+        "description": "A picture of bacteria in a yogurt culture?",
+        "choices": ["Harmful microorganism", "Beneficial microorganism"],
+        "answer": "Beneficial microorganism"
+    },  
+    {
+        "description": "A micrograph of a virus infecting a cell?",
+        "choices": ["Harmful microorganism", "Beneficial microorganism"],
+        "answer": "Harmful microorganism"
+    },
+    {
+        "description": "A perfect score! Good Job!!!",
+        "choices": [],
+        "answer": ""
+    }
+]

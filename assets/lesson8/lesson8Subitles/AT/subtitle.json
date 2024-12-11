@@ -1,0 +1,44 @@
+     
+    
+[
+    {
+        "description" : "Move you camera until white dots will display in your screen. Touch at any white dots to start your learning!",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description" : "Attention class! Today we'll embark on a fascinating journey the fertilization process!",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "This is where sperm and egg unite to create a new life. Let's see if you can identify and ",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "sequence the key stages of this incredible event. The Challenge:",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "I'll provide you a set of blocks containing descriptions of the key stages of fertilization.",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": " Your mission, is to put them in the correct order of occurrence during fertilization.",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "Are you ready?",
+        "choices": ["Yes"],
+        "answer": ""
+    },
+    {
+        "description": "Let's start!",
+        "choices": [],
+        "answer": ""
+    }    
+]

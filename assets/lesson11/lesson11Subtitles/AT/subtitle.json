@@ -1,0 +1,83 @@
+
+[
+    {
+        "description" : "Move you camera until white dots will display in your screen. Touch at any white dots to start your learning!",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "Building on our discussion about the 'Butterfly Effect' in ecosystems, let's test ",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "your understanding of how changes in one population can impact others!",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "Imagine a forest ecosystem teeming with life: squirrels, hawks, oak trees, and ",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "mushrooms all play crucial roles in this balanced community. However, unexpected events can disrupt this harmony.",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "Read each scenario carefully and choose the answer that best describes the likely ",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "consequences for other populations in the forest ecosystem.",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "Ready to become eco-detectives? ",
+        "choices": ["Yes"],
+        "answer": ""
+    },
+    {
+        "description": "Let's start!",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "A harsh winter kills off a significant portion of the oak tree population",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "What is the most likely impact on the hawk population?",
+        "choices": ["Decrease due to lack of prey", "Increase due to decreased competition for prey"],
+        "answer": "Decrease due to lack of prey"
+    },
+    {
+        "description": "A new predator, the red fox, is introduced to the forest",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "What is the most likely impact on the squirrel population?",
+        "choices": ["Decrease due to increased predation", "Remain stable, adapted to avoid predators."],
+        "answer": "Decrease due to increased predation"
+    },
+    {
+        "description": "A disease outbreak significantly reduces the population of squirrels",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "What is the most likely impact on the mushroom population?",
+        "choices": ["Decrease due to lack of dead squirrel bodies to decompose", "Increase due to reduced number of squirrels"],
+        "answer": "Increase due to reduced number of squirrels"
+    },    
+    {
+        "description": "Well done!!",
+        "choices": [],
+        "answer": ""
+    }   
+]

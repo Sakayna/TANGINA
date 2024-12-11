@@ -1,0 +1,88 @@
+     
+[
+    {
+        "description" : "Move you camera until white dots will display in your screen. Touch at any white dots to start your learning!",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description" : "Welcome, young biologists! Today, we're venturing into the fascinating world of ",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "reproduction! Get ready to flex your scientific muscles and solve the mystery asexual or sexual reproduction?",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "We'll be analyzing images to see if they represent asexual ",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "reproduction (one parent) or sexual reproduction (two parents).",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "Are you ready?",
+        "choices": ["Yes"],
+        "answer": ""
+    },
+    {
+        "description": "A strawberry plant sending out runners?",
+        "choices": ["Asexual", "Sexual"],
+        "answer": "Asexual"
+    },
+    {
+        "description": "A seahorse giving birth to live young?",
+        "choices": ["Asexual", "Sexual"],
+        "answer": "Sexual"
+    },
+    {
+        "description": "A spider laying eggs?",
+        "choices": ["Asexual", "Sexual"],
+        "answer": "Sexual"
+    },
+    {
+        "description": "A starfish regenerating a lost limb?",
+        "choices": ["Asexual", "Sexual"],
+        "answer": "Asexual"
+    },
+    {
+        "description": "Good Job! You got a perfect score!",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "Now, let's solidify our understanding with some examples!  For each type of ",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "Asexual Reproduction (Plant): (example) Potato growing from a single eye",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "Asexual Reproduction (Animal): (example) Hydra reproducing by budding",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "Sexual Reproduction (Plant): (example) Flowering plants reproducing with pollen and ovules",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "Sexual Reproduction (Animal): (example) Birds laying eggs that are fertilized by sperm",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "Good Job! You completed the assessment!",
+        "choices": [],
+        "answer": ""
+    },    
+]

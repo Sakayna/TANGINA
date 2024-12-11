@@ -1,0 +1,57 @@
+[
+    {
+        "description" : "Move you camera until white dots will display in your screen. Touch at any white dots to start your learning!",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description" : "Alright class, today we're going on a journey through the amazing organization of life!",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "Living things exist in a complex hierarchy, with each level building upon the last.",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "Your mission imagine a ladder, but instead of climbing up steps,",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "we'll be arranging the different levels of biological organization in their proper order",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "from the tiniest building blocks to the vast living world.",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "Here's what you'll be doing I'll provide you  with a set of blocks ",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "containing the different levels of biological organization. Then arrange them in the right order",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "Simple right? Are you now ready?",
+        "choices" : ["Yes"],
+        "answer" : ""
+    },
+    {
+        "description" : "Let's Start!!",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "Good job!! You arranged them in the right order! You perfected the assessment task",
+        "choices" : [],
+        "answer" : ""
+    }
+]

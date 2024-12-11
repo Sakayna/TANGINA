@@ -1,0 +1,213 @@
+[
+    {
+        "description" : "Move you camera until white dots will display in your screen. Touch at any white dots to start your learning!",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description" : "Alright class, today we're diving into the amazing world of biological organization!",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "Just like a building is made of bricks, wood, and other components,",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "living things are organized in a specific way, from the tiniest building blocks",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "to the grandest ecosystems. Let's brainstorm!",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "What do you think is the most basic unit of life?",
+        "choices" : ["Cell", "Organisim", "People"],
+        "answer" : "Cell"
+    },
+    {
+        "description" : "Excellent! That's right, the cell is the fundamental unit of life",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "It's like the tiny brick that makes up all living things",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "Now, cells don't work alone Tissues are formed when many similar cells group",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "together to perform a specific function. For instance, muscle tissue allows us to move",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "Let's test our knowledge! Imagine a spongy network of branching tubes in your lungs",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "Is this a cell, tissue, organ, or organ system?  ",
+        "choices" : ["Cell", "Tissue", "Organ", "Organ System"],
+        "answer" : "Organ"
+    },
+    {
+        "description" : "Great! Those branching tubes are actually an organ called the lungs",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "Organs are made up of several different tissues working together",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "Several organs that collaborate on a complex task form an organ system",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "The circulatory system, for example, is made up of the heart, blood vessels, and blood, all",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "working together to transport blood throughout the body",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "Alright, here's a challenge!  Your brain is responsible for thinking, feeling, and controlling your body",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "Is the brain a cell, tissue, organ, or organ system?",
+        "choices" : ["Cell", "Tissue", "Organ", "Organ System"],
+        "answer" : "Organ"
+    },
+    {
+        "description" : "You got it! The brain is an organ.Now, all these amazing parts come together to ",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "form a complete living thing - an organism This could be a simple organism like a bacterium or",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "a complex one like a human being. Let's take it a step further!  Imagine a group of deer grazing in a forest",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "Are these deer a cell, tissue, organ, organism, population, or community?",
+        "choices" : ["Cell", "Tissue", "Organ", "Organisim", "Population", "Community"],
+        "answer" : "Population"
+    },
+    {
+        "description" : "Correct! A group of the same species living in the same area is called a population.",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "Multiple populations living and interacting in a specific area form a community",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "Think of a coral reef teeming with different fish, coral, and algae",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "Alright, we're getting close to the big picture! A community, along with",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "all the non-living elements like water and rocks, make up an ecosystem",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "A forest, a lake, or even a tide pool are all examples of ecosystems",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "Now, imagine vast landscapes with similar climates and plant life",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "A desert with cacti and sand is one biome, while a rainforest with lush vegetation is another",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "These large geographical regions with characteristic plants and animals are called biomes.",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "Finally, the granddaddy of them all - the biosphere",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "This is the entire layer of Earth where life exists, encompassing land, water, and atmosphere",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "Phew! That's quite a journey! So, are you ready to put your knowledge to the test?",
+        "choices" : ["Yes"],
+        "answer" : "Yes"
+    },
+    {
+        "description" : "Is a single red blood cell a cell, tissue, organ, or organism?",
+        "choices" : ["Cell", "Tissue", "Organ" ,"Organisim"],
+        "answer" : "Cell"
+    },
+    {
+        "description" : "The stomach, which breaks down food, is a cell, tissue, organ, or organ system?",
+        "choices" : ["Cell", "Tissue", "Organ" ,"Organ System"],
+        "answer" : "Organ"
+    },
+    {
+        "description" : "All the living things in a pond, including fish, plants, and bacteria, form a cell, tissue, organ, population, community, or ecosystem?",
+        "choices" : ["Cell", "Tissue", "Organ", "Population", "Community", "Ecosystem" ],
+        "answer" : "Community"
+    },
+    {
+        "description" : "The vast areas of frozen land with permanently cold ground are called tundra",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "Is tundra a cell, tissue, organ, organism, population, biome, or biosphere?",
+        "choices" : ["Cell", "Tissue", "Organ", "Organisim", "Population", "Biome", "Biosphere"],
+        "answer" : "Biome"
+    },
+    {
+        "description" : "Great job everyone! By understanding these levels of biological organization, ",
+        "choices" : [],
+        "answer" : ""
+    },
+    {
+        "description" : "we can appreciate the incredible complexity and interconnectedness of life on Earth.",
+        "choices" : [],
+        "answer" : ""
+    }
+
+]

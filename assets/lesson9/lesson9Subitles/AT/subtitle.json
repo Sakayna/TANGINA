@@ -1,0 +1,78 @@
+
+[
+    {
+        "description" : "Move you camera until white dots will display in your screen. Touch at any white dots to start your learning!",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "Alright class, get ready for an exciting bio-adventure! Today we'll be playing ",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "detective and identifying the difference between living things (biotic) and non-living ",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "things (abiotic) in our environment. Look around you can you spot the clues?",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "I'll show you several images of different things found in our environment.",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "you'll need to analyze each image and determine whether it represents a biotic ",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "factor (living thing) or an abiotic factor (non-living thing). ",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "Ready to become eco-detectives? ",
+        "choices": ["Yes"],
+        "answer": ""
+    },
+    {
+        "description": "Let's start!",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "A tree?",
+        "choices": ["Biotic (living thing)", "Abiotic (non-living thing)"],
+        "answer": "Biotic (living thing)"
+    },
+    {
+        "description": "A river?",
+        "choices": ["Biotic (living thing)", "Abiotic (non-living thing)"],
+        "answer": "Abiotic (non-living thing)"
+    },
+    {
+        "description": "A butterfly?",
+        "choices": ["Biotic (living thing)", "Abiotic (non-living thing)"],
+        "answer": "Biotic (living thing)"
+    },
+    {
+        "description": "A tiger?",
+        "choices": ["Biotic (living thing)", "Abiotic (non-living thing)"],
+        "answer": "Biotic (living thing)"
+    },
+    {
+        "description": "A sunlight?",
+        "choices": ["Biotic (living thing)", "Abiotic (non-living thing)"],
+        "answer": "Abiotic (non-living thing)"
+    },
+    {
+        "description": "Well done!!",
+        "choices": [],
+        "answer": ""
+    }   
+]

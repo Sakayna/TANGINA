@@ -1,0 +1,58 @@
+
+[
+    {
+        "description" : "Move you camera until white dots will display in your screen. Touch at any white dots to start your learning!",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "Alright class, fasten your seatbelts! Today we're going on a wild adventure into the ",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "world of food chains!  We'll be analyzing images of different animals and figuring out  ",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "who eats whom the predators and the prey.",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "Are you guys ready?",
+        "choices": ["Yes"],
+        "answer": ""
+    },
+    {
+        "description": "Lion?",
+        "choices": ["Predator", "Prey"],
+        "answer": "Predator"
+    },
+    {
+        "description": "Zebra?",
+        "choices": ["Predator", "Prey"],
+        "answer": "Prey"
+    },
+    {
+        "description": "Spider?",
+        "choices": ["Predator", "Prey"],
+        "answer": "Predator"
+    },
+    {
+        "description": "Fly?",
+        "choices": ["Predator", "Prey"],
+        "answer": "Prey"
+    },
+    {
+        "description": "Snake?",
+        "choices": ["Predator", "Prey"],
+        "answer": "Predator"
+    },
+    {
+        "description": "Well done!!",
+        "choices": [],
+        "answer": ""
+    }   
+]

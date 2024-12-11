@@ -1,0 +1,68 @@
+
+[
+    {
+        "description" : "Move you camera until white dots will display in your screen. Touch at any white dots to start your learning!",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "Alright, class! Today, we're diving into the fascinating world of ecosystems! ",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "Remember, ecosystems are made up of living things  and non-living ",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "things. Let's see how changes in these non-living factors can affect the entire ecosystem!",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "I'll show you several images depicting different environmental changes. ",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "For each image, you'll see a set of choices that describe the predicted effects of the ",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "abiotic change on the ecosystem. Choose the MOST LIKELY outcome for each scenario.",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "Ready to become eco-detectives?",
+        "choices": ["Yes"],
+        "answer": ""
+    },
+    {
+        "description": "Let's start!",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "Forest Fire?",
+        "choices": ["Decreased plant growth and animal activity due to less sunlight", "Increased plant growth and animal activity due to more sunlight"],
+        "answer": "Decreased plant growth and animal activity due to less sunlight"
+    },
+    {
+        "description": "Drying Lake?",
+        "choices": ["Decreased fish population and bird life due to lack of water", "Increased fish population and bird life due to more water"],
+        "answer": "Decreased fish population and bird life due to lack of water"
+    },
+    {
+        "description": "Melting Snow?",
+        "choices": ["Earlier blooming of flowers due to warmer temperatures", "Increased risk of flooding due to rapid snowmelt"],
+        "answer": "Earlier blooming of flowers due to warmer temperatures"
+    },
+    {
+        "description": "Well done!!",
+        "choices": [],
+        "answer": ""
+    }   
+]

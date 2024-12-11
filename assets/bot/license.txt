@@ -1,0 +1,11 @@
+Model Information:
+* title:	360 Sphere Robot
+* source:	https://sketchfab.com/3d-models/360-sphere-robot-a0bd28b7133648848427a5c27975611b
+* author:	mikeramos (https://sketchfab.com/mikeramos)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "360 Sphere Robot" (https://sketchfab.com/3d-models/360-sphere-robot-a0bd28b7133648848427a5c27975611b) by mikeramos (https://sketchfab.com/mikeramos) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

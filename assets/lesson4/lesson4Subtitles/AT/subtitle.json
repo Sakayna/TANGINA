@@ -1,0 +1,83 @@
+[
+    {
+        "description" : "Move you camera until white dots will display in your screen. Touch at any white dots to start your learning!",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "Today we're going on a cellular adventure to identify the special compartments ",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "within plant and animal cells, like tiny factories with specific jobs.",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "The Challenge: I'll display an organelles, some found in both cell types, and some specific to just plants or animals.",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "Your mission, is to name the organelle specific to animal or plant cell.",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "There will be venn diagram, the organelle will display if it's belong to the right side of the circle",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "if it's belong to the animal cell, in the right if it's belong to the plant cell and in the ",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "middle if it's exist in both Refer to the venn diagram so you can identify those organelles easier!",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "Are you guys ready?",
+        "choices": ["Yes"],
+        "answer": ""
+    },
+    {
+        "description": "Alright, detectives! Put on your thinking caps and let's identify these cellular components. Remember, teamwork is encouraged!",
+        "choices": [],
+        "answer": ""
+    },
+    {
+        "description": "What is this?",
+        "choices": ["Golgi Apparatus", "Mitochondria", "Chloroplast"],
+        "answer": "Mitochondria"
+    },
+    {
+        "description": "How about this?",
+        "choices": ["Endoplasmic Reticulum", "Ribosomes", "Chloroplast"],
+        "answer": "Chloroplast"
+    },
+    {
+        "description": "and this?",
+        "choices": ["Lysosomes", "Cell Membrane", "Nucleus"],
+        "answer": "Nucleus"
+    },
+    {
+        "description": "Wow! how about this?",
+        "choices": ["Golgi Apparatus", "Mitochondria", "Chloroplast"],
+        "answer": "Golgi Apparatus"
+    },
+    {
+        "description": "Lastly, what is this?",
+        "choices": ["Vacuole", "Ribosomes", "Chloroplast"],
+        "answer": "Vacuole"
+    },
+    {
+        "description": "Good job! You got perfect score! You passed the assessment task!",
+        "choices": [],
+        "answer": ""
+    }
+
+]

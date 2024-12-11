@@ -1,0 +1,162 @@
+[
+  {
+    "description" : "Move you camera until white dots will display in your screen. Touch at any white dots to start your learning!",
+    "choices": [],
+    "answer": ""
+  },
+  {
+    "description": "Alright, scientists! Today, we're putting the power of the compound microscope at",
+    "choices": [],
+    "answer": ""
+
+  },
+  {
+    "description": "your fingertips.  We'll be exploring virtual scanning techniques to examine specimens ",
+    "choices": [],
+    "answer": ""
+
+  },
+  {
+    "description": "in both low-power and high-power views, allowing us to delve into the fascinating ",
+    "choices": [],
+    "answer": ""
+
+  },
+  {
+    "description": "hidden world invisible to the naked eye. To start we will discuss the specimen",
+    "choices": [],
+    "answer": ""
+
+  },
+  {
+    "description": "For example, this red blood cell sample, a crucial component of our circulatory system.",
+    "choices": [],
+    "answer": ""
+  },
+  {
+    "description": "Properly preparing a blood smear and staining it can enhance visibility under the microscope.",
+    "choices": [],
+    "answer": ""
+
+  },
+  {
+    "description": "Another one is, your compound microscope will have different objective lenses just you can see,",
+    "choices": [],
+    "answer": ""
+
+  },
+  {
+    "description": "each offering a specific level of magnification. We'll be using both low-power and",
+    "choices": [],
+    "answer": ""
+
+  },
+  {
+    "description": "high-power objectives for virtual scanning. Now moving on the low-power scan",
+    "choices": [],
+    "answer": ""
+
+  },
+  {
+    "description": "Typically, the low-power objective offers a magnification of around 4x to 10x.",
+    "choices": [],
+    "answer": ""
+  },
+  {
+    "description": "Using the low-power objective, you'll get a wider field of view ",
+    "choices": [],
+    "answer": ""
+  },
+  {
+    "description": "This allows you to get a general orientation of your specimen. ",
+    "choices": [],
+    "answer": ""
+  },
+  {
+    "description": "In a red blood cell sample, this is how it will going to looks like for 4x",
+    "choices": [],
+    "answer": ""
+  },
+  {
+    "description": "Use the microscope on your screen, and put your eyes on the lens to look at the red blood sample.",
+    "choices": [],
+    "answer": ""
+  },
+  {
+    "description": "Those are the red blood cells under the 4x objective lens, Do you want to see now the 10x?",
+    "choices": ["Yes"],
+    "answer": "Yes"
+
+  },
+  {
+    "description": "Use the microscope on your screen, and put your eyes on the lens to look at the red blood sample.",
+    "choices": [],
+    "answer": ""
+  },
+  {
+    "description": "Now this are the red blood cells under the 10x objective lens",
+    "choices": [],
+    "answer": ""
+  },
+  {
+    "description": "Moving on, The high-power objective offers a much higher magnification, ",
+    "choices": [],
+    "answer": ""
+  },
+  {
+    "description": "typically ranging from 40x to 100x or even more.",
+    "choices": [],
+    "answer": ""
+
+  },
+  {
+    "description": "Now, switch to the high-power objective. The field of view will",
+    "choices": [],
+    "answer": ""
+
+  },
+  {
+    "description": "be much smaller on your screen, but the magnification allows you to see the finer details of your specimen.",
+    "choices": [],
+    "answer": ""
+  },
+  {
+    "description": "Sticking to the red blood cells sample, this is what it looks like under the 40x objective lens",
+    "choices": [],
+    "answer": ""
+  },
+  {
+    "description": "Use the microscope on your screen, and put your eyes on the lens to look at the red blood sample.",
+    "choices": [],
+    "answer": ""
+  },
+  {
+    "description": "Do you want to see now the red blood cells under 100x?",
+    "choices": ["Yes"],
+    "answer": "Yes"
+
+  },
+  {
+    "description": "Now this is what it looks like under the 100x objective lens, the details are very clear ",
+    "choices": [],
+    "answer": ""
+  },
+  {
+    "description": "Use the microscope on your screen, and put your eyes on the lens to look at the red blood sample.",
+    "choices": [],
+    "answer": ""
+  },
+  {
+    "description": "Now that's all for this topic.",
+    "choices": [],
+    "answer": ""
+
+  },
+  {
+    "description": "We will test the microscope on your own in our next lesson so be ready!",
+    "choices": [],
+    "answer": ""
+  }
+]
+
+

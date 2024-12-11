@@ -1,0 +1,85 @@
+ 
+[
+    {
+      "description" : "Move you camera until white dots will display in your screen. Touch at any white dots to start your learning!",
+      "choices": [],
+      "answer": ""
+    },
+    {
+      "description": "Alright, class, gather around! Today's assessment is a hands-on challenge called 'Microscope Mania!'",
+      "choices": [],
+      "answer": ""
+
+    },
+    {
+      "description": "Microscopes are like superpowers for our eyes, letting us see the hidden world of tiny things.",
+      "choices": [],
+      "answer": ""
+
+    },
+    {
+      "description": "But before we embark on amazing discoveries, we need to be familiar with our trusty microscope's parts.",
+      "choices": [],
+      "answer": ""
+
+    },
+    {
+      "description": "Here's the challenge:",
+      "choices": [],
+      "answer": ""
+
+    },
+    {
+      "description": "I have a microscope parts right here!  We'll be working together to label each of its parts.",
+      "choices": [],
+      "answer": ""
+    },
+    {
+      "description": "Are you guys ready?",
+      "choices": [
+        "Yes"
+      ],
+      "answer": "Yes"
+
+    },
+    {
+      "description": "Get start labelling!",
+      "choices": [],
+      "answer": ""
+
+    },
+    {
+      "description": "What is this?",
+      "choices": ["Arm", "Base", "Focus knob"],
+      "answer": "Focus knob"
+
+    },
+    {
+      "description": "Excellent!! Last one you can do it, what is this?",
+      "choices": ["Condenser", "Head", "Lighter"],
+      "answer": "Condenser"
+
+    },
+    {
+      "description": "That's right! How about this?",
+      "choices": ["Objective Lenses", "Arm", "Tray"],
+      "answer": "Objective Lenses"
+
+    },
+    {
+      "description": "Wow, and this?",
+      "choices": ["Ocular lens", "Base", "Slide holder"],
+      "answer": "Ocular lens"
+
+    },
+
+      {
+        "description": "Well done you perfected the assessment task!",
+        "choices": [],
+        "answer": ""
+
+      }
+]
+  
+  
+  

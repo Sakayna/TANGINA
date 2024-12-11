@@ -1,0 +1,102 @@
+[
+  {
+    "description" : "Move you camera until white dots will display in your screen. Touch at any white dots to start your learning!",
+    "choices": [],
+    "answer": ""
+  },
+  {
+    "description": "Attention, scientists! Today we'll embark on a virtual voyage using a powerful tool - ",
+    "choices": [],
+    "answer": ""
+
+  },
+  {
+    "description": "the digital microscope!  We'll test your skills in navigating and exploring specimens at different magnifications.",
+    "choices": [],
+    "answer": ""
+  },
+  {
+    "description": "You will be looking at 4 different objective lenses the low-power lenses including the 4x and 10x",
+    "choices": [],
+    "answer": ""
+
+  },
+  {
+    "description": "and the high-power lenses including the 40x and 100x. Now are you ready?",
+    "choices": ["Yes"],
+    "answer": "Yes"
+
+  },
+  {
+    "description": "You will be given a red blood cell sample, and I want you to click on the the focus knob to adjust",
+    "choices": [],
+    "answer": ""
+  },
+  {
+    "description": "the focus to see it more clearly! Now go scanning!",
+    "choices": [],
+    "answer": ""
+
+  },
+  {
+    "description": "You are getting used to it now! Take your time to explore it!",
+    "choices": [],
+    "answer": ""
+
+  },
+  {
+    "description": "Ready to explore the microscope using the 10x objective lens?",
+    "choices": ["Continue"],
+    "answer": ""
+
+  },
+  {
+    "description": "You are great! now moving on to the 10x objective lens, same instructions you can do it! ",
+    "choices": [],
+    "answer": ""
+  },
+  {
+    "description": "You are getting used to it now! Take your time to explore it!",
+    "choices": [],
+    "answer": ""
+  },
+  {
+    "description": "Ready to explore the microscope using the 40x objective lens?",
+    "choices": ["Continue"],
+    "answer": ""
+
+  },
+  {
+    "description": "You did well! now moving on to the 40x objective lens, same instructions you can do it! ",
+    "choices": [],
+    "answer": ""
+
+  },
+  {
+    "description": "You are getting used to it now! Take your time to explore it!",
+    "choices": [],
+    "answer": ""
+  },
+  {
+    "description": "Ready to explore the microscope using the 100x objective lens?",
+    "choices": ["Continue"],
+    "answer": ""
+
+  },
+  {
+    "description": "Amazing, that is how you navigate a specimen using the microscope",
+    "choices": [],
+    "answer": ""
+
+  },
+  {
+    "description": "Well done you perfected the assessment task!",
+    "choices": [],
+    "answer": ""
+  }
+]
+
+
+
+  
+  
