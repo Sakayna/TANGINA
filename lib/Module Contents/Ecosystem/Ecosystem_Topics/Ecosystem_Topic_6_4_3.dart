@@ -5,6 +5,7 @@ import 'package:capstone/categories/ecosystem.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'dart:async';
 import 'package:capstone/globals/global_variables_notifier.dart';
 
@@ -15,32 +16,54 @@ class Ecosystem_Topic_6_4_3 extends StatefulWidget {
 
 class _Ecosystem_Topic_6_4_3State extends State<Ecosystem_Topic_6_4_3> {
   late VideoPlayerController _videoController;
+  late FlutterTts flutterTts;
   Timer? _sliderTimer;
   bool _isDragging = false;
+  bool isTTSEnabled = false;
+
+  String content = '''
+The discussions on food chain and food web provided you with the idea on how energy enters the living system and how it is transferred from one organism to another. Now the discussion will be focused on the question: What would happen if one link or level in the food chain is disturbed, either by natural factors or man-made factors?
+
+Every link in the food chain is connected to at least two others. Use the food web shown in Figure 5.14. Let us say for example that the vegetation (grasses) in the ecosystem has declined because the area has been paved over for the building of a shopping mall or a sports complex. How will such human intervention affect the food chain in the area? As the number of autotrophs decline, definitely the herbivore population will be very much affected. There will be fewer foods for rabbits, grasshoppers, and mice. As the herbivores' population declines, the primary carnivores (lizard and snake) have fewer foods to eat, and the same goes for the topmost consumer (hawk). Thus, when one trophic level in the food chain is disturbed, almost all the other links are affected. Failure to adapt leads to the decline in the biomass of the ecosystem, and as a consequence, the ecosystem becomes out of balance. Biomass is the amount of energy in living organisms.
+''';
 
   @override
   void initState() {
     super.initState();
 
-    // Initialize the video controller
+    // Initialize video controller
     _videoController = VideoPlayerController.asset(
       'assets/videos/ecosystem/eco2.mp4',
     )..initialize().then((_) {
         setState(() {});
       });
 
-    // Timer to update slider
+    // Timer to update video slider
     _sliderTimer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
       if (!_isDragging && _videoController.value.isInitialized) {
         setState(() {});
       }
     });
+
+    // Initialize TTS
+    flutterTts = FlutterTts();
+  }
+
+  Future<void> speakText() async {
+    if (isTTSEnabled) {
+      await flutterTts.speak(content);
+    }
+  }
+
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
   }
 
   @override
   void dispose() {
     _sliderTimer?.cancel();
     _videoController.dispose();
+    flutterTts.stop();
     super.dispose();
   }
 
@@ -50,6 +73,7 @@ class _Ecosystem_Topic_6_4_3State extends State<Ecosystem_Topic_6_4_3> {
 
     return WillPopScope(
       onWillPop: () async {
+        stopTextToSpeech();
         if (_videoController.value.isPlaying) _videoController.pause();
         Navigator.push(
           context,
@@ -129,6 +153,7 @@ class _Ecosystem_Topic_6_4_3State extends State<Ecosystem_Topic_6_4_3> {
                         icon: Icon(Icons.arrow_back_ios),
                         color: Colors.white,
                         onPressed: () {
+                          stopTextToSpeech();
                           if (_videoController.value.isPlaying) {
                             _videoController.pause();
                           }
@@ -138,6 +163,24 @@ class _Ecosystem_Topic_6_4_3State extends State<Ecosystem_Topic_6_4_3> {
                         },
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isTTSEnabled = !isTTSEnabled;
+                            if (isTTSEnabled) {
+                              speakText();
+                            } else {
+                              stopTextToSpeech();
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate(
@@ -499,6 +542,7 @@ class _Ecosystem_Topic_6_4_3State extends State<Ecosystem_Topic_6_4_3> {
                     padding: const EdgeInsets.only(left: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -515,6 +559,7 @@ class _Ecosystem_Topic_6_4_3State extends State<Ecosystem_Topic_6_4_3> {
                     padding: const EdgeInsets.only(right: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         globalVariables.setTopic('lesson6', 10, true);
                         Navigator.push(
                           context,

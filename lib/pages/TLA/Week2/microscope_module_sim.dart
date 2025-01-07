@@ -1634,7 +1634,7 @@ class _ModuleScreen1Page extends State<ModuleScreen1> {
           List<SceneNode> sceneNodes = [
             SceneNode(
               name: "Objective Lenses",
-              modelPath: "assets/hologram/objective/objective3.gltf",
+              modelPath: "assets/hologram/objective/mobj.gltf",
               position:
                   vector.Vector3(0.04, 0.10, 0.175), // Further moved left (X)
               scale: vector.Vector3(1.0, 1.0, 1.0),

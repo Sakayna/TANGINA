@@ -3,6 +3,7 @@ import 'package:capstone/Module%20Contents/Heredity/Heredity_Topics/Heredity_Top
 import 'package:capstone/categories/heredity.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:video_player/video_player.dart';
 import 'package:capstone/globals/global_variables_notifier.dart';
 import 'dart:async';
@@ -14,8 +15,10 @@ class Heredity_Topic_5_3 extends StatefulWidget {
 
 class _Heredity_Topic_5_3State extends State<Heredity_Topic_5_3> {
   late VideoPlayerController _videoController;
+  late FlutterTts flutterTts;
   Timer? _sliderTimer;
   bool _isDragging = false;
+  bool isTTSEnabled = false;
 
   @override
   void initState() {
@@ -34,13 +37,33 @@ class _Heredity_Topic_5_3State extends State<Heredity_Topic_5_3> {
         setState(() {});
       }
     });
+
+    // Initialize the TTS controller
+    flutterTts = FlutterTts();
   }
 
   @override
   void dispose() {
     _sliderTimer?.cancel();
     _videoController.dispose();
+    flutterTts.stop();
     super.dispose();
+  }
+
+  Future<void> speakText() async {
+    if (isTTSEnabled) {
+      String content = '''
+Reproduction is one of the basic features of all living things. Reproduction may be through the asexual or the sexual method. Many organisms can reproduce involving the two methods: starfish, planaria, aphids, slime molds, social insects, and more. They do not use the two methods simultaneously. They use them alternately, depending on the conditions of the environment.
+Asexual reproduction is an energy and time-conserving process obviously because there is no need to spend time and energy in gamete production and fertilization. Through asexual reproduction, organisms in isolation can increase their population even in the absence of a mate. When the environmental conditions are favorable, meaning there is an adequate food supply, conducive and adequate shelter, favorable climate, etc., organisms employ the asexual method so their populations grow exponentially so as to exploit the resources and conditions important for their survival.
+However, although the organisms can rapidly reproduce, the population of offspring will have the same genetic makeup of the parents. In the absence of mutation that will make them different from their parents, all members will have the same attributes or qualities. In the absence of variations, there is little chance for the offspring to quickly adapt to changing environments that can cause their extinction.
+Organisms that reproduce sexually yield a smaller number of offspring, and the entire reproductive process takes a longer period of time. However, sexual reproduction ensures a mixing of the gene pool of the species. The variations in the genetic makeup provide the offspring with greater and better chances of surviving and adapting to the changing environment. Another important advantage of the sexual method of reproduction is that it reduces the effects of harmful mutations during gene recombination.
+''';
+      await flutterTts.speak(content);
+    }
+  }
+
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
   }
 
   @override
@@ -49,7 +72,7 @@ class _Heredity_Topic_5_3State extends State<Heredity_Topic_5_3> {
 
     return WillPopScope(
       onWillPop: () async {
-        if (_videoController.value.isPlaying) _videoController.pause();
+        stopTextToSpeech();
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -128,6 +151,7 @@ class _Heredity_Topic_5_3State extends State<Heredity_Topic_5_3> {
                         icon: Icon(Icons.arrow_back_ios),
                         color: Colors.white,
                         onPressed: () {
+                          stopTextToSpeech();
                           if (_videoController.value.isPlaying) {
                             _videoController.pause();
                           }
@@ -137,6 +161,24 @@ class _Heredity_Topic_5_3State extends State<Heredity_Topic_5_3> {
                         },
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isTTSEnabled = !isTTSEnabled;
+                            if (isTTSEnabled) {
+                              speakText();
+                            } else {
+                              stopTextToSpeech();
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate(
@@ -253,6 +295,7 @@ class _Heredity_Topic_5_3State extends State<Heredity_Topic_5_3> {
                     padding: const EdgeInsets.only(left: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -269,6 +312,7 @@ class _Heredity_Topic_5_3State extends State<Heredity_Topic_5_3> {
                     padding: const EdgeInsets.only(right: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         globalVariables.setTopic('lesson5', 9, true);
                         Navigator.push(
                           context,

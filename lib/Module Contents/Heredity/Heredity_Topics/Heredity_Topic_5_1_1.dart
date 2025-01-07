@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:capstone/globals/global_variables_notifier.dart';
 import 'package:video_player/video_player.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'dart:async';
 
 class Heredity_Topic_5_1_1 extends StatefulWidget {
@@ -14,8 +15,10 @@ class Heredity_Topic_5_1_1 extends StatefulWidget {
 
 class _Heredity_Topic_5_1_1State extends State<Heredity_Topic_5_1_1> {
   late VideoPlayerController _videoController;
+  late FlutterTts flutterTts;
   Timer? _sliderTimer;
   bool _isDragging = false;
+  bool isTTSEnabled = false;
 
   @override
   void initState() {
@@ -27,6 +30,9 @@ class _Heredity_Topic_5_1_1State extends State<Heredity_Topic_5_1_1> {
     )..initialize().then((_) {
         setState(() {});
       });
+
+    // Initialize TTS
+    flutterTts = FlutterTts();
 
     // Start timer to update the slider
     _sliderTimer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
@@ -40,7 +46,44 @@ class _Heredity_Topic_5_1_1State extends State<Heredity_Topic_5_1_1> {
   void dispose() {
     _sliderTimer?.cancel();
     _videoController.dispose();
+    flutterTts.stop();
     super.dispose();
+  }
+
+  Future<void> speakText() async {
+    if (isTTSEnabled) {
+      String content = '''
+Fertilization is the union of the male and female gametes to produce a fertilized egg called zygote. 
+It is considered as the defining process in sexual reproduction. 
+There are two mechanisms by which fertilization can take place: external and internal fertilizations.
+
+In external fertilization, a watery or moist environment is needed so the gametes will not dry out. 
+Both the male and the female cluster into the same area to simultaneously release their gametes into the surrounding area. 
+This process is called spawning. Sometimes, the process is initiated by the release of a chemical by a mate, 
+and this stimulates other mates to release their gametes. 
+Amphibians, frogs and toads and fishes are examples of animals that exhibit external fertilization.
+
+External fertilization is advantageous since it results in the production of a large number of offspring. 
+The disadvantage is that exposure to environmental hazards greatly reduces the chance of the zygote to survive and reach adulthood.
+
+In internal fertilization, the egg is fertilized within the female reproductive tract in a process called copulation 
+(also called sexual intercourse or mating). Development of the fertilized egg or zygote happens in many different ways. 
+
+Mammals, including humans, exhibit internal fertilization and internal development. 
+The sperm is introduced and left within the female reproductive tract. 
+The young develop inside the mother's womb and are born alive. 
+Internal development is a protective mechanism that ensures and increases the chances of the zygote's survival since the mother supplies everything that the zygote needs for its development.
+
+During fertilization, the haploid sperm and the haploid egg unite. 
+The zygote that is formed is a diploid organism just like its parents. 
+Thus, the offspring produced by this union will have the characteristics of both parents, 
+but it will not be identical to either of them.''';
+      await flutterTts.speak(content);
+    }
+  }
+
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
   }
 
   @override
@@ -50,6 +93,7 @@ class _Heredity_Topic_5_1_1State extends State<Heredity_Topic_5_1_1> {
     return WillPopScope(
       onWillPop: () async {
         if (_videoController.value.isPlaying) _videoController.pause();
+        stopTextToSpeech();
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -131,12 +175,31 @@ class _Heredity_Topic_5_1_1State extends State<Heredity_Topic_5_1_1> {
                           if (_videoController.value.isPlaying) {
                             _videoController.pause();
                           }
+                          stopTextToSpeech();
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => Heredity_Screen(),
                           ));
                         },
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isTTSEnabled = !isTTSEnabled;
+                            if (isTTSEnabled) {
+                              speakText();
+                            } else {
+                              stopTextToSpeech();
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate(
@@ -436,6 +499,7 @@ class _Heredity_Topic_5_1_1State extends State<Heredity_Topic_5_1_1> {
                     padding: const EdgeInsets.only(left: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -452,6 +516,7 @@ class _Heredity_Topic_5_1_1State extends State<Heredity_Topic_5_1_1> {
                     padding: const EdgeInsets.only(right: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         globalVariables.setTopic('lesson5', 3, true);
 
                         Navigator.push(

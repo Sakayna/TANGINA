@@ -2,15 +2,56 @@ import 'package:capstone/Module%20Contents/Ecosystem/Ecosystem_Topics/Ecosystem_
 import 'package:capstone/categories/ecosystem.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:capstone/globals/global_variables_notifier.dart';
 
-class Ecosystem_ILO_Screen extends StatelessWidget {
+class Ecosystem_ILO_Screen extends StatefulWidget {
+  @override
+  _Ecosystem_ILO_ScreenState createState() => _Ecosystem_ILO_ScreenState();
+}
+
+class _Ecosystem_ILO_ScreenState extends State<Ecosystem_ILO_Screen> {
+  late FlutterTts flutterTts;
+  bool isTTSEnabled = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Initialize the TTS controller
+    flutterTts = FlutterTts();
+  }
+
+  @override
+  void dispose() {
+    flutterTts.stop();
+    super.dispose();
+  }
+
+  Future<void> speakText() async {
+    if (isTTSEnabled) {
+      String content = '''
+ILO At the end of this lesson, students should attain the following:
+• Differentiate biotic from abiotic components of an ecosystem;
+• Describe the different ecological relationships found in an ecosystem;
+• Predict the effect of changes in one population on other populations in the ecosystem;
+• Predict the effect of changes in abiotic factors on the ecosystem.
+''';
+      await flutterTts.speak(content);
+    }
+  }
+
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
+  }
+
   @override
   Widget build(BuildContext context) {
     var globalVariables = Provider.of<GlobalVariables>(context);
 
     return WillPopScope(
       onWillPop: () async {
+        stopTextToSpeech();
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -56,7 +97,6 @@ class Ecosystem_ILO_Screen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 5),
-
                     Text(
                       'ILO 6.1', // Additional text for the appbar
                       style: TextStyle(
@@ -75,8 +115,8 @@ class Ecosystem_ILO_Screen extends StatelessWidget {
                 child: IconButton(
                   icon: Icon(Icons.arrow_back_ios), // Back button icon
                   color: Colors.white, // Back button icon
-
                   onPressed: () {
+                    stopTextToSpeech();
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -86,6 +126,24 @@ class Ecosystem_ILO_Screen extends StatelessWidget {
                   },
                 ),
               ),
+              actions: [
+                IconButton(
+                  icon: Icon(
+                    isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isTTSEnabled = !isTTSEnabled;
+                      if (isTTSEnabled) {
+                        speakText();
+                      } else {
+                        stopTextToSpeech();
+                      }
+                    });
+                  },
+                ),
+              ],
             ),
             SliverList(
               delegate: SliverChildListDelegate(
@@ -131,7 +189,7 @@ class Ecosystem_ILO_Screen extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            // Navigate to Microscopy_Topic_1_1
+            stopTextToSpeech();
             globalVariables.setTopic('lesson6', 1, true);
             Navigator.push(
               context,
@@ -151,4 +209,12 @@ class Ecosystem_ILO_Screen extends StatelessWidget {
       ),
     );
   }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      body: Ecosystem_ILO_Screen(),
+    ),
+  ));
 }

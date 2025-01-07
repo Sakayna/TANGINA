@@ -3,6 +3,7 @@ import 'package:capstone/Module%20Contents/Ecosystem/Ecosystem_Topics/Ecosystem_
 import 'package:capstone/categories/ecosystem.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:video_player/video_player.dart';
 import 'package:capstone/globals/global_variables_notifier.dart';
 import 'dart:async';
@@ -14,6 +15,8 @@ class Ecosystem_Topic_6_1 extends StatefulWidget {
 
 class _Ecosystem_Topic_6_1State extends State<Ecosystem_Topic_6_1> {
   late VideoPlayerController _videoController;
+  late FlutterTts flutterTts;
+  bool isTTSEnabled = false;
   Timer? _sliderTimer;
   bool _isDragging = false;
 
@@ -34,13 +37,32 @@ class _Ecosystem_Topic_6_1State extends State<Ecosystem_Topic_6_1> {
         setState(() {});
       }
     });
+
+    // Initialize the TTS controller
+    flutterTts = FlutterTts();
   }
 
   @override
   void dispose() {
     _sliderTimer?.cancel();
     _videoController.dispose();
+    flutterTts.stop();
     super.dispose();
+  }
+
+  Future<void> speakText() async {
+    if (isTTSEnabled) {
+      String content = '''
+There are many different kinds of ecosystems. Macro Ecosystems, called biomes, cover large geographical areas. Examples of macro ecosystems are desert, grassland, forest, or ocean. Micro Ecosystems can be found within a large ecosystem—for example, in the floor of a forest, there might be a fallen and decaying log where a colony of termites live. The potted plants in your garden are also examples of micro ecosystems. An estuary or coral reef are micro ecosystems within an ocean ecosystem. 
+Ecosystem boundaries are not fixed. They sometimes blend with each other. The type of macro ecosystem that would exist in an area is determined largely by the characteristic climate of the area. The climate dictates the kind of vegetation (flora) that will grow in the area, and the type of vegetation determines the kind of animals (fauna) that will inhabit the area. 
+Organisms live in a specific place within an ecosystem. The place where an organism lives is called a habitat. The habitat of the organisms provides all the resources which the living things need in order to live, grow, and reproduce. As the organisms acquire the various resources for survival, they interact with other organisms. Such interactions affect the nonliving components of the ecosystem. The living components are called biotic factors. The nonliving components are called abiotic factors.
+''';
+      await flutterTts.speak(content);
+    }
+  }
+
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
   }
 
   @override
@@ -49,6 +71,7 @@ class _Ecosystem_Topic_6_1State extends State<Ecosystem_Topic_6_1> {
 
     return WillPopScope(
       onWillPop: () async {
+        stopTextToSpeech();
         if (_videoController.value.isPlaying) _videoController.pause();
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
@@ -127,6 +150,7 @@ class _Ecosystem_Topic_6_1State extends State<Ecosystem_Topic_6_1> {
                         icon: Icon(Icons.arrow_back_ios),
                         color: Colors.white,
                         onPressed: () {
+                          stopTextToSpeech();
                           if (_videoController.value.isPlaying) {
                             _videoController.pause();
                           }
@@ -136,6 +160,24 @@ class _Ecosystem_Topic_6_1State extends State<Ecosystem_Topic_6_1> {
                         },
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isTTSEnabled = !isTTSEnabled;
+                            if (isTTSEnabled) {
+                              speakText();
+                            } else {
+                              stopTextToSpeech();
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate(
@@ -397,6 +439,7 @@ class _Ecosystem_Topic_6_1State extends State<Ecosystem_Topic_6_1> {
                     padding: const EdgeInsets.only(left: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -413,6 +456,7 @@ class _Ecosystem_Topic_6_1State extends State<Ecosystem_Topic_6_1> {
                     padding: const EdgeInsets.only(right: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         globalVariables.setTopic('lesson6', 2, true);
                         Navigator.push(
                           context,

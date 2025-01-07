@@ -2,17 +2,52 @@ import 'package:capstone/Module%20Contents/Animal%20and%20Plant%20Cells/Animal_a
 import 'package:capstone/Module%20Contents/Animal%20and%20Plant%20Cells/Animal_and_Plant_Cells_Topics/Animal_and_Plant_Topic_3_2.dart';
 import 'package:capstone/categories/animal_and_plant_screen.dart';
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
 import 'package:capstone/globals/global_variables_notifier.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
-class Animal_and_Plant_Topic_3_1 extends StatelessWidget {
+class Animal_and_Plant_Topic_3_1 extends StatefulWidget {
+  @override
+  State<Animal_and_Plant_Topic_3_1> createState() =>
+      _Animal_and_Plant_Topic_3_1State();
+}
+
+class _Animal_and_Plant_Topic_3_1State
+    extends State<Animal_and_Plant_Topic_3_1> {
+  final FlutterTts flutterTts = FlutterTts();
+  bool isTTSEnabled = false; // TTS toggle state
+
+  // Function to speak text
+  Future<void> speakText() async {
+    if (isTTSEnabled) {
+      String content = '''
+      Living things vary in terms of the number of cells they have. Some living things are multicellular, made up of many cells. Others are single-celled or unicellular. 
+      Two types of cells compose living things. Some living things, as in the case of bacteria and cyanobacteria, have prokaryotic cells. These organisms are called prokaryotes. Prokaryotic cells lack distinct nuclei and have few organelles that are not membrane-bound. In contrast, eukaryotic cells have distinct nuclei and contain several membrane-bound organelles. Animals, plants, fungi, and protists have eukaryotic cells; and they are called eukaryotes.
+      However, whether the cells are prokaryotic or eukaryotic, they share some common features. Take note of the location of the DNA molecule. The DNA molecule in both cells is contained within the chromosomes. In plant cells, the chromosomes are in the nucleus, which is bound by a double membrane. Bacterial cells have their chromosomes in a non-membrane-bound region called the nucleoid. This indicates that the internal organization of eukaryotic cells is more complex than prokaryotic cells.
+      What are the common features of the two cells? The functions of these structures found in both cells will be discussed later in this section. Take note of the location of the DNA molecule. The DNA molecule in both cells is contained within the chromosomes. However, in the plant cell, the chromosomes are contained within the nucleus that is bound by a double membrane, and there are numerous organelles that are also membrane-bound. Whereas in the bacterial cell, the chromosomes are simply contained in a non-membrane-bound region called the nucleoid, and there are few organelles found in the cell. This tells us that the internal organization of the cells of eukaryotes is more complex than the cells of prokaryotes. 
+      ''';
+      await flutterTts.speak(content);
+    }
+  }
+
+  // Function to stop TTS
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
+  }
+
+  @override
+  void dispose() {
+    stopTextToSpeech(); // Stop TTS when the widget is disposed
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var globalVariables = Provider.of<GlobalVariables>(context);
 
     return WillPopScope(
       onWillPop: () async {
+        stopTextToSpeech(); // Stop TTS when navigating back
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => Animal_and_Plant_Screen(),
@@ -28,62 +63,54 @@ class Animal_and_Plant_Topic_3_1 extends StatelessWidget {
               child: CustomScrollView(
                 slivers: [
                   SliverAppBar(
-                    backgroundColor:
-                        Color(0xFFA1C084), // Background color of appbar
+                    backgroundColor: Color(0xFFA1C084),
                     floating: false,
                     pinned: false,
                     snap: false,
-                    expandedHeight: 120.0, // Adjusted expanded height
+                    expandedHeight: 120.0,
                     flexibleSpace: LayoutBuilder(
                       builder: (context, constraints) {
-                        final isTop = constraints.biggest.height <=
-                            kToolbarHeight + 16.0; // Margin size
+                        final isTop =
+                            constraints.biggest.height <= kToolbarHeight + 16.0;
 
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             if (!isTop) ...[
-                              // Only show when expanded (not at the top)
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    top: 25.0, left: 50.0), // Add left padding
+                                    top: 25.0, left: 50.0),
                                 child: Text(
-                                  'Animal and Plant Cells', // Title text for the appbar
+                                  'Animal and Plant Cells',
                                   style: TextStyle(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.normal,
-                                    color:
-                                        Colors.white, // Set text color to white
+                                    color: Colors.white,
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                  height: 5), // Adjusted spacing between texts
+                              SizedBox(height: 5),
                               Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 50.0), // Add left padding
+                                padding: const EdgeInsets.only(left: 50.0),
                                 child: Text(
-                                  'Topics', // Subtitle text for the appbar
+                                  'Topics',
                                   style: TextStyle(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.w600,
-                                    color:
-                                        Colors.white, // Set text color to white
+                                    color: Colors.white,
                                   ),
                                 ),
                               ),
                               SizedBox(height: 5),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 50.0,
-                                    right: 18.0), // Add left padding
+                                    left: 50.0, right: 18.0),
                                 child: Text(
-                                  '3.1 - Types of Cells Found in Living Things', // Additional text for the appbar
+                                  '3.1 - Types of Cells Found in Living Things',
                                   style: TextStyle(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.w600,
-                                    color:
-                                        Colors.white, // Set text color to white
+                                    color: Colors.white,
                                   ),
                                 ),
                               ),
@@ -94,18 +121,37 @@ class Animal_and_Plant_Topic_3_1 extends StatelessWidget {
                     ),
                     leading: Padding(
                       padding: const EdgeInsets.only(
-                        top: 20, // Adjusted top padding of the leading icon
+                        top: 20,
                       ),
                       child: IconButton(
                         icon: Icon(Icons.arrow_back_ios),
-                        color: Colors.white, // Back button icon color
+                        color: Colors.white,
                         onPressed: () {
+                          stopTextToSpeech();
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => Animal_and_Plant_Screen(),
                           ));
                         },
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isTTSEnabled = !isTTSEnabled;
+                            if (isTTSEnabled) {
+                              speakText();
+                            } else {
+                              stopTextToSpeech();
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate(
@@ -316,53 +362,40 @@ class Animal_and_Plant_Topic_3_1 extends StatelessWidget {
               ),
             ),
             Container(
-              color: Colors.white, // Set the background color to white
-              width: double.infinity, // Set the width to fill the screen
-              padding: EdgeInsets.symmetric(
-                  vertical: 16.0), // Add padding vertically
+              color: Colors.white,
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(vertical: 16.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 15.0), // Adjusted left padding
-                    child: FloatingActionButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Animal_and_Plant_ILO_Screen(),
-                          ),
-                        );
-                      },
-                      heroTag: 'prevBtn',
-                      child: Icon(
-                        Icons.navigate_before,
-                        color: Colors.white, // Set icon color to white
-                      ),
-                      backgroundColor: Color(0xFFA1C084),
-                    ),
+                  FloatingActionButton(
+                    onPressed: () {
+                      stopTextToSpeech(); // Stop TTS before navigating back
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Animal_and_Plant_ILO_Screen(),
+                        ),
+                      );
+                    },
+                    heroTag: 'prevBtn',
+                    child: Icon(Icons.navigate_before, color: Colors.white),
+                    backgroundColor: Color(0xFFA1C084),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        right: 15.0), // Adjusted right padding
-                    child: FloatingActionButton(
-                      onPressed: () {
-                        globalVariables.setTopic('lesson3', 2, true);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Animal_and_Plant_Topic_3_2(),
-                          ),
-                        );
-                      },
-                      heroTag: 'nextBtn',
-                      child: Icon(
-                        Icons.navigate_next,
-                        color: Colors.white,
-                      ),
-                      backgroundColor: Color(0xFFA1C084),
-                    ),
+                  FloatingActionButton(
+                    onPressed: () {
+                      stopTextToSpeech(); // Stop TTS before navigating to the next screen
+                      globalVariables.setTopic('lesson3', 2, true);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Animal_and_Plant_Topic_3_2(),
+                        ),
+                      );
+                    },
+                    heroTag: 'nextBtn',
+                    child: Icon(Icons.navigate_next, color: Colors.white),
+                    backgroundColor: Color(0xFFA1C084),
                   ),
                 ],
               ),

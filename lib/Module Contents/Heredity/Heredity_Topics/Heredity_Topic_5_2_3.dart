@@ -3,8 +3,9 @@ import 'package:capstone/Module%20Contents/Heredity/Heredity_Topics/Heredity_Top
 import 'package:capstone/categories/heredity.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:video_player/video_player.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:capstone/globals/global_variables_notifier.dart';
+import 'package:video_player/video_player.dart';
 import 'dart:async';
 
 class Heredity_Topic_5_2_3 extends StatefulWidget {
@@ -14,13 +15,14 @@ class Heredity_Topic_5_2_3 extends StatefulWidget {
 
 class _Heredity_Topic_5_2_3State extends State<Heredity_Topic_5_2_3> {
   late VideoPlayerController _videoController;
+  late FlutterTts flutterTts;
   Timer? _sliderTimer;
   bool _isDragging = false;
+  bool isTTSEnabled = false;
 
   @override
   void initState() {
     super.initState();
-
     // Initialize the video controller
     _videoController = VideoPlayerController.asset(
       'assets/videos/heredidty/heredity4.mp4',
@@ -34,13 +36,34 @@ class _Heredity_Topic_5_2_3State extends State<Heredity_Topic_5_2_3> {
         setState(() {});
       }
     });
+
+    // Initialize the TTS controller
+    flutterTts = FlutterTts();
   }
 
   @override
   void dispose() {
     _sliderTimer?.cancel();
     _videoController.dispose();
+    flutterTts.stop();
     super.dispose();
+  }
+
+  Future<void> speakText() async {
+    if (isTTSEnabled) {
+      String content = '''
+Aside from the natural method of vegetative propagation, artificial methods of propagation are also being done by horticulturists to produce plants that are identical to the parent plant. The following are some of the known methods:
+Cutting is the simplest method of artificial vegetation. A part of the plant is cut off from the mother plant and placed in a new environment where it can grow into a new plant. Plant parts that are used may be matured shoots cut at an angle, stems containing nodes and internodes, underground stems (tubers, corm, and rhizomes) cut into small pieces, and cuttings from the leaves and roots. As these cut parts are placed in moist soil or immersed in water before planted in the soil, they develop adventitious roots. Subsequently, new plants emerge that begin an independent existence. In some cases, growth promoters are added to induce plant growth.
+In layering, a shoot or more branches from a parent plant is bent close to the ground enough to be covered with moist soil. After some time, the buried branch or shoot produces adventitious roots and develops into a new plant. This plant can then be separated and planted in another place.
+Grafting is the most commonly used method of artificial propagation to improve the variety of fruits. It is a form of regeneration. In grafting, two plants are used to develop a new plant that contains the combined traits of the parent plants. One plant (called scion) with a desirable characteristic is cut and attached above the also cut stem of the second rooted plant (called the stock) with another desirable characteristic. A wax is applied to cover the part where the grafting is done to avoid infection. After some time, the two plants are joined together as one plant.
+Tissue culture is a technique where a piece of plant part containing meristematic tissue of a desired plant is cut and sterilized. Then the tissue is placed in a container with a suitable liquid nutrient medium and under proper conditions. The nutrient medium stimulates the meristem cells to divide rapidly to form a mass of tissue called callus. The callus is then placed in another gelatinized nutrient medium and then exposed to light.
+''';
+      await flutterTts.speak(content);
+    }
+  }
+
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
   }
 
   @override
@@ -49,7 +72,7 @@ class _Heredity_Topic_5_2_3State extends State<Heredity_Topic_5_2_3> {
 
     return WillPopScope(
       onWillPop: () async {
-        if (_videoController.value.isPlaying) _videoController.pause();
+        stopTextToSpeech();
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -128,6 +151,7 @@ class _Heredity_Topic_5_2_3State extends State<Heredity_Topic_5_2_3> {
                         icon: Icon(Icons.arrow_back_ios),
                         color: Colors.white,
                         onPressed: () {
+                          stopTextToSpeech();
                           if (_videoController.value.isPlaying) {
                             _videoController.pause();
                           }
@@ -137,6 +161,24 @@ class _Heredity_Topic_5_2_3State extends State<Heredity_Topic_5_2_3> {
                         },
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isTTSEnabled = !isTTSEnabled;
+                            if (isTTSEnabled) {
+                              speakText();
+                            } else {
+                              stopTextToSpeech();
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate(
@@ -387,6 +429,7 @@ class _Heredity_Topic_5_2_3State extends State<Heredity_Topic_5_2_3> {
                     padding: const EdgeInsets.only(left: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -403,6 +446,7 @@ class _Heredity_Topic_5_2_3State extends State<Heredity_Topic_5_2_3> {
                     padding: const EdgeInsets.only(right: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         globalVariables.setTopic('lesson5', 8, true);
                         Navigator.push(
                           context,

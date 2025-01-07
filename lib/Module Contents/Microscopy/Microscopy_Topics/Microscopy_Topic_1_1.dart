@@ -4,14 +4,52 @@ import 'package:capstone/categories/microscopy_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:capstone/globals/global_variables_notifier.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
-class Microscopy_Topic_1_1 extends StatelessWidget {
+class Microscopy_Topic_1_1 extends StatefulWidget {
+  @override
+  State<Microscopy_Topic_1_1> createState() => _Microscopy_Topic_1_1State();
+}
+
+class _Microscopy_Topic_1_1State extends State<Microscopy_Topic_1_1> {
+  final FlutterTts flutterTts = FlutterTts();
+  bool isTTSEnabled = false; // Toggle for Text-to-Speech
+
+  // Function to read text aloud
+  Future<void> speakText(String content) async {
+    if (isTTSEnabled) {
+      await flutterTts.speak(content);
+    }
+  }
+
+  // Function to stop TTS
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
+  }
+
+  @override
+  void dispose() {
+    stopTextToSpeech(); // Ensure TTS stops when the widget is disposed
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var globalVariables = Provider.of<GlobalVariables>(context);
 
+    // Combine all TTS text content
+    final List<String> ttsContents = [
+      'The microscope is a precision instrument and the commonly used tool in conducting biological researches and in studying objects or organisms or parts of organisms that are invisible or only slightly visible to the naked eye. '
+          'This part will discuss the historical development of the microscope, the parts and functions of a light compound microscope, and their proper use and care.',
+      'The discovery of lenses started during the first century AD when glass had been invented. The Romans discovered that clear glass shaped like a lentil bean could enlarge objects. They called it lens.',
+      'In 1590, Zaccharias Janssen and his brother Hans invented the compound microscope.',
+      'Anton Van Leeuwenhoek made a simple microscope with powerful magnification and observed bacteria, yeasts, and red blood cells. He was called the Father of Microscopy.',
+      'Robert Hooke discovered compartments in cork using a compound microscope and called them cells.'
+    ];
+
     return WillPopScope(
       onWillPop: () async {
+        stopTextToSpeech(); // Stop TTS when navigating back
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
@@ -29,62 +67,53 @@ class Microscopy_Topic_1_1 extends StatelessWidget {
               child: CustomScrollView(
                 slivers: [
                   SliverAppBar(
-                    backgroundColor:
-                        Color(0xFFFFA551), // Background color of appbar
+                    backgroundColor: Color(0xFFFFA551),
                     floating: false,
                     pinned: false,
                     snap: false,
-                    expandedHeight: 120.0, // Adjusted expanded height
+                    expandedHeight: 120.0,
                     flexibleSpace: LayoutBuilder(
                       builder: (context, constraints) {
                         final isTop = constraints.biggest.height <=
                             kToolbarHeight + 16.0; // Margin size
-
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             if (!isTop) ...[
-                              // Only show when expanded (not at the top)
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    top: 25.0, left: 50.0), // Add left padding
+                                    top: 25.0, left: 50.0),
                                 child: Text(
-                                  'Microscopy', // Title text for the appbar
+                                  'Microscopy',
                                   style: TextStyle(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.normal,
-                                    color:
-                                        Colors.white, // Set text color to white
+                                    color: Colors.white,
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                  height: 5), // Adjusted spacing between texts
+                              SizedBox(height: 5),
                               Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 50.0), // Add left padding
+                                padding: const EdgeInsets.only(left: 50.0),
                                 child: Text(
-                                  'Topics', // Subtitle text for the appbar
+                                  'Topics',
                                   style: TextStyle(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.w600,
-                                    color:
-                                        Colors.white, // Set text color to white
+                                    color: Colors.white,
                                   ),
                                 ),
                               ),
                               SizedBox(height: 5),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 50.0,
-                                    right: 18.0), // Add left padding
+                                    left: 50.0, right: 18.0),
                                 child: Text(
-                                  '1.1 - The Microscope and Its Historical Development', // Additional text for the appbar
+                                  '1.1 - The Microscope and Its Historical Development',
                                   style: TextStyle(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.w600,
-                                    color:
-                                        Colors.white, // Set text color to white
+                                    color: Colors.white,
                                   ),
                                 ),
                               ),
@@ -94,19 +123,39 @@ class Microscopy_Topic_1_1 extends StatelessWidget {
                       },
                     ),
                     leading: Padding(
-                      padding: const EdgeInsets.only(
-                        top: 20, // Adjusted top padding of the leading icon
-                      ),
+                      padding: const EdgeInsets.only(top: 20),
                       child: IconButton(
                         icon: Icon(Icons.arrow_back_ios),
-                        color: Colors.white, // Back button icon color
+                        color: Colors.white,
                         onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => MicroscopyScreen(),
-                          ));
+                          stopTextToSpeech(); // Stop TTS before navigating back
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MicroscopyScreen(),
+                            ),
+                          );
                         },
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isTTSEnabled = !isTTSEnabled;
+                            if (isTTSEnabled) {
+                              speakText(ttsContents.join(' ')); // Read all TTS
+                            } else {
+                              stopTextToSpeech(); // Stop reading
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate(
@@ -379,16 +428,14 @@ class Microscopy_Topic_1_1 extends StatelessWidget {
               ),
             ),
             Container(
-              color: Colors.white, // Set the background color to white
-              width: double.infinity, // Set the width to fill the screen
-              padding: EdgeInsets.symmetric(
-                  vertical: 16.0), // Add padding vertically
+              color: Colors.white,
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(vertical: 16.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(
-                        left: 15.0), // Adjusted left padding
+                    padding: const EdgeInsets.only(left: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
                         Navigator.push(
@@ -401,18 +448,17 @@ class Microscopy_Topic_1_1 extends StatelessWidget {
                       heroTag: 'prevBtn',
                       child: Icon(
                         Icons.navigate_before,
-                        color: Colors.white, // Set icon color to white
+                        color: Colors.white,
                       ),
                       backgroundColor: Color(0xFFFFA551),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(
-                        right: 15.0), // Adjusted right padding
+                    padding: const EdgeInsets.only(right: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech(); // Stop TTS before moving forward
                         globalVariables.setTopic('lesson1', 2, true);
-
                         Navigator.push(
                           context,
                           MaterialPageRoute(

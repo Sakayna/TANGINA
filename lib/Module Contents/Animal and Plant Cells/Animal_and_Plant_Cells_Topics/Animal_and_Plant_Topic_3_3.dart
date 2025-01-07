@@ -4,6 +4,7 @@ import 'package:capstone/categories/animal_and_plant_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:capstone/globals/global_variables_notifier.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:video_player/video_player.dart';
 import 'dart:async';
 
@@ -16,8 +17,10 @@ class Animal_and_Plant_Topic_3_3 extends StatefulWidget {
 class _Animal_and_Plant_Topic_3_3State
     extends State<Animal_and_Plant_Topic_3_3> {
   late VideoPlayerController _videoController;
+  final FlutterTts flutterTts = FlutterTts();
   Timer? _sliderTimer;
   bool _isDragging = false;
+  bool isTTSEnabled = false;
 
   @override
   void initState() {
@@ -38,10 +41,32 @@ class _Animal_and_Plant_Topic_3_3State
     });
   }
 
+  // Function to handle text-to-speech
+  Future<void> speakText() async {
+    if (isTTSEnabled) {
+      String content = '''
+      The image below shows the comparative structure of a plant and an animal cell. Both cells are eukaryotic in nature, having several well-defined membrane-bound organelles. There are parts or organelles that are specific only to a particular type of cell, and some points of differences exist between the two cells. 
+      
+      Plant cells are usually larger with a fixed polygonal shape due to the presence of the cell wall, while animal cells are smaller and vary in shape. The cell wall strengthens the plant cell, protects it from mechanical injury, and provides rigidity. Animal cells lack a cell wall, making them softer and more flexible in shape.
+
+      Plastids, like chloroplasts, exist in plant cells, providing the green color and facilitating photosynthesis. Animal cells, on the other hand, have centrioles that assist in cell division. Vacuoles in plant cells are large, occupying much of the cell's volume, while in animal cells, vacuoles are smaller and temporary.
+
+      Watch the video below to learn more about the differences between plant and animal cells.
+      ''';
+      await flutterTts.speak(content);
+    }
+  }
+
+  // Function to stop TTS
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
+  }
+
   @override
   void dispose() {
     _sliderTimer?.cancel();
     _videoController.dispose();
+    stopTextToSpeech(); // Ensure TTS stops when the widget is disposed
     super.dispose();
   }
 
@@ -51,6 +76,7 @@ class _Animal_and_Plant_Topic_3_3State
 
     return WillPopScope(
       onWillPop: () async {
+        stopTextToSpeech(); // Stop TTS when navigating back
         if (_videoController.value.isPlaying) _videoController.pause();
         Navigator.push(
           context,
@@ -130,6 +156,7 @@ class _Animal_and_Plant_Topic_3_3State
                         icon: Icon(Icons.arrow_back_ios),
                         color: Colors.white,
                         onPressed: () {
+                          stopTextToSpeech(); // Stop TTS
                           if (_videoController.value.isPlaying) {
                             _videoController.pause();
                           }
@@ -139,6 +166,24 @@ class _Animal_and_Plant_Topic_3_3State
                         },
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isTTSEnabled = !isTTSEnabled;
+                            if (isTTSEnabled) {
+                              speakText();
+                            } else {
+                              stopTextToSpeech();
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate(
@@ -371,6 +416,7 @@ class _Animal_and_Plant_Topic_3_3State
                     padding: const EdgeInsets.only(left: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech(); // Stop TTS
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -387,8 +433,8 @@ class _Animal_and_Plant_Topic_3_3State
                     padding: const EdgeInsets.only(right: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech(); // Stop TTS
                         globalVariables.setTopic('lesson3', 4, true);
-
                         Navigator.push(
                           context,
                           MaterialPageRoute(

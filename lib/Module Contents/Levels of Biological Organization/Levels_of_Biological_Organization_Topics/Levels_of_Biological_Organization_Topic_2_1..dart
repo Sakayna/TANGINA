@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:capstone/globals/global_variables_notifier.dart';
 import 'package:video_player/video_player.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'dart:async';
 
 class Biological_Organization_Topic_2_1 extends StatefulWidget {
@@ -18,6 +19,30 @@ class _Biological_Organization_Topic_2_1State
   late VideoPlayerController _videoController;
   Timer? _sliderTimer;
   bool _isDragging = false;
+
+  final FlutterTts flutterTts = FlutterTts();
+  bool isTTSEnabled = false;
+
+  final String ttsContent =
+      'There are many levels of organization. Biologists differ in terms of the number of levels they consider. '
+      'In this section, we will look into thirteen levels of organization. '
+      'The levels will be presented from the simplest to the most complex level in a hierarchy. '
+      'Take note, however, that these levels are all related to each other, and the level below is more complex than the level before it, '
+      'or the level below contains all the levels above it. Subatomic particles are the particles, protons, neutrons, and electrons, that compose an atom. '
+      'Protons are the positively charged particles; neutrons have no charge; while the electrons are the negatively charged particles. '
+      'An atom is the smallest unit of matter that possesses physical and chemical properties. Matter that is composed of only one kind of atom is called an element. '
+      'A molecule consists of two or more atoms that are chemically bonded together. They range from small molecules to micromolecules to large, gigantic macromolecules. '
+      'Organelles are highly organized assemblies of several macromolecules bonded together to perform a specific function in the cell. '
+      'Cells are collections of organelles functioning together as the basic unit of life capable of all living functions. '
+      'Tissues are groups of distinct and similar cells working together to perform specific functions. '
+      'Organs consist of different tissues organized together to perform specific functions. '
+      'Organ systems consist of several organs working together to perform broad functions. '
+      'Organisms are aggregations of organ systems performing various life activities. '
+      'Populations are groups of organisms of the same species freely interacting within a given area. '
+      'Communities include all populations of different species interacting in a given area. '
+      'Ecosystems consist of communities of organisms interacting with the non-living components of their environment. '
+      'Biomes are collections of ecosystems with similar climates, covering large geographical areas. '
+      'The biosphere consists of the totality of the ecosystems on Earth, encompassing all areas where life exists.';
 
   @override
   void initState() {
@@ -42,7 +67,18 @@ class _Biological_Organization_Topic_2_1State
   void dispose() {
     _sliderTimer?.cancel();
     _videoController.dispose();
+    flutterTts.stop(); // Stop TTS when the widget is disposed
     super.dispose();
+  }
+
+  Future<void> speakText() async {
+    if (isTTSEnabled) {
+      await flutterTts.speak(ttsContent);
+    }
+  }
+
+  Future<void> stopTTS() async {
+    await flutterTts.stop();
   }
 
   @override
@@ -52,6 +88,7 @@ class _Biological_Organization_Topic_2_1State
     return WillPopScope(
       onWillPop: () async {
         if (_videoController.value.isPlaying) _videoController.pause();
+        stopTTS(); // Stop TTS on back navigation
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => Levels_of_biological_organization_Screen(),
@@ -132,6 +169,7 @@ class _Biological_Organization_Topic_2_1State
                           if (_videoController.value.isPlaying) {
                             _videoController.pause();
                           }
+                          stopTTS();
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) =>
                                 Levels_of_biological_organization_Screen(),
@@ -139,6 +177,24 @@ class _Biological_Organization_Topic_2_1State
                         },
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isTTSEnabled = !isTTSEnabled;
+                            if (isTTSEnabled) {
+                              speakText();
+                            } else {
+                              stopTTS();
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate(
@@ -939,6 +995,7 @@ class _Biological_Organization_Topic_2_1State
                     padding: const EdgeInsets.only(left: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTTS();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -956,6 +1013,7 @@ class _Biological_Organization_Topic_2_1State
                     padding: const EdgeInsets.only(right: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTTS();
                         globalVariables.setTopic('lesson2', 2, true);
                         Navigator.push(
                           context,

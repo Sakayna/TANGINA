@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:capstone/globals/global_variables_notifier.dart';
 import 'package:video_player/video_player.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'dart:async';
 
 class Bacteria_Topic_4_1_4 extends StatefulWidget {
@@ -14,8 +15,10 @@ class Bacteria_Topic_4_1_4 extends StatefulWidget {
 
 class _Bacteria_Topic_4_1_4State extends State<Bacteria_Topic_4_1_4> {
   late VideoPlayerController _videoController;
+  late FlutterTts flutterTts;
   Timer? _sliderTimer;
   bool _isDragging = false;
+  bool isTTSEnabled = false;
 
   @override
   void initState() {
@@ -27,6 +30,9 @@ class _Bacteria_Topic_4_1_4State extends State<Bacteria_Topic_4_1_4> {
     )..initialize().then((_) {
         setState(() {});
       });
+
+    // Initialize TTS
+    flutterTts = FlutterTts();
 
     // Start timer to update the slider
     _sliderTimer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
@@ -40,7 +46,27 @@ class _Bacteria_Topic_4_1_4State extends State<Bacteria_Topic_4_1_4> {
   void dispose() {
     _sliderTimer?.cancel();
     _videoController.dispose();
+    flutterTts.stop();
     super.dispose();
+  }
+
+  Future<void> speakText() async {
+    if (isTTSEnabled) {
+      String content = '''
+      Humans consider bacteria as dangerous organisms. However, bacteria play crucial roles in agriculture, industry, and biotechnology. 
+Bacteria of the species Clostridium butyclicum are used to separate fibers of jute, hemp, flax, etc. These separated fibers are used in making ropes and sacks (the process is called fiber retting), which in turn are used in making shoes and bags.
+Clostridium butyclicum is also used for commercial preparation of riboflavin, and Pseudomonas denitrificans is used in making vitamin B₁₂.
+Bacteria of the genus Lactobacillus in combination with yeasts and molds are being used for many years in the fermentation processes, like brewing wine and manufacturing cheese, butter, pickles, and other fermented foods.
+Several species of bacteria are important in the manufacture of perfumes, organic acids, and chemicals important in the pharmaceutical and agrochemical industries.
+Some species of bacteria are bioengineered for the production of therapeutic proteins, such as insulin, growth hormones, antibodies, enzymes (Bacillus subtilis and Streptococcus pyogenes), and antibiotics (Bacillus brevis and Bacillus substises).
+Bacillus thuringiensis is a soil-dwelling bacterial species that is used as a biological pest control in place of commercially prepared pesticides that affect humans, wildlife, and other beneficial insects and small animals.
+      ''';
+      await flutterTts.speak(content);
+    }
+  }
+
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
   }
 
   @override
@@ -50,6 +76,7 @@ class _Bacteria_Topic_4_1_4State extends State<Bacteria_Topic_4_1_4> {
     return WillPopScope(
       onWillPop: () async {
         if (_videoController.value.isPlaying) _videoController.pause();
+        stopTextToSpeech();
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -131,12 +158,31 @@ class _Bacteria_Topic_4_1_4State extends State<Bacteria_Topic_4_1_4> {
                           if (_videoController.value.isPlaying) {
                             _videoController.pause();
                           }
+                          stopTextToSpeech();
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => Bacteria_Screen(),
                           ));
                         },
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isTTSEnabled = !isTTSEnabled;
+                            if (isTTSEnabled) {
+                              speakText();
+                            } else {
+                              stopTextToSpeech();
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate(
@@ -399,39 +445,35 @@ class _Bacteria_Topic_4_1_4State extends State<Bacteria_Topic_4_1_4> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15.0),
-                    child: FloatingActionButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Bacteria_Topic_4_1_3(),
-                          ),
-                        );
-                      },
-                      heroTag: 'prevBtn',
-                      child: Icon(Icons.navigate_before, color: Colors.white),
-                      backgroundColor: Color(0xFFFF6A6A),
-                    ),
+                  FloatingActionButton(
+                    onPressed: () {
+                      stopTextToSpeech();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Bacteria_Topic_4_1_3(),
+                        ),
+                      );
+                    },
+                    heroTag: 'prevBtn',
+                    child: Icon(Icons.navigate_before, color: Colors.white),
+                    backgroundColor: Color(0xFFFF6A6A),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 15.0),
-                    child: FloatingActionButton(
-                      onPressed: () {
-                        globalVariables.setTopic('lesson4', 6, true);
+                  FloatingActionButton(
+                    onPressed: () {
+                      stopTextToSpeech();
+                      globalVariables.setTopic('lesson4', 6, true);
 
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Bacteria_Topic_4_1_5(),
-                          ),
-                        );
-                      },
-                      heroTag: 'nextBtn',
-                      child: Icon(Icons.navigate_next, color: Colors.white),
-                      backgroundColor: Color(0xFFFF6A6A),
-                    ),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Bacteria_Topic_4_1_5(),
+                        ),
+                      );
+                    },
+                    heroTag: 'nextBtn',
+                    child: Icon(Icons.navigate_next, color: Colors.white),
+                    backgroundColor: Color(0xFFFF6A6A),
                   ),
                 ],
               ),
@@ -483,10 +525,7 @@ class _Bacteria_Topic_4_1_4State extends State<Bacteria_Topic_4_1_4> {
               ),
             ),
             Text(
-              "${controller.value.position.inMinutes}:${(controller.value.position.inSeconds % 60).toString().padLeft(2, '0')}",
-            ),
-            Text(
-              " / ${controller.value.duration.inMinutes}:${(controller.value.duration.inSeconds % 60).toString().padLeft(2, '0')}",
+              "${controller.value.position.inMinutes}:${(controller.value.position.inSeconds % 60).toString().padLeft(2, '0')} / ${controller.value.duration.inMinutes}:${(controller.value.duration.inSeconds % 60).toString().padLeft(2, '0')}",
             ),
           ],
         ),

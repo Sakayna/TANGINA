@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:capstone/globals/global_variables_notifier.dart';
 import 'package:video_player/video_player.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'dart:async';
 
 class Microscopy_Topic_1_2 extends StatefulWidget {
@@ -19,6 +20,20 @@ class _Microscopy_Topic_1_2State extends State<Microscopy_Topic_1_2> {
   Timer? _sliderTimer2;
   bool _isDragging1 = false;
   bool _isDragging2 = false;
+  final FlutterTts flutterTts = FlutterTts();
+  bool isTTSEnabled = false; // Toggle for TTS
+
+  // Function to speak text
+  Future<void> speakText(String content) async {
+    if (isTTSEnabled) {
+      await flutterTts.speak(content);
+    }
+  }
+
+  // Function to stop TTS
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
+  }
 
   @override
   void initState() {
@@ -57,6 +72,7 @@ class _Microscopy_Topic_1_2State extends State<Microscopy_Topic_1_2> {
     _sliderTimer2?.cancel();
     _videoController1.dispose();
     _videoController2.dispose();
+    stopTextToSpeech(); // Ensure TTS stops when disposed
     super.dispose();
   }
 
@@ -64,8 +80,20 @@ class _Microscopy_Topic_1_2State extends State<Microscopy_Topic_1_2> {
   Widget build(BuildContext context) {
     var globalVariables = Provider.of<GlobalVariables>(context);
 
+    // TTS content
+    final List<String> ttsContents = [
+      'There are two types of microscopes: the simple and the compound microscopes. '
+          'Simple microscopes are composed of one lens and provide relatively low magnifying power. '
+          'Compound microscopes are composed of two or more lenses that provide powerful magnification.',
+      'The parts of a compound light microscope are categorized into illuminating parts, magnifying parts, and mechanical parts.',
+      'The illuminating parts provide light for the object to be seen. Examples include the mirror and diaphragm.',
+      'The magnifying parts include the ocular lens and objective lenses. These enlarge the object being observed.',
+      'The mechanical parts support, adjust, and connect other components. Examples include the base, arm, and adjustment screws.',
+    ];
+
     return WillPopScope(
       onWillPop: () async {
+        stopTextToSpeech(); // Stop TTS when navigating back
         if (_videoController1.value.isPlaying) _videoController1.pause();
         if (_videoController2.value.isPlaying) _videoController2.pause();
         Navigator.pushAndRemoveUntil(
@@ -147,6 +175,7 @@ class _Microscopy_Topic_1_2State extends State<Microscopy_Topic_1_2> {
                         icon: Icon(Icons.arrow_back_ios),
                         color: Colors.white,
                         onPressed: () {
+                          stopTextToSpeech(); // Stop TTS before navigating back
                           if (_videoController1.value.isPlaying) {
                             _videoController1.pause();
                           }
@@ -159,6 +188,24 @@ class _Microscopy_Topic_1_2State extends State<Microscopy_Topic_1_2> {
                         },
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isTTSEnabled = !isTTSEnabled;
+                            if (isTTSEnabled) {
+                              speakText(ttsContents.join(' '));
+                            } else {
+                              stopTextToSpeech();
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate(
@@ -173,6 +220,8 @@ class _Microscopy_Topic_1_2State extends State<Microscopy_Topic_1_2> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              // Your Text.rich and content sections go here...
+                              // Example Text with TTS functionality:
                               Text.rich(
                                 TextSpan(
                                   children: [
@@ -639,38 +688,33 @@ class _Microscopy_Topic_1_2State extends State<Microscopy_Topic_1_2> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15.0),
-                    child: FloatingActionButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Microscopy_Topic_1_1(),
-                          ),
-                        );
-                      },
-                      heroTag: 'prevBtn',
-                      child: Icon(Icons.navigate_before, color: Colors.white),
-                      backgroundColor: Color(0xFFFFA551),
-                    ),
+                  FloatingActionButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Microscopy_Topic_1_1(),
+                        ),
+                      );
+                    },
+                    heroTag: 'prevBtn',
+                    child: Icon(Icons.navigate_before, color: Colors.white),
+                    backgroundColor: Color(0xFFFFA551),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 15.0),
-                    child: FloatingActionButton(
-                      onPressed: () {
-                        globalVariables.setTopic('lesson1', 3, true);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Microscopy_TLA_1_1(),
-                          ),
-                        );
-                      },
-                      heroTag: 'nextBtn',
-                      child: Icon(Icons.navigate_next, color: Colors.white),
-                      backgroundColor: Color(0xFFFFA551),
-                    ),
+                  FloatingActionButton(
+                    onPressed: () {
+                      stopTextToSpeech(); // Stop TTS before moving forward
+                      globalVariables.setTopic('lesson1', 3, true);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Microscopy_TLA_1_1(),
+                        ),
+                      );
+                    },
+                    heroTag: 'nextBtn',
+                    child: Icon(Icons.navigate_next, color: Colors.white),
+                    backgroundColor: Color(0xFFFFA551),
                   ),
                 ],
               ),

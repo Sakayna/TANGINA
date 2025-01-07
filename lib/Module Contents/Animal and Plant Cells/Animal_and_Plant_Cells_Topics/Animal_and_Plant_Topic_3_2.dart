@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:capstone/globals/global_variables_notifier.dart';
 import 'package:video_player/video_player.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'dart:async';
 
 class Animal_and_Plant_Topic_3_2 extends StatefulWidget {
@@ -18,6 +19,9 @@ class _Animal_and_Plant_Topic_3_2State
   late VideoPlayerController _videoController;
   Timer? _sliderTimer;
   bool _isDragging = false;
+
+  final FlutterTts flutterTts = FlutterTts();
+  bool isTTSEnabled = false; // TTS toggle state
 
   @override
   void initState() {
@@ -38,10 +42,25 @@ class _Animal_and_Plant_Topic_3_2State
     });
   }
 
+  Future<void> speakText() async {
+    if (isTTSEnabled) {
+      String content = '''
+      Cells of eukaryotes are complex and highly organized. This is because of the presence of numerous and varied structures called organelles. Organelles are small membrane-bound structures that perform specific functions that make life possible. The functions of the organelles are much like the functions of the different organs in multicellular organisms. Organelles exist in various shapes and sizes, and they are embedded in the cytoplasm.
+      The numbered parts in the figure are the different organelles. The table below identifies and gives the functions of the different numbered organelles.
+      The numbered parts in the figure are the different organelles. The table below identifies and gives the functions of the different numbered organelles. 1. Ribosomes that are found attached to the endoplasmic reticulum or free floating in the cytoplasm (free ribosomes). They use the RNA synthesized by the nucleolus in making specific amino acid, They are referred to as the "protein factories. 3. Microbodies are the very tiny, membrane-bound organelles that are scattered throughout the cytoplasm together with the free ribosomes. They contain enzymes that are essential in neutralizing toxic materials that are products of cellular metabolism. Examples are the enzymes peroxisomes that break down hydrogen peroxide and proteasomes that break down damaged or unwanted proteins in the cell.''';
+      await flutterTts.speak(content);
+    }
+  }
+
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
+  }
+
   @override
   void dispose() {
     _sliderTimer?.cancel();
     _videoController.dispose();
+    stopTextToSpeech();
     super.dispose();
   }
 
@@ -51,6 +70,7 @@ class _Animal_and_Plant_Topic_3_2State
 
     return WillPopScope(
       onWillPop: () async {
+        stopTextToSpeech(); // Stop TTS on back navigation
         if (_videoController.value.isPlaying) _videoController.pause();
         Navigator.push(
           context,
@@ -130,6 +150,7 @@ class _Animal_and_Plant_Topic_3_2State
                         icon: Icon(Icons.arrow_back_ios),
                         color: Colors.white,
                         onPressed: () {
+                          stopTextToSpeech(); // Stop TTS before navigating back
                           if (_videoController.value.isPlaying) {
                             _videoController.pause();
                           }
@@ -139,6 +160,24 @@ class _Animal_and_Plant_Topic_3_2State
                         },
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isTTSEnabled = !isTTSEnabled;
+                            if (isTTSEnabled) {
+                              speakText();
+                            } else {
+                              stopTextToSpeech();
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate(
@@ -683,39 +722,34 @@ class _Animal_and_Plant_Topic_3_2State
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15.0),
-                    child: FloatingActionButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Animal_and_Plant_Topic_3_1(),
-                          ),
-                        );
-                      },
-                      heroTag: 'prevBtn',
-                      child: Icon(Icons.navigate_before, color: Colors.white),
-                      backgroundColor: Color(0xFFA1C084),
-                    ),
+                  FloatingActionButton(
+                    onPressed: () {
+                      stopTextToSpeech(); // Stop TTS before navigating
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Animal_and_Plant_Topic_3_1(),
+                        ),
+                      );
+                    },
+                    heroTag: 'prevBtn',
+                    child: Icon(Icons.navigate_before, color: Colors.white),
+                    backgroundColor: Color(0xFFA1C084),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 15.0),
-                    child: FloatingActionButton(
-                      onPressed: () {
-                        globalVariables.setTopic('lesson3', 3, true);
-
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Animal_and_Plant_Topic_3_3(),
-                          ),
-                        );
-                      },
-                      heroTag: 'nextBtn',
-                      child: Icon(Icons.navigate_next, color: Colors.white),
-                      backgroundColor: Color(0xFFA1C084),
-                    ),
+                  FloatingActionButton(
+                    onPressed: () {
+                      stopTextToSpeech(); // Stop TTS before navigating
+                      globalVariables.setTopic('lesson3', 3, true);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Animal_and_Plant_Topic_3_3(),
+                        ),
+                      );
+                    },
+                    heroTag: 'nextBtn',
+                    child: Icon(Icons.navigate_next, color: Colors.white),
+                    backgroundColor: Color(0xFFA1C084),
                   ),
                 ],
               ),

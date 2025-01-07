@@ -3,14 +3,49 @@ import 'package:capstone/categories/levels_of_biological_organization_screen.dar
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:capstone/globals/global_variables_notifier.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
-class Biological_Organization_ILOScreen extends StatelessWidget {
+class Biological_Organization_ILOScreen extends StatefulWidget {
+  @override
+  _Biological_Organization_ILOScreenState createState() =>
+      _Biological_Organization_ILOScreenState();
+}
+
+class _Biological_Organization_ILOScreenState
+    extends State<Biological_Organization_ILOScreen> {
+  final FlutterTts flutterTts = FlutterTts();
+  bool isTTSEnabled = false; // Toggle for TTS
+
+  // TTS Content
+  final String ttsContent =
+      'ILO: At the end of this lesson, students should attain the following: '
+      'Describe the different levels of biological organization from cell to biosphere.';
+
+  // Function to speak text
+  Future<void> speakText() async {
+    if (isTTSEnabled) {
+      await flutterTts.speak(ttsContent);
+    }
+  }
+
+  // Function to stop TTS
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
+  }
+
+  @override
+  void dispose() {
+    stopTextToSpeech(); // Ensure TTS stops when the widget is disposed
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var globalVariables = Provider.of<GlobalVariables>(context);
 
     return WillPopScope(
       onWillPop: () async {
+        stopTextToSpeech(); // Stop TTS when navigating back
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
@@ -78,6 +113,7 @@ class Biological_Organization_ILOScreen extends StatelessWidget {
                   color: Colors.white, // Back button icon
 
                   onPressed: () {
+                    stopTextToSpeech(); // Stop TTS when navigating back
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -88,6 +124,24 @@ class Biological_Organization_ILOScreen extends StatelessWidget {
                   },
                 ),
               ),
+              actions: [
+                IconButton(
+                  icon: Icon(
+                    isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isTTSEnabled = !isTTSEnabled;
+                      if (isTTSEnabled) {
+                        speakText();
+                      } else {
+                        stopTextToSpeech();
+                      }
+                    });
+                  },
+                ),
+              ],
             ),
             SliverList(
               delegate: SliverChildListDelegate(
@@ -109,8 +163,9 @@ class Biological_Organization_ILOScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 16),
                         Text(
-                            '• Describe the different levels of biological organization from cell to biosphere;',
-                            style: TextStyle(fontSize: 14)),
+                          '• Describe the different levels of biological organization from cell to biosphere;',
+                          style: TextStyle(fontSize: 14),
+                        ),
                       ],
                     ),
                   ),
@@ -121,8 +176,8 @@ class Biological_Organization_ILOScreen extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
+            stopTextToSpeech(); // Stop TTS before navigating forward
             globalVariables.setTopic('lesson2', 1, true);
-            // Navigate to Microscopy_Topic_1_1
             Navigator.push(
               context,
               MaterialPageRoute(

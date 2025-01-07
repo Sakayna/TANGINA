@@ -4,6 +4,7 @@ import 'package:capstone/categories/ecosystem.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'dart:async';
 import 'package:capstone/globals/global_variables_notifier.dart';
 
@@ -16,6 +17,10 @@ class _Ecosystem_Topic_6_3State extends State<Ecosystem_Topic_6_3> {
   late VideoPlayerController _videoController;
   Timer? _sliderTimer;
   bool _isDragging = false;
+
+  // Text-to-Speech (TTS) variables
+  late FlutterTts flutterTts;
+  bool isTTSEnabled = false;
 
   @override
   void initState() {
@@ -34,21 +39,45 @@ class _Ecosystem_Topic_6_3State extends State<Ecosystem_Topic_6_3> {
         setState(() {});
       }
     });
+
+    // Initialize FlutterTts
+    flutterTts = FlutterTts();
   }
 
   @override
   void dispose() {
     _sliderTimer?.cancel();
     _videoController.dispose();
+    flutterTts.stop();
     super.dispose();
+  }
+
+  Future<void> speakText(String text) async {
+    if (isTTSEnabled) {
+      await flutterTts.speak(text);
+    }
+  }
+
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
   }
 
   @override
   Widget build(BuildContext context) {
     var globalVariables = Provider.of<GlobalVariables>(context);
 
+    // Content to be read by TTS
+    String ttsContent = '''
+Living things consist of the biotic factors of the environment. An ecosystem has diverse living organisms. These living organisms are organized ecologically into different levels.
+
+The smallest unit of an organization is the organism level. An organism is an individual belonging to a particular species. A species is a group of similar individuals, capable of interbreeding to produce fertile offspring. Organisms of the same species group and interact together, forming populations.
+
+All the biotic communities and the abiotic factors they exploit all together form an ecosystem. Each organism plays a unique role in the ecosystem, referred to as its ecological niche.
+''';
+
     return WillPopScope(
       onWillPop: () async {
+        stopTextToSpeech();
         if (_videoController.value.isPlaying) _videoController.pause();
         Navigator.push(
           context,
@@ -128,6 +157,7 @@ class _Ecosystem_Topic_6_3State extends State<Ecosystem_Topic_6_3> {
                         icon: Icon(Icons.arrow_back_ios),
                         color: Colors.white,
                         onPressed: () {
+                          stopTextToSpeech();
                           if (_videoController.value.isPlaying) {
                             _videoController.pause();
                           }
@@ -137,6 +167,24 @@ class _Ecosystem_Topic_6_3State extends State<Ecosystem_Topic_6_3> {
                         },
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isTTSEnabled = !isTTSEnabled;
+                            if (isTTSEnabled) {
+                              speakText(ttsContent);
+                            } else {
+                              stopTextToSpeech();
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate(
@@ -650,6 +698,7 @@ class _Ecosystem_Topic_6_3State extends State<Ecosystem_Topic_6_3> {
                     padding: const EdgeInsets.only(left: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -666,6 +715,7 @@ class _Ecosystem_Topic_6_3State extends State<Ecosystem_Topic_6_3> {
                     padding: const EdgeInsets.only(right: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         globalVariables.setTopic('lesson6', 6, true);
                         Navigator.push(
                           context,
@@ -739,4 +789,12 @@ class _Ecosystem_Topic_6_3State extends State<Ecosystem_Topic_6_3> {
       ],
     );
   }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      body: Ecosystem_Topic_6_3(),
+    ),
+  ));
 }

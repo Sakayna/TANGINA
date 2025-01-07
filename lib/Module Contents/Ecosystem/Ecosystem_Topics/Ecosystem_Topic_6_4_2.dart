@@ -4,6 +4,7 @@ import 'package:capstone/categories/ecosystem.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'dart:async';
 import 'package:capstone/globals/global_variables_notifier.dart';
 
@@ -14,32 +15,52 @@ class Ecosystem_Topic_6_4_2 extends StatefulWidget {
 
 class _Ecosystem_Topic_6_4_2State extends State<Ecosystem_Topic_6_4_2> {
   late VideoPlayerController _videoController;
+  late FlutterTts flutterTts;
   Timer? _sliderTimer;
   bool _isDragging = false;
+  bool isTTSEnabled = false;
+
+  String content = '''
+In reality, the flow of energy in an ecosystem is much more complicated than what can be represented by a food chain. Ecologists say that "everything is connected to everything else." Thus, the food chain that is discussed in the previous section is only a part of the many food links that are interconnected in an ecosystem. This interconnected food chain is called the food web. Food web exists because consumers have different food preferences. While some animals have specialized diets (such as the pandas that only eat bamboo), other animals do not. In the grassland food web, the hawk does not limit its diet on snakes. In times of scarcity, it can feed on the lizard, rabbit, mouse, and grasshopper as well. The lizard can eat insects other than grasshoppers. The rabbit prefers to eat vegetables because their tissues are juicy and soft, but in the absence of vegetables, it can also feed on the available grasses, and so on. Thus, a food web shows how plants and animals are interconnected in many ways by different paths that ensure their survival.
+''';
 
   @override
   void initState() {
     super.initState();
 
-    // Initialize the video controller
+    // Initialize video player
     _videoController = VideoPlayerController.asset(
       'assets/videos/ecosystem/eco7.mp4',
     )..initialize().then((_) {
         setState(() {});
       });
 
-    // Timer to update slider
+    // Timer to update video slider
     _sliderTimer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
       if (!_isDragging && _videoController.value.isInitialized) {
         setState(() {});
       }
     });
+
+    // Initialize TTS
+    flutterTts = FlutterTts();
+  }
+
+  Future<void> speakText() async {
+    if (isTTSEnabled) {
+      await flutterTts.speak(content);
+    }
+  }
+
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
   }
 
   @override
   void dispose() {
     _sliderTimer?.cancel();
     _videoController.dispose();
+    flutterTts.stop();
     super.dispose();
   }
 
@@ -49,6 +70,7 @@ class _Ecosystem_Topic_6_4_2State extends State<Ecosystem_Topic_6_4_2> {
 
     return WillPopScope(
       onWillPop: () async {
+        stopTextToSpeech();
         if (_videoController.value.isPlaying) _videoController.pause();
         Navigator.push(
           context,
@@ -128,6 +150,7 @@ class _Ecosystem_Topic_6_4_2State extends State<Ecosystem_Topic_6_4_2> {
                         icon: Icon(Icons.arrow_back_ios),
                         color: Colors.white,
                         onPressed: () {
+                          stopTextToSpeech();
                           if (_videoController.value.isPlaying) {
                             _videoController.pause();
                           }
@@ -137,6 +160,24 @@ class _Ecosystem_Topic_6_4_2State extends State<Ecosystem_Topic_6_4_2> {
                         },
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isTTSEnabled = !isTTSEnabled;
+                            if (isTTSEnabled) {
+                              speakText();
+                            } else {
+                              stopTextToSpeech();
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate(
@@ -243,7 +284,6 @@ class _Ecosystem_Topic_6_4_2State extends State<Ecosystem_Topic_6_4_2> {
                                   color: Colors.black54,
                                 ),
                               ),
-                              // Add additional content here if needed
                             ],
                           ),
                         ),
@@ -264,6 +304,7 @@ class _Ecosystem_Topic_6_4_2State extends State<Ecosystem_Topic_6_4_2> {
                     padding: const EdgeInsets.only(left: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -280,6 +321,7 @@ class _Ecosystem_Topic_6_4_2State extends State<Ecosystem_Topic_6_4_2> {
                     padding: const EdgeInsets.only(right: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         globalVariables.setTopic('lesson6', 9, true);
                         Navigator.push(
                           context,
@@ -353,4 +395,12 @@ class _Ecosystem_Topic_6_4_2State extends State<Ecosystem_Topic_6_4_2> {
       ],
     );
   }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      body: Ecosystem_Topic_6_4_2(),
+    ),
+  ));
 }

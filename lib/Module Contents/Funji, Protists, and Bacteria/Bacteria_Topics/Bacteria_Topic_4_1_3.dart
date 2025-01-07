@@ -4,14 +4,49 @@ import 'package:capstone/categories/bacteria_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:capstone/globals/global_variables_notifier.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
-class Bacteria_Topic_4_1_3 extends StatelessWidget {
+class Bacteria_Topic_4_1_3 extends StatefulWidget {
+  @override
+  _Bacteria_Topic_4_1_3State createState() => _Bacteria_Topic_4_1_3State();
+}
+
+class _Bacteria_Topic_4_1_3State extends State<Bacteria_Topic_4_1_3> {
+  final FlutterTts flutterTts = FlutterTts();
+  bool isTTSEnabled = false;
+
+  // TTS Functionality
+  Future<void> speakText() async {
+    if (isTTSEnabled) {
+      String content = '''
+      There are thousands of species of bacteria on Earth. At this present time, only a few species have been studied and identified by scientists. 
+      Researches revealed that they have existed on Earth for billions of years. They thrive in any type of habitat, even in adverse environmental conditions like salty water and the Mariana Trench.
+      
+      Bacteria reproduce both asexually and sexually. Asexual reproduction methods include binary fission, budding, and spore-formation, which are fast and simple. However, these produce clones that lack genetic diversity.
+      Sexual reproduction involves genetic recombination, introducing new traits for survival in challenging environments.
+      ''';
+      await flutterTts.speak(content);
+    }
+  }
+
+  // Stop TTS
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
+  }
+
+  @override
+  void dispose() {
+    stopTextToSpeech(); // Stop TTS when the widget is disposed
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var globalVariables = Provider.of<GlobalVariables>(context);
 
     return WillPopScope(
       onWillPop: () async {
+        stopTextToSpeech(); // Stop TTS when navigating back
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -28,62 +63,54 @@ class Bacteria_Topic_4_1_3 extends StatelessWidget {
               child: CustomScrollView(
                 slivers: [
                   SliverAppBar(
-                    backgroundColor:
-                        Color(0xFFFF6A6A), // Background color of appbar
+                    backgroundColor: Color(0xFFFF6A6A),
                     floating: false,
                     pinned: false,
                     snap: false,
-                    expandedHeight: 120.0, // Adjusted expanded height
+                    expandedHeight: 120.0,
                     flexibleSpace: LayoutBuilder(
                       builder: (context, constraints) {
-                        final isTop = constraints.biggest.height <=
-                            kToolbarHeight + 16.0; // Margin size
+                        final isTop =
+                            constraints.biggest.height <= kToolbarHeight + 16.0;
 
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             if (!isTop) ...[
-                              // Only show when expanded (not at the top)
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    top: 25.0, left: 50.0), // Add left padding
+                                    top: 25.0, left: 50.0),
                                 child: Text(
-                                  'Funji, Protists, and Bacteria', // Title text for the appbar
+                                  'Funji, Protists, and Bacteria',
                                   style: TextStyle(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.normal,
-                                    color:
-                                        Colors.white, // Set text color to white
+                                    color: Colors.white,
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                  height: 5), // Adjusted spacing between texts
+                              SizedBox(height: 5),
                               Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 50.0), // Add left padding
+                                padding: const EdgeInsets.only(left: 50.0),
                                 child: Text(
-                                  'Topics', // Subtitle text for the appbar
+                                  'Topics',
                                   style: TextStyle(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.w600,
-                                    color:
-                                        Colors.white, // Set text color to white
+                                    color: Colors.white,
                                   ),
                                 ),
                               ),
                               SizedBox(height: 5),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 50.0,
-                                    right: 18.0), // Add left padding
+                                    left: 50.0, right: 18.0),
                                 child: Text(
-                                  '4.1.3 - Reproduction in Bacteria', // Additional text for the appbar
+                                  '4.1.3 - Reproduction in Bacteria',
                                   style: TextStyle(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.w600,
-                                    color:
-                                        Colors.white, // Set text color to white
+                                    color: Colors.white,
                                   ),
                                 ),
                               ),
@@ -93,19 +120,36 @@ class Bacteria_Topic_4_1_3 extends StatelessWidget {
                       },
                     ),
                     leading: Padding(
-                      padding: const EdgeInsets.only(
-                        top: 20, // Adjusted top padding of the leading icon
-                      ),
+                      padding: const EdgeInsets.only(top: 20),
                       child: IconButton(
                         icon: Icon(Icons.arrow_back_ios),
-                        color: Colors.white, // Back button icon color
+                        color: Colors.white,
                         onPressed: () {
+                          stopTextToSpeech();
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => Bacteria_Screen(),
                           ));
                         },
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isTTSEnabled = !isTTSEnabled;
+                            if (isTTSEnabled) {
+                              speakText();
+                            } else {
+                              stopTextToSpeech();
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate(
@@ -188,18 +232,17 @@ class Bacteria_Topic_4_1_3 extends StatelessWidget {
               ),
             ),
             Container(
-              color: Colors.white, // Set the background color to white
-              width: double.infinity, // Set the width to fill the screen
-              padding: EdgeInsets.symmetric(
-                  vertical: 16.0), // Add padding vertically
+              color: Colors.white,
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(vertical: 16.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(
-                        left: 15.0), // Adjusted left padding
+                    padding: const EdgeInsets.only(left: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -210,16 +253,16 @@ class Bacteria_Topic_4_1_3 extends StatelessWidget {
                       heroTag: 'prevBtn',
                       child: Icon(
                         Icons.navigate_before,
-                        color: Colors.white, // Set icon color to white
+                        color: Colors.white,
                       ),
                       backgroundColor: Color(0xFFFF6A6A),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(
-                        right: 15.0), // Adjusted right padding
+                    padding: const EdgeInsets.only(right: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         globalVariables.setTopic('lesson4', 5, true);
                         Navigator.push(
                           context,

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:capstone/globals/global_variables_notifier.dart';
 import 'package:video_player/video_player.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'dart:async';
 
 class Ecosystem_Topic_6_2_2 extends StatefulWidget {
@@ -16,6 +17,10 @@ class _Ecosystem_Topic_6_2_2State extends State<Ecosystem_Topic_6_2_2> {
   late VideoPlayerController _videoController;
   Timer? _sliderTimer;
   bool _isDragging = false;
+
+  // Text-to-Speech variables
+  late FlutterTts flutterTts;
+  bool isTTSEnabled = false;
 
   @override
   void initState() {
@@ -34,21 +39,47 @@ class _Ecosystem_Topic_6_2_2State extends State<Ecosystem_Topic_6_2_2> {
         setState(() {});
       }
     });
+
+    // Initialize FlutterTts
+    flutterTts = FlutterTts();
   }
 
   @override
   void dispose() {
     _sliderTimer?.cancel();
     _videoController.dispose();
+    flutterTts.stop();
     super.dispose();
+  }
+
+  Future<void> speakText(String text) async {
+    if (isTTSEnabled) {
+      await flutterTts.speak(text);
+    }
+  }
+
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
   }
 
   @override
   Widget build(BuildContext context) {
     var globalVariables = Provider.of<GlobalVariables>(context);
 
+    // Content to be read by TTS
+    String ttsContent = '''
+Edaphic factors pertain to the structure and composition of the soil, as well as its physical and chemical properties, together with its humus content and the presence of soil organisms.
+
+Soil texture pertains to the size of the particles that compose the soil. Clay soil is composed of very tiny particles. It can hold large amounts of water and is rich in mineral nutrients. However, it is badly aerated and difficult to cultivate because it becomes waterlogged.
+
+Loam soil is composed of particles of varied sizes that allow better aeration. It has greater water-holding capacity, and is rich in soil nutrients.
+
+Physiographic factors pertain to the physical nature of the land surface or its topography.
+''';
+
     return WillPopScope(
       onWillPop: () async {
+        stopTextToSpeech();
         if (_videoController.value.isPlaying) _videoController.pause();
         Navigator.push(
           context,
@@ -128,6 +159,7 @@ class _Ecosystem_Topic_6_2_2State extends State<Ecosystem_Topic_6_2_2> {
                         icon: Icon(Icons.arrow_back_ios),
                         color: Colors.white,
                         onPressed: () {
+                          stopTextToSpeech();
                           if (_videoController.value.isPlaying) {
                             _videoController.pause();
                           }
@@ -137,6 +169,24 @@ class _Ecosystem_Topic_6_2_2State extends State<Ecosystem_Topic_6_2_2> {
                         },
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isTTSEnabled = !isTTSEnabled;
+                            if (isTTSEnabled) {
+                              speakText(ttsContent);
+                            } else {
+                              stopTextToSpeech();
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate(
@@ -423,6 +473,7 @@ class _Ecosystem_Topic_6_2_2State extends State<Ecosystem_Topic_6_2_2> {
                     padding: const EdgeInsets.only(left: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -439,6 +490,7 @@ class _Ecosystem_Topic_6_2_2State extends State<Ecosystem_Topic_6_2_2> {
                     padding: const EdgeInsets.only(right: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         globalVariables.setTopic('lesson6', 5, true);
                         Navigator.push(
                           context,

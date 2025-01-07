@@ -3,15 +3,57 @@ import 'package:capstone/Module%20Contents/Heredity/Heredity_Topics/Heredity_Top
 import 'package:capstone/categories/heredity.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:capstone/globals/global_variables_notifier.dart';
 
-class Heredity_Topic_5_2_2 extends StatelessWidget {
+class Heredity_Topic_5_2_2 extends StatefulWidget {
+  @override
+  _Heredity_Topic_5_2_2State createState() => _Heredity_Topic_5_2_2State();
+}
+
+class _Heredity_Topic_5_2_2State extends State<Heredity_Topic_5_2_2> {
+  late FlutterTts flutterTts;
+  bool isTTSEnabled = false;
+
+  @override
+  void initState() {
+    super.initState();
+    flutterTts = FlutterTts();
+  }
+
+  @override
+  void dispose() {
+    flutterTts.stop();
+    super.dispose();
+  }
+
+  Future<void> speakText() async {
+    if (isTTSEnabled) {
+      String content = '''
+Natural vegetative propagation is common among herbaceous and woody plants. It involves structural modifications of any plant parts (leaf, stem, or root) that can contribute to the survival and expansion in the population of the plant species. The new plants that emerged by this method are clones of the original plant. Natural means of vegetative propagation include:
+Runners/Stolons: Slender prostate branches with nodes and internodes that grow above the ground. The nodes develop roots and buds that grow into a new plant. Examples are strawberry and grass plants.
+Suckers: New stems grow from the root base of the existing plant. This new stem develops into a new plant. Examples are banana, dandelion, and rose plants.
+Tubers: Swollen parts of an underground stem with pits or "eyes" where buds grow and develop into new plants. Examples are potato tubers, sweet potato, yam, carrot, and cassava.
+Corms: Short, vertical underground stems with nodes and internodes where buds grow and develop into new plants. Examples are taro, cocoyam, and arrowhead.
+Rhizomes: Long, horizontal underground stems with nodes and internodes. An example is ginger.
+Bulbs: Short, underground stems with fleshy leaves (called scales) that store food. Examples are tulip and onion.
+Notches: Structures found at the margins of some leaves where new tiny buds emerge. The buds develop into new plants that detach from the notch and live an independent existence. Examples are begonia and bryophyllum (also called kalanchoe).
+''';
+      await flutterTts.speak(content);
+    }
+  }
+
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
+  }
+
   @override
   Widget build(BuildContext context) {
     var globalVariables = Provider.of<GlobalVariables>(context);
 
     return WillPopScope(
       onWillPop: () async {
+        stopTextToSpeech();
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -28,62 +70,54 @@ class Heredity_Topic_5_2_2 extends StatelessWidget {
               child: CustomScrollView(
                 slivers: [
                   SliverAppBar(
-                    backgroundColor:
-                        Color(0xFF64B6AC), // Background color of appbar
+                    backgroundColor: Color(0xFF64B6AC),
                     floating: false,
                     pinned: false,
                     snap: false,
-                    expandedHeight: 120.0, // Adjusted expanded height
+                    expandedHeight: 120.0,
                     flexibleSpace: LayoutBuilder(
                       builder: (context, constraints) {
-                        final isTop = constraints.biggest.height <=
-                            kToolbarHeight + 16.0; // Margin size
+                        final isTop =
+                            constraints.biggest.height <= kToolbarHeight + 16.0;
 
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             if (!isTop) ...[
-                              // Only show when expanded (not at the top)
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    top: 25.0, left: 50.0), // Add left padding
+                                    top: 25.0, left: 50.0),
                                 child: Text(
-                                  'Heredity', // Title text for the appbar
+                                  'Heredity',
                                   style: TextStyle(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.normal,
-                                    color:
-                                        Colors.white, // Set text color to white
+                                    color: Colors.white,
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                  height: 5), // Adjusted spacing between texts
+                              SizedBox(height: 5),
                               Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 50.0), // Add left padding
+                                padding: const EdgeInsets.only(left: 50.0),
                                 child: Text(
-                                  'Topics', // Subtitle text for the appbar
+                                  'Topics',
                                   style: TextStyle(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.w600,
-                                    color:
-                                        Colors.white, // Set text color to white
+                                    color: Colors.white,
                                   ),
                                 ),
                               ),
                               SizedBox(height: 5),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 50.0,
-                                    right: 18.0), // Add left padding
+                                    left: 50.0, right: 18.0),
                                 child: Text(
-                                  '5.2.2 - Natural Vegetative Propagation', // Additional text for the appbar
+                                  '5.2.2 - Natural Vegetative Propagation',
                                   style: TextStyle(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.w600,
-                                    color:
-                                        Colors.white, // Set text color to white
+                                    color: Colors.white,
                                   ),
                                 ),
                               ),
@@ -93,19 +127,36 @@ class Heredity_Topic_5_2_2 extends StatelessWidget {
                       },
                     ),
                     leading: Padding(
-                      padding: const EdgeInsets.only(
-                        top: 20, // Adjusted top padding of the leading icon
-                      ),
+                      padding: const EdgeInsets.only(top: 20),
                       child: IconButton(
                         icon: Icon(Icons.arrow_back_ios),
-                        color: Colors.white, // Back button icon color
+                        color: Colors.white,
                         onPressed: () {
+                          stopTextToSpeech();
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => Heredity_Screen(),
                           ));
                         },
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isTTSEnabled = !isTTSEnabled;
+                            if (isTTSEnabled) {
+                              speakText();
+                            } else {
+                              stopTextToSpeech();
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate(
@@ -410,18 +461,17 @@ class Heredity_Topic_5_2_2 extends StatelessWidget {
               ),
             ),
             Container(
-              color: Colors.white, // Set the background color to white
-              width: double.infinity, // Set the width to fill the screen
-              padding: EdgeInsets.symmetric(
-                  vertical: 16.0), // Add padding vertically
+              color: Colors.white,
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(vertical: 16.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(
-                        left: 15.0), // Adjusted left padding
+                    padding: const EdgeInsets.only(left: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -430,18 +480,15 @@ class Heredity_Topic_5_2_2 extends StatelessWidget {
                         );
                       },
                       heroTag: 'prevBtn',
-                      child: Icon(
-                        Icons.navigate_before,
-                        color: Colors.white, // Set icon color to white
-                      ),
+                      child: Icon(Icons.navigate_before, color: Colors.white),
                       backgroundColor: Color(0xFF64B6AC),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(
-                        right: 15.0), // Adjusted right padding
+                    padding: const EdgeInsets.only(right: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         globalVariables.setTopic('lesson5', 7, true);
 
                         Navigator.push(
@@ -452,10 +499,7 @@ class Heredity_Topic_5_2_2 extends StatelessWidget {
                         );
                       },
                       heroTag: 'nextBtn',
-                      child: Icon(
-                        Icons.navigate_next,
-                        color: Colors.white,
-                      ),
+                      child: Icon(Icons.navigate_next, color: Colors.white),
                       backgroundColor: Color(0xFF64B6AC),
                     ),
                   ),

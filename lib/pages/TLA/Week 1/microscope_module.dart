@@ -574,7 +574,7 @@ Most compound microscopes come with three or four objective lenses that revolve 
             ),
             SceneNode(
               name: "Objective Lenses",
-              modelPath: "assets/hologram/objective/objective1.gltf",
+              modelPath: "assets/hologram/objective/updatedobj.gltf",
               position: vector.Vector3(0.12, 0.155, 0.175),
               scale: vector.Vector3(1.0, 1.0, 1.0),
             ),

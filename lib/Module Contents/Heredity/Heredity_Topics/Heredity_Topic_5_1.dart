@@ -4,14 +4,70 @@ import 'package:capstone/categories/heredity.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:capstone/globals/global_variables_notifier.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
-class Heredity_Topic_5_1 extends StatelessWidget {
+class Heredity_Topic_5_1 extends StatefulWidget {
+  @override
+  _Heredity_Topic_5_1State createState() => _Heredity_Topic_5_1State();
+}
+
+class _Heredity_Topic_5_1State extends State<Heredity_Topic_5_1> {
+  late FlutterTts flutterTts;
+  bool isTTSEnabled = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Initialize FlutterTTS
+    flutterTts = FlutterTts();
+  }
+
+  @override
+  void dispose() {
+    flutterTts.stop();
+    super.dispose();
+  }
+
+  Future<void> speakText() async {
+    if (isTTSEnabled) {
+      String content = '''
+Sexual reproduction is a process that involves the union of sex cells or gametes. 
+The gametes come from two parents of opposite sexes—the male that produces the sperm (male gamete) 
+and the female that produces the egg cell or ovum (female gamete). 
+In humans, the sperm is relatively motile and has a flagellum. 
+On the other hand, the ovum is nonmotile and relatively large in comparison to the male gamete.
+
+Gametes or sex cells are produced by a type of cell division called meiosis.
+
+Meiosis in a sperm cell is called spermatogenesis. 
+This takes place in the testes of male species. 
+Meiosis in egg cells is called oogenesis. 
+This takes place in the ovaries of females. 
+The cells or gametes formed by meiosis are haploid (N), 
+which means they contain only one set of chromosomes.
+
+Recall in your previous Science lessons that the chromosomes are tightly packed in the nucleus of a cell. 
+Humans have 46 chromosomes. 
+Half of these chromosomes (23) were donated by the father, 
+and the other half were donated by the mother. 
+Hence, humans have a diploid (2N) number of chromosomes or two sets of homologous chromosomes. 
+The chromosomes contain the genes that determine hereditary characteristics.''';
+      await flutterTts.speak(content);
+    }
+  }
+
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
+  }
+
   @override
   Widget build(BuildContext context) {
     var globalVariables = Provider.of<GlobalVariables>(context);
 
     return WillPopScope(
       onWillPop: () async {
+        stopTextToSpeech();
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -28,8 +84,7 @@ class Heredity_Topic_5_1 extends StatelessWidget {
               child: CustomScrollView(
                 slivers: [
                   SliverAppBar(
-                    backgroundColor:
-                        Color(0xFF64B6AC), // Background color of appbar
+                    backgroundColor: Color(0xFF64B6AC), // Background color
                     floating: false,
                     pinned: false,
                     snap: false,
@@ -43,32 +98,27 @@ class Heredity_Topic_5_1 extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             if (!isTop) ...[
-                              // Only show when expanded (not at the top)
                               Padding(
                                 padding: const EdgeInsets.only(
                                     top: 25.0, left: 50.0), // Add left padding
                                 child: Text(
-                                  'Heredity', // Title text for the appbar
+                                  'Heredity', // Title text
                                   style: TextStyle(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.normal,
-                                    color:
-                                        Colors.white, // Set text color to white
+                                    color: Colors.white, // White text
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                  height: 5), // Adjusted spacing between texts
+                              SizedBox(height: 5),
                               Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 50.0), // Add left padding
+                                padding: const EdgeInsets.only(left: 50.0),
                                 child: Text(
-                                  'Topics', // Subtitle text for the appbar
+                                  'Topics', // Subtitle
                                   style: TextStyle(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.w600,
-                                    color:
-                                        Colors.white, // Set text color to white
+                                    color: Colors.white, // White text
                                   ),
                                 ),
                               ),
@@ -78,12 +128,11 @@ class Heredity_Topic_5_1 extends StatelessWidget {
                                     left: 50.0,
                                     right: 18.0), // Add left padding
                                 child: Text(
-                                  '5.1 - Sexual Reproduction', // Additional text for the appbar
+                                  '5.1 - Sexual Reproduction', // Additional text
                                   style: TextStyle(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.w600,
-                                    color:
-                                        Colors.white, // Set text color to white
+                                    color: Colors.white, // White text
                                   ),
                                 ),
                               ),
@@ -93,13 +142,12 @@ class Heredity_Topic_5_1 extends StatelessWidget {
                       },
                     ),
                     leading: Padding(
-                      padding: const EdgeInsets.only(
-                        top: 20, // Adjusted top padding of the leading icon
-                      ),
+                      padding: const EdgeInsets.only(top: 20),
                       child: IconButton(
                         icon: Icon(Icons.arrow_back_ios),
-                        color: Colors.white, // Back button icon color
+                        color: Colors.white, // Back button color
                         onPressed: () {
+                          stopTextToSpeech();
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -109,6 +157,24 @@ class Heredity_Topic_5_1 extends StatelessWidget {
                         },
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isTTSEnabled = !isTTSEnabled;
+                            if (isTTSEnabled) {
+                              speakText();
+                            } else {
+                              stopTextToSpeech();
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate(
@@ -327,18 +393,17 @@ class Heredity_Topic_5_1 extends StatelessWidget {
               ),
             ),
             Container(
-              color: Colors.white, // Set the background color to white
-              width: double.infinity, // Set the width to fill the screen
-              padding: EdgeInsets.symmetric(
-                  vertical: 16.0), // Add padding vertically
+              color: Colors.white,
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(vertical: 16.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(
-                        left: 15.0), // Adjusted left padding
+                    padding: const EdgeInsets.only(left: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -347,18 +412,15 @@ class Heredity_Topic_5_1 extends StatelessWidget {
                         );
                       },
                       heroTag: 'prevBtn',
-                      child: Icon(
-                        Icons.navigate_before,
-                        color: Colors.white, // Set icon color to white
-                      ),
+                      child: Icon(Icons.navigate_before, color: Colors.white),
                       backgroundColor: Color(0xFF64B6AC),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(
-                        right: 15.0), // Adjusted right padding
+                    padding: const EdgeInsets.only(right: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         globalVariables.setTopic('lesson5', 2, true);
 
                         Navigator.push(
@@ -369,10 +431,7 @@ class Heredity_Topic_5_1 extends StatelessWidget {
                         );
                       },
                       heroTag: 'nextBtn',
-                      child: Icon(
-                        Icons.navigate_next,
-                        color: Colors.white,
-                      ),
+                      child: Icon(Icons.navigate_next, color: Colors.white),
                       backgroundColor: Color(0xFF64B6AC),
                     ),
                   ),

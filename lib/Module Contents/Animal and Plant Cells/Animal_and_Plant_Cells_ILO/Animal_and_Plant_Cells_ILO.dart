@@ -1,17 +1,51 @@
 import 'package:capstone/Module%20Contents/Animal%20and%20Plant%20Cells/Animal_and_Plant_Cells_Topics/Animal_and_Plant_Topic_3_1.dart';
 import 'package:capstone/categories/animal_and_plant_screen.dart';
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
 import 'package:capstone/globals/global_variables_notifier.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
-class Animal_and_Plant_ILO_Screen extends StatelessWidget {
+class Animal_and_Plant_ILO_Screen extends StatefulWidget {
+  @override
+  State<Animal_and_Plant_ILO_Screen> createState() =>
+      _Animal_and_Plant_ILO_ScreenState();
+}
+
+class _Animal_and_Plant_ILO_ScreenState
+    extends State<Animal_and_Plant_ILO_Screen> {
+  final FlutterTts flutterTts = FlutterTts();
+  bool isTTSEnabled = false; // TTS toggle state
+
+  // Function to start text-to-speech
+  Future<void> speakText() async {
+    if (isTTSEnabled) {
+      String content = '''
+        ILO: At the end of this lesson, students should attain the following:
+        • Differentiate plant and animal cells according to presence or absence of certain organelles;
+        • Explain why the cell is considered the basic structural and functional unit of all organisms;
+      ''';
+      await flutterTts.speak(content);
+    }
+  }
+
+  // Function to stop text-to-speech
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
+  }
+
+  @override
+  void dispose() {
+    stopTextToSpeech(); // Stop TTS when the widget is disposed
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var globalVariables = Provider.of<GlobalVariables>(context);
 
     return WillPopScope(
       onWillPop: () async {
+        stopTextToSpeech(); // Stop TTS when navigating back
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -57,7 +91,6 @@ class Animal_and_Plant_ILO_Screen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 5),
-
                     Text(
                       'ILO 3.1', // Additional text for the appbar
                       style: TextStyle(
@@ -76,8 +109,8 @@ class Animal_and_Plant_ILO_Screen extends StatelessWidget {
                 child: IconButton(
                   icon: Icon(Icons.arrow_back_ios), // Back button icon
                   color: Colors.white, // Back button icon
-
                   onPressed: () {
+                    stopTextToSpeech(); // Stop TTS before navigating back
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -87,6 +120,24 @@ class Animal_and_Plant_ILO_Screen extends StatelessWidget {
                   },
                 ),
               ),
+              actions: [
+                IconButton(
+                  icon: Icon(
+                    isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isTTSEnabled = !isTTSEnabled;
+                      if (isTTSEnabled) {
+                        speakText(); // Start TTS when enabled
+                      } else {
+                        stopTextToSpeech(); // Stop TTS when disabled
+                      }
+                    });
+                  },
+                ),
+              ],
             ),
             SliverList(
               delegate: SliverChildListDelegate(
@@ -108,12 +159,14 @@ class Animal_and_Plant_ILO_Screen extends StatelessWidget {
                         ),
                         SizedBox(height: 16),
                         Text(
-                            '• Differentiate plant and animal cells according to presence or absence of certain organelles;',
-                            style: TextStyle(fontSize: 14)),
+                          '• Differentiate plant and animal cells according to presence or absence of certain organelles;',
+                          style: TextStyle(fontSize: 14),
+                        ),
                         SizedBox(height: 12),
                         Text(
-                            '• Explain why the cell is considered the basic structural and functional unit of all organisms;',
-                            style: TextStyle(fontSize: 14)),
+                          '• Explain why the cell is considered the basic structural and functional unit of all organisms;',
+                          style: TextStyle(fontSize: 14),
+                        ),
                       ],
                     ),
                   ),
@@ -124,8 +177,8 @@ class Animal_and_Plant_ILO_Screen extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
+            stopTextToSpeech(); // Stop TTS before navigating to the next page
             globalVariables.setTopic('lesson3', 1, true);
-            // Navigate to Microscopy_Topic_1_1
             Navigator.push(
               context,
               MaterialPageRoute(

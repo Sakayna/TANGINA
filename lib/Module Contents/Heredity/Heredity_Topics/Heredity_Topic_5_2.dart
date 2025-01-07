@@ -4,14 +4,52 @@ import 'package:capstone/categories/heredity.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:capstone/globals/global_variables_notifier.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
-class Heredity_Topic_5_2 extends StatelessWidget {
+class Heredity_Topic_5_2 extends StatefulWidget {
+  @override
+  _Heredity_Topic_5_2State createState() => _Heredity_Topic_5_2State();
+}
+
+class _Heredity_Topic_5_2State extends State<Heredity_Topic_5_2> {
+  late FlutterTts flutterTts;
+  bool isTTSEnabled = false;
+
+  @override
+  void initState() {
+    super.initState();
+    flutterTts = FlutterTts();
+  }
+
+  @override
+  void dispose() {
+    flutterTts.stop();
+    super.dispose();
+  }
+
+  Future<void> speakText() async {
+    if (isTTSEnabled) {
+      String content = '''
+Asexual reproduction does not involve the union of gametes. 
+It is a method wherein an individual can produce offspring without the involvement of another individual of the same species. 
+The offspring produced asexually are genetically similar or exact copies of the parent (a clone). 
+Asexual reproduction is the primary method of reproduction exhibited by unicellular organisms such as the bacteria and archaea (prokaryotes), the animal-like protists and yeasts, and some invertebrates. 
+Examples of asexual reproduction methods are budding, binary fission, fragmentation, spore formation, and parthenogenesis.''';
+      await flutterTts.speak(content);
+    }
+  }
+
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
+  }
+
   @override
   Widget build(BuildContext context) {
     var globalVariables = Provider.of<GlobalVariables>(context);
 
     return WillPopScope(
       onWillPop: () async {
+        stopTextToSpeech();
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -100,12 +138,31 @@ class Heredity_Topic_5_2 extends StatelessWidget {
                         icon: Icon(Icons.arrow_back_ios),
                         color: Colors.white, // Back button icon color
                         onPressed: () {
+                          stopTextToSpeech();
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => Heredity_Screen(),
                           ));
                         },
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isTTSEnabled = !isTTSEnabled;
+                            if (isTTSEnabled) {
+                              speakText();
+                            } else {
+                              stopTextToSpeech();
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate(
@@ -160,6 +217,7 @@ class Heredity_Topic_5_2 extends StatelessWidget {
                         left: 15.0), // Adjusted left padding
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -180,6 +238,7 @@ class Heredity_Topic_5_2 extends StatelessWidget {
                         right: 15.0), // Adjusted right padding
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         globalVariables.setTopic('lesson5', 5, true);
 
                         Navigator.push(

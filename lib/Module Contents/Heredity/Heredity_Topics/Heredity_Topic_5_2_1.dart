@@ -4,6 +4,7 @@ import 'package:capstone/categories/heredity.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:capstone/globals/global_variables_notifier.dart';
 import 'dart:async';
 
@@ -15,13 +16,18 @@ class Heredity_Topic_5_2_1 extends StatefulWidget {
 class _Heredity_Topic_5_2_1State extends State<Heredity_Topic_5_2_1> {
   late VideoPlayerController _videoController;
   Timer? _sliderTimer;
+  late FlutterTts flutterTts;
+  bool isTTSEnabled = false;
   bool _isDragging = false;
 
   @override
   void initState() {
     super.initState();
 
-    // Initialize the video controller
+    // Initialize TTS
+    flutterTts = FlutterTts();
+
+    // Initialize video controller
     _videoController = VideoPlayerController.asset(
       'assets/videos/heredidty/heredity5.mp4',
     )..initialize().then((_) {
@@ -40,7 +46,22 @@ class _Heredity_Topic_5_2_1State extends State<Heredity_Topic_5_2_1> {
   void dispose() {
     _sliderTimer?.cancel();
     _videoController.dispose();
+    flutterTts.stop();
     super.dispose();
+  }
+
+  Future<void> speakText() async {
+    if (isTTSEnabled) {
+      String content = '''
+Budding is a form of asexual reproduction in which a new organism develops from an outgrowth called bud that grows in a specific site in the body of a matured or older species. Buds develop due to repeated cell division. Buds form if the food is abundant in the area where the organism lives. The new organism will only detach from the parent organism when it is mature and ready to live by itself. Budding is observed among yeast cells (Saccharomyces cerevisiae) and in multicellular animals like the hydra.
+Binary fission is the simplest form of asexual reproduction and the most common among single-celled organisms. It involves the replication of the genetic material and the subsequent division or splitting of the cell into two genetically identical daughter cells. Binary fission may be transverse, wherein the cell divides across a short axis, or longitudinal, in which the cell divides across a long axis or random (no axis involved).
+''';
+      await flutterTts.speak(content);
+    }
+  }
+
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
   }
 
   @override
@@ -49,6 +70,7 @@ class _Heredity_Topic_5_2_1State extends State<Heredity_Topic_5_2_1> {
 
     return WillPopScope(
       onWillPop: () async {
+        stopTextToSpeech();
         if (_videoController.value.isPlaying) _videoController.pause();
         Navigator.push(
           context,
@@ -128,6 +150,7 @@ class _Heredity_Topic_5_2_1State extends State<Heredity_Topic_5_2_1> {
                         icon: Icon(Icons.arrow_back_ios),
                         color: Colors.white,
                         onPressed: () {
+                          stopTextToSpeech();
                           if (_videoController.value.isPlaying) {
                             _videoController.pause();
                           }
@@ -137,6 +160,24 @@ class _Heredity_Topic_5_2_1State extends State<Heredity_Topic_5_2_1> {
                         },
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isTTSEnabled = !isTTSEnabled;
+                            if (isTTSEnabled) {
+                              speakText();
+                            } else {
+                              stopTextToSpeech();
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate(
@@ -953,6 +994,7 @@ class _Heredity_Topic_5_2_1State extends State<Heredity_Topic_5_2_1> {
                     padding: const EdgeInsets.only(left: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -969,6 +1011,7 @@ class _Heredity_Topic_5_2_1State extends State<Heredity_Topic_5_2_1> {
                     padding: const EdgeInsets.only(right: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         globalVariables.setTopic('lesson5', 6, true);
                         Navigator.push(
                           context,

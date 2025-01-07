@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:capstone/globals/global_variables_notifier.dart';
 import 'package:video_player/video_player.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'dart:async';
 
 class Bacteria_Topic_4_1_5 extends StatefulWidget {
@@ -14,8 +15,10 @@ class Bacteria_Topic_4_1_5 extends StatefulWidget {
 
 class _Bacteria_Topic_4_1_5State extends State<Bacteria_Topic_4_1_5> {
   late VideoPlayerController _videoController;
+  late FlutterTts flutterTts;
   Timer? _sliderTimer;
   bool _isDragging = false;
+  bool isTTSEnabled = false;
 
   @override
   void initState() {
@@ -27,6 +30,9 @@ class _Bacteria_Topic_4_1_5State extends State<Bacteria_Topic_4_1_5> {
     )..initialize().then((_) {
         setState(() {});
       });
+
+    // Initialize TTS
+    flutterTts = FlutterTts();
 
     // Start timer to update the slider
     _sliderTimer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
@@ -40,7 +46,36 @@ class _Bacteria_Topic_4_1_5State extends State<Bacteria_Topic_4_1_5> {
   void dispose() {
     _sliderTimer?.cancel();
     _videoController.dispose();
+    flutterTts.stop();
     super.dispose();
+  }
+
+  Future<void> speakText() async {
+    if (isTTSEnabled) {
+      String content = '''
+      The preceding discussions provided information concerning the beneficial effects of bacteria. 
+      This part will now discuss the harmful effects of bacteria. Since bacteria cause 90 percent of the known diseases that afflict humans, 
+      it is important that you know some of them to employ proper health measures. 
+      Examples of harmful bacteria include:
+      - Saprotrophic bacteria acting on food items, causing them to become unfit for eating.
+      - Staphylococcus aureus secreting toxins that lead to food poisoning.
+      - Spirochaete cytophaga causing deterioration of wood and leather.
+      Additionally, diseases caused by pathogenic bacteria include:
+      - Tuberculosis (Mycobacterium tuberculosis),
+      - Leprosy (Mycobacterium leprae),
+      - Typhoid (Bacillus typhosus),
+      - Tetanus (Clostridium tetani),
+      - Pneumonia (Diplococcus pneumoniae),
+      - Cholera (Vibrio cholera),
+      - Syphilis (Treponema pallidum), and
+      - Furuncles and carbuncles (Staphylococcus aureus).
+      ''';
+      await flutterTts.speak(content);
+    }
+  }
+
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
   }
 
   @override
@@ -50,6 +85,7 @@ class _Bacteria_Topic_4_1_5State extends State<Bacteria_Topic_4_1_5> {
     return WillPopScope(
       onWillPop: () async {
         if (_videoController.value.isPlaying) _videoController.pause();
+        stopTextToSpeech();
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -131,12 +167,31 @@ class _Bacteria_Topic_4_1_5State extends State<Bacteria_Topic_4_1_5> {
                           if (_videoController.value.isPlaying) {
                             _videoController.pause();
                           }
+                          stopTextToSpeech();
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => Bacteria_Screen(),
                           ));
                         },
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isTTSEnabled = !isTTSEnabled;
+                            if (isTTSEnabled) {
+                              speakText();
+                            } else {
+                              stopTextToSpeech();
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate(
@@ -371,39 +426,35 @@ class _Bacteria_Topic_4_1_5State extends State<Bacteria_Topic_4_1_5> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15.0),
-                    child: FloatingActionButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Bacteria_Topic_4_1_4(),
-                          ),
-                        );
-                      },
-                      heroTag: 'prevBtn',
-                      child: Icon(Icons.navigate_before, color: Colors.white),
-                      backgroundColor: Color(0xFFFF6A6A),
-                    ),
+                  FloatingActionButton(
+                    onPressed: () {
+                      stopTextToSpeech();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Bacteria_Topic_4_1_4(),
+                        ),
+                      );
+                    },
+                    heroTag: 'prevBtn',
+                    child: Icon(Icons.navigate_before, color: Colors.white),
+                    backgroundColor: Color(0xFFFF6A6A),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 15.0),
-                    child: FloatingActionButton(
-                      onPressed: () {
-                        globalVariables.setTopic('lesson4', 7, true);
+                  FloatingActionButton(
+                    onPressed: () {
+                      stopTextToSpeech();
+                      globalVariables.setTopic('lesson4', 7, true);
 
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Bacteria_Topic_4_2(),
-                          ),
-                        );
-                      },
-                      heroTag: 'nextBtn',
-                      child: Icon(Icons.navigate_next, color: Colors.white),
-                      backgroundColor: Color(0xFFFF6A6A),
-                    ),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Bacteria_Topic_4_2(),
+                        ),
+                      );
+                    },
+                    heroTag: 'nextBtn',
+                    child: Icon(Icons.navigate_next, color: Colors.white),
+                    backgroundColor: Color(0xFFFF6A6A),
                   ),
                 ],
               ),
@@ -455,10 +506,7 @@ class _Bacteria_Topic_4_1_5State extends State<Bacteria_Topic_4_1_5> {
               ),
             ),
             Text(
-              "${controller.value.position.inMinutes}:${(controller.value.position.inSeconds % 60).toString().padLeft(2, '0')}",
-            ),
-            Text(
-              " / ${controller.value.duration.inMinutes}:${(controller.value.duration.inSeconds % 60).toString().padLeft(2, '0')}",
+              "${controller.value.position.inMinutes}:${(controller.value.position.inSeconds % 60).toString().padLeft(2, '0')} / ${controller.value.duration.inMinutes}:${(controller.value.duration.inSeconds % 60).toString().padLeft(2, '0')}",
             ),
           ],
         ),

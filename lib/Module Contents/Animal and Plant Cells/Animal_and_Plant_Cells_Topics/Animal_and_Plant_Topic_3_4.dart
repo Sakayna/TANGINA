@@ -2,17 +2,49 @@ import 'package:capstone/Module%20Contents/Animal%20and%20Plant%20Cells/Animal_a
 import 'package:capstone/Module%20Contents/Animal%20and%20Plant%20Cells/Animal_and_Plant_Cells_Topics/Animal_and_Plant_Topic_3_3.dart';
 import 'package:capstone/categories/animal_and_plant_screen.dart';
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
 import 'package:capstone/globals/global_variables_notifier.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
-class Animal_and_Plant_Topic_3_4 extends StatelessWidget {
+class Animal_and_Plant_Topic_3_4 extends StatefulWidget {
+  @override
+  _Animal_and_Plant_Topic_3_4State createState() =>
+      _Animal_and_Plant_Topic_3_4State();
+}
+
+class _Animal_and_Plant_Topic_3_4State
+    extends State<Animal_and_Plant_Topic_3_4> {
+  final FlutterTts flutterTts = FlutterTts();
+  bool isTTSEnabled = false; // TTS toggle state
+
+  // Function to handle text-to-speech
+  Future<void> speakText() async {
+    if (isTTSEnabled) {
+      String content = '''
+      Cells are the basic structural units of life. You have seen the shapes of the plant and animal cells. However, shapes of cells can vary widely. Cells have different shapes because they do different things. Their shapes enable them to perform the task assigned to them properly and efficiently. There are more than 200 different shapes and sizes of cells in your body doing many different jobs.
+      ''';
+      await flutterTts.speak(content);
+    }
+  }
+
+  // Function to stop TTS
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
+  }
+
+  @override
+  void dispose() {
+    stopTextToSpeech(); // Stop TTS when widget is disposed
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var globalVariables = Provider.of<GlobalVariables>(context);
 
     return WillPopScope(
       onWillPop: () async {
+        stopTextToSpeech(); // Stop TTS when navigating back
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -29,8 +61,7 @@ class Animal_and_Plant_Topic_3_4 extends StatelessWidget {
               child: CustomScrollView(
                 slivers: [
                   SliverAppBar(
-                    backgroundColor:
-                        Color(0xFFA1C084), // Background color of appbar
+                    backgroundColor: Color(0xFFA1C084), // Background color
                     floating: false,
                     pinned: false,
                     snap: false,
@@ -39,52 +70,44 @@ class Animal_and_Plant_Topic_3_4 extends StatelessWidget {
                       builder: (context, constraints) {
                         final isTop = constraints.biggest.height <=
                             kToolbarHeight + 16.0; // Margin size
-
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             if (!isTop) ...[
-                              // Only show when expanded (not at the top)
                               Padding(
                                 padding: const EdgeInsets.only(
                                     top: 25.0, left: 50.0), // Add left padding
                                 child: Text(
-                                  'Animal and Plant Cells', // Title text for the appbar
+                                  'Animal and Plant Cells', // Title
                                   style: TextStyle(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.normal,
-                                    color:
-                                        Colors.white, // Set text color to white
+                                    color: Colors.white, // Set text color
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                  height: 5), // Adjusted spacing between texts
+                              SizedBox(height: 5),
                               Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 50.0), // Add left padding
+                                padding: const EdgeInsets.only(left: 50.0),
                                 child: Text(
-                                  'Topics', // Subtitle text for the appbar
+                                  'Topics', // Subtitle
                                   style: TextStyle(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.w600,
-                                    color:
-                                        Colors.white, // Set text color to white
+                                    color: Colors.white, // Set text color
                                   ),
                                 ),
                               ),
                               SizedBox(height: 5),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 50.0,
-                                    right: 18.0), // Add left padding
+                                    left: 50.0, right: 18.0),
                                 child: Text(
-                                  '3.4: Shape of Cells', // Additional text for the appbar
+                                  '3.4: Shape of Cells', // Additional text
                                   style: TextStyle(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.w600,
-                                    color:
-                                        Colors.white, // Set text color to white
+                                    color: Colors.white, // Set text color
                                   ),
                                 ),
                               ),
@@ -94,19 +117,36 @@ class Animal_and_Plant_Topic_3_4 extends StatelessWidget {
                       },
                     ),
                     leading: Padding(
-                      padding: const EdgeInsets.only(
-                        top: 20, // Adjusted top padding of the leading icon
-                      ),
+                      padding: const EdgeInsets.only(top: 20),
                       child: IconButton(
                         icon: Icon(Icons.arrow_back_ios),
-                        color: Colors.white, // Back button icon color
+                        color: Colors.white, // Icon color
                         onPressed: () {
+                          stopTextToSpeech(); // Stop TTS
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => Animal_and_Plant_Screen(),
                           ));
                         },
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isTTSEnabled = !isTTSEnabled;
+                            if (isTTSEnabled) {
+                              speakText();
+                            } else {
+                              stopTextToSpeech();
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate(
@@ -438,18 +478,17 @@ class Animal_and_Plant_Topic_3_4 extends StatelessWidget {
               ),
             ),
             Container(
-              color: Colors.white, // Set the background color to white
-              width: double.infinity, // Set the width to fill the screen
-              padding: EdgeInsets.symmetric(
-                  vertical: 16.0), // Add padding vertically
+              color: Colors.white, // Set background color
+              width: double.infinity, // Full screen width
+              padding: EdgeInsets.symmetric(vertical: 16.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(
-                        left: 15.0), // Adjusted left padding
+                    padding: const EdgeInsets.only(left: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech(); // Stop TTS
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -458,18 +497,15 @@ class Animal_and_Plant_Topic_3_4 extends StatelessWidget {
                         );
                       },
                       heroTag: 'prevBtn',
-                      child: Icon(
-                        Icons.navigate_before,
-                        color: Colors.white, // Set icon color to white
-                      ),
+                      child: Icon(Icons.navigate_before, color: Colors.white),
                       backgroundColor: Color(0xFFA1C084),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(
-                        right: 15.0), // Adjusted right padding
+                    padding: const EdgeInsets.only(right: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech(); // Stop TTS
                         globalVariables.setTopic('lesson3', 5, true);
 
                         Navigator.push(
@@ -480,10 +516,7 @@ class Animal_and_Plant_Topic_3_4 extends StatelessWidget {
                         );
                       },
                       heroTag: 'nextBtn',
-                      child: Icon(
-                        Icons.navigate_next,
-                        color: Colors.white,
-                      ),
+                      child: Icon(Icons.navigate_next, color: Colors.white),
                       backgroundColor: Color(0xFFA1C084),
                     ),
                   ),

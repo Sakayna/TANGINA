@@ -1,10 +1,10 @@
 import 'package:capstone/Module%20Contents/Ecosystem/Ecosystem_TLA/Ecosystem_TLA_6_1.dart';
 import 'package:capstone/Module%20Contents/Ecosystem/Ecosystem_Topics/Ecosystem_Topic_6_4_3.dart';
 import 'package:capstone/categories/ecosystem.dart';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'dart:async';
 import 'package:capstone/globals/global_variables_notifier.dart';
 
@@ -15,9 +15,32 @@ class Ecosystem_Topic_6_5 extends StatefulWidget {
 
 class _Ecosystem_Topic_6_5State extends State<Ecosystem_Topic_6_5> {
   late VideoPlayerController _videoController;
+  late FlutterTts flutterTts;
   Timer? _sliderTimer;
   bool _isDragging = false;
+  bool isTTSEnabled = false;
 
+  String content = '''
+In Lesson 2, you learned that energy is needed by all living things in performing various life functions. You also learned that food is the source of energy for all living things. Living things vary in terms of how they acquire or obtain food. Autotrophs make their own food. Heterotrophs use plants and other animals as sources of food. In obtaining food, various methods of feeding evolved among heterotrophs. In obtaining food, various relationships or interactions are manifested by living things in their pursuit to survive.
+Interactions among living things fall into two distinct categories: intraspecific and interspecific.
+Intraspecific interaction exists between individuals of the same species (e.g. a dog and another dog). nterspecific interaction, 
+on the other hand, exists between individuals of different species (e.g. cat and mouse). The interactions vary in terms of strength, duration, and effects.
+Symbiotic relationships 
+This type of interaction occurs when the two participating organisms live closely together for a certain period of time (protocooperation) or when they cannot be separated, so they have to completely live together throughout their lifetime (endosymbiosis).
+ Mutualism
+ is an interaction wherein both participating organisms benefit from their association. 
+ Butterfly pollinating a flower - The butterfly obtains nectar from the flower. The pollen of the flower is being scattered.
+ A carabao with a heron at its back - The bird gets a free ride so it conserves its energy and feeds on the parasites on the hair of the carabao. The carabao is freed from parasites.
+ An alga and a fungus species living together as lichen - The alga photosynthesizes and the product of the process is absorbed by the fungus as a source of nourishment. The alga is protected from drying by living in between the filaments of the fungus.
+ A termite with a flagellated protozoan (Trichonympha campanula) living in its gut - The protozoan digests the wood that the termite eats. Without the protozoan, the termite will die of starvation for it lacks the enzymes that digest cellulose from wood. The protozoan benefits in having a home and food source.
+ In the last two examples, the participating organisms (alga and fungus, termite and protozoan) cannot be separated. One cannot exist without the other. These two are examples of endosymbiosis
+ 
+
+
+
+
+
+''';
   @override
   void initState() {
     super.initState();
@@ -35,12 +58,26 @@ class _Ecosystem_Topic_6_5State extends State<Ecosystem_Topic_6_5> {
         setState(() {});
       }
     });
+
+    // Initialize FlutterTTS
+    flutterTts = FlutterTts();
+  }
+
+  Future<void> speakText() async {
+    if (isTTSEnabled) {
+      await flutterTts.speak(content);
+    }
+  }
+
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
   }
 
   @override
   void dispose() {
     _sliderTimer?.cancel();
     _videoController.dispose();
+    flutterTts.stop();
     super.dispose();
   }
 
@@ -50,6 +87,7 @@ class _Ecosystem_Topic_6_5State extends State<Ecosystem_Topic_6_5> {
 
     return WillPopScope(
       onWillPop: () async {
+        stopTextToSpeech();
         if (_videoController.value.isPlaying) _videoController.pause();
         Navigator.push(
           context,
@@ -129,6 +167,7 @@ class _Ecosystem_Topic_6_5State extends State<Ecosystem_Topic_6_5> {
                         icon: Icon(Icons.arrow_back_ios),
                         color: Colors.white,
                         onPressed: () {
+                          stopTextToSpeech();
                           if (_videoController.value.isPlaying) {
                             _videoController.pause();
                           }
@@ -138,6 +177,24 @@ class _Ecosystem_Topic_6_5State extends State<Ecosystem_Topic_6_5> {
                         },
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isTTSEnabled = !isTTSEnabled;
+                            if (isTTSEnabled) {
+                              speakText();
+                            } else {
+                              stopTextToSpeech();
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate(
@@ -1211,6 +1268,7 @@ class _Ecosystem_Topic_6_5State extends State<Ecosystem_Topic_6_5> {
                     padding: const EdgeInsets.only(left: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -1227,6 +1285,7 @@ class _Ecosystem_Topic_6_5State extends State<Ecosystem_Topic_6_5> {
                     padding: const EdgeInsets.only(right: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         globalVariables.setTopic('lesson6', 11, true);
                         Navigator.push(
                           context,

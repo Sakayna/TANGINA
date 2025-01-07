@@ -4,6 +4,7 @@ import 'package:capstone/categories/heredity.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:capstone/globals/global_variables_notifier.dart';
 import 'dart:async';
 
@@ -14,8 +15,10 @@ class Heredity_Topic_5_1_2 extends StatefulWidget {
 
 class _Heredity_Topic_5_1_2State extends State<Heredity_Topic_5_1_2> {
   late VideoPlayerController _videoController;
+  late FlutterTts flutterTts;
   Timer? _sliderTimer;
   bool _isDragging = false;
+  bool isTTSEnabled = false;
 
   @override
   void initState() {
@@ -27,6 +30,9 @@ class _Heredity_Topic_5_1_2State extends State<Heredity_Topic_5_1_2> {
     )..initialize().then((_) {
         setState(() {});
       });
+
+    // Initialize TTS
+    flutterTts = FlutterTts();
 
     // Start timer to update the slider
     _sliderTimer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
@@ -40,7 +46,49 @@ class _Heredity_Topic_5_1_2State extends State<Heredity_Topic_5_1_2> {
   void dispose() {
     _sliderTimer?.cancel();
     _videoController.dispose();
+    flutterTts.stop();
     super.dispose();
+  }
+
+  Future<void> speakText() async {
+    if (isTTSEnabled) {
+      String content = '''
+Most unicellular organisms reproduce asexually by simple cell division (by mitosis). 
+Details of this will be discussed in the following sections. 
+However, in very rare cases, they also reproduce through sexual methods. 
+Sexual reproduction among unicellular organisms differs from the sexual reproduction that transpires in eukaryotes. 
+Among unicellular organisms, sexual reproduction involves the exchange of genetic information (DNA) between two organisms belonging to the same species. 
+Exchanging of genetic information happens through the process of genetic recombination, 
+a method that is likened to sexual reproduction. 
+Three processes of genetic recombination had been observed by microbiologists among bacteria: conjugation, transformation, and transduction.
+
+Conjugation is the process by which two bacteria join and exchange or swap genetic materials. 
+The structure involved in the exchange of genetic materials is the part of the bacterial cell called sex pilus. 
+The pilus connects the two bacterial cells together to allow the transfer of the genes (DNA) that carry the trait antibiotic resistance from the donor cell to the recipient cell. 
+After picking up the genetic material, the pilus is retracted. 
+The bacteria separate, and each will undergo binary fission. 
+The recipient cell now would produce daughter cells that carry the newly acquired trait.
+
+Transformation is the process by which bacteria pick up DNA from their environment. 
+The DNA comes from various sources, but most often, it comes from the remains of other bacterial cells. 
+The bacterial cell comes in contact with the dead bacterial cell. 
+Then the DNA of the dead bacterial cell is transported via the plasma membrane and incorporated into the genetic material of the living bacterial cell by transport machinery, which are usually enzymes. 
+The new DNA will simply replace a portion of the DNA of the living bacterial cell. 
+The replacement will alter the nature of the original DNA; thus, a transformation of its original nature occurs. 
+The host bacteria will undergo binary fission, producing bacteria with a different genetic makeup.
+
+Transduction involves the exchange of DNA between bacteria through bacteriophages that function as the intermediates. 
+Bacteriophages are viruses that attack or infect bacteria. 
+A bacteriophage attaches to the bacterial cell and inserts its DNA into the bacterial cell. 
+The DNA of the virus undergoes replication several times within the host bacterial cell. 
+The newly replicated viral DNA molecules become enclosed within a protein coat (capsid). 
+As the bacteria die, the cells burst open (lyse), releasing the capsids containing new viral DNA molecules, which are ready to infect other bacterial cells.''';
+      await flutterTts.speak(content);
+    }
+  }
+
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
   }
 
   @override
@@ -50,6 +98,7 @@ class _Heredity_Topic_5_1_2State extends State<Heredity_Topic_5_1_2> {
     return WillPopScope(
       onWillPop: () async {
         if (_videoController.value.isPlaying) _videoController.pause();
+        stopTextToSpeech();
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -131,12 +180,31 @@ class _Heredity_Topic_5_1_2State extends State<Heredity_Topic_5_1_2> {
                           if (_videoController.value.isPlaying) {
                             _videoController.pause();
                           }
+                          stopTextToSpeech();
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => Heredity_Screen(),
                           ));
                         },
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isTTSEnabled = !isTTSEnabled;
+                            if (isTTSEnabled) {
+                              speakText();
+                            } else {
+                              stopTextToSpeech();
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate(
@@ -363,6 +431,7 @@ class _Heredity_Topic_5_1_2State extends State<Heredity_Topic_5_1_2> {
                     padding: const EdgeInsets.only(left: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -379,6 +448,7 @@ class _Heredity_Topic_5_1_2State extends State<Heredity_Topic_5_1_2> {
                     padding: const EdgeInsets.only(right: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         globalVariables.setTopic('lesson5', 4, true);
 
                         Navigator.push(

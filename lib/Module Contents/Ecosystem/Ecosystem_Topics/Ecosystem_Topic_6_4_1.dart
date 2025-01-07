@@ -4,6 +4,7 @@ import 'package:capstone/categories/ecosystem.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'dart:async';
 import 'package:capstone/globals/global_variables_notifier.dart';
 
@@ -14,32 +15,52 @@ class Ecosystem_Topic_6_4_1 extends StatefulWidget {
 
 class _Ecosystem_Topic_6_4_1State extends State<Ecosystem_Topic_6_4_1> {
   late VideoPlayerController _videoController;
+  late FlutterTts flutterTts;
   Timer? _sliderTimer;
   bool _isDragging = false;
+  bool isTTSEnabled = false;
+
+  String content = '''
+Energy enters the living system in the form of light. Light is trapped by producers (autotrophs), and it is used in making food. Through photosynthesis, the producers become the primary sources of food and energy in the ecosystem. The flow of energy in the ecosystem begins when the producers are eaten by the herbivores. The herbivores are eaten by the carnivores, and decomposers act on the dead remains and waste products that are produced at all levels. This series of eating and being eaten is called the food chain. A food chain shows how each living thing obtains food and how nutrients and energy are passed on from one organism to another.
+''';
 
   @override
   void initState() {
     super.initState();
 
-    // Initialize the video controller
+    // Initialize video player
     _videoController = VideoPlayerController.asset(
       'assets/videos/ecosystem/eco8.mp4',
     )..initialize().then((_) {
         setState(() {});
       });
 
-    // Timer to update slider
+    // Timer to update the video slider
     _sliderTimer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
       if (!_isDragging && _videoController.value.isInitialized) {
         setState(() {});
       }
     });
+
+    // Initialize TTS
+    flutterTts = FlutterTts();
+  }
+
+  Future<void> speakText() async {
+    if (isTTSEnabled) {
+      await flutterTts.speak(content);
+    }
+  }
+
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
   }
 
   @override
   void dispose() {
     _sliderTimer?.cancel();
     _videoController.dispose();
+    flutterTts.stop();
     super.dispose();
   }
 
@@ -49,6 +70,7 @@ class _Ecosystem_Topic_6_4_1State extends State<Ecosystem_Topic_6_4_1> {
 
     return WillPopScope(
       onWillPop: () async {
+        stopTextToSpeech();
         if (_videoController.value.isPlaying) _videoController.pause();
         Navigator.push(
           context,
@@ -128,6 +150,7 @@ class _Ecosystem_Topic_6_4_1State extends State<Ecosystem_Topic_6_4_1> {
                         icon: Icon(Icons.arrow_back_ios),
                         color: Colors.white,
                         onPressed: () {
+                          stopTextToSpeech();
                           if (_videoController.value.isPlaying) {
                             _videoController.pause();
                           }
@@ -137,6 +160,24 @@ class _Ecosystem_Topic_6_4_1State extends State<Ecosystem_Topic_6_4_1> {
                         },
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isTTSEnabled = !isTTSEnabled;
+                            if (isTTSEnabled) {
+                              speakText();
+                            } else {
+                              stopTextToSpeech();
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate(
@@ -151,48 +192,30 @@ class _Ecosystem_Topic_6_4_1State extends State<Ecosystem_Topic_6_4_1> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    WidgetSpan(
-                                      child: SizedBox(
-                                        width: 40,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          'Energy enters the living system in the form of light. Light is trapped by producers (autotrophs), and it is used in making food. Through photosynthesis, the producers become the primary sources of food and energy in the ecosystem. The flow of energy in the ecosystem begins when the producers are eaten by the herbivores. The herbivores are eaten by the carnivores, and decomposers act on the dead remains and waste products that are produced at all levels. This series of eating and being eaten is called the food chain (Figure 5.13). A food chain shows how each living thing obtains food and how nutrients and energy are passed on from one organism to another.',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
+                              Text(
+                                content,
+                                style: TextStyle(fontSize: 14),
                                 textAlign: TextAlign.justify,
                               ),
+                              SizedBox(height: 20),
                               Padding(
-                                padding: EdgeInsets.only(
-                                    left: 18.0), // Add left padding
+                                padding: EdgeInsets.only(left: 18.0),
                                 child: Container(
-                                  width: 400, // Adjust width as needed
-                                  height: 300, // Adjust height as needed
+                                  width: 400,
+                                  height: 300,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Image.asset(
-                                        'assets/images/ecosystem/food chain.jpg', // Updated image path
-                                        height: 200, // Adjust height as needed
-                                        width: 400, // Adjust width as needed
-                                        fit: BoxFit
-                                            .contain, // Ensure the image is fully visible
+                                        'assets/images/ecosystem/food chain.jpg',
+                                        height: 200,
+                                        width: 400,
+                                        fit: BoxFit.contain,
                                       ),
-                                      SizedBox(
-                                          height:
-                                              10), // Add spacing between the image and text
+                                      SizedBox(height: 10),
                                       Text(
-                                        'An example of a food chain', // Your text here
-                                        style: TextStyle(
-                                          fontSize:
-                                              14, // Adjust font size as needed
-                                        ),
+                                        'An example of a food chain',
+                                        style: TextStyle(fontSize: 14),
                                       ),
                                     ],
                                   ),
@@ -220,7 +243,6 @@ class _Ecosystem_Topic_6_4_1State extends State<Ecosystem_Topic_6_4_1> {
                                   color: Colors.black54,
                                 ),
                               ),
-                              // Add additional content here if needed
                             ],
                           ),
                         ),
@@ -241,6 +263,7 @@ class _Ecosystem_Topic_6_4_1State extends State<Ecosystem_Topic_6_4_1> {
                     padding: const EdgeInsets.only(left: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -257,6 +280,7 @@ class _Ecosystem_Topic_6_4_1State extends State<Ecosystem_Topic_6_4_1> {
                     padding: const EdgeInsets.only(right: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         globalVariables.setTopic('lesson6', 8, true);
                         Navigator.push(
                           context,

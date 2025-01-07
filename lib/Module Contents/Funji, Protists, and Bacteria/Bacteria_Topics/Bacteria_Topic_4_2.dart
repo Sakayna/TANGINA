@@ -1,11 +1,11 @@
 import 'package:capstone/Module%20Contents/Funji,%20Protists,%20and%20Bacteria/Bacteria_TLA/Bacteria_TLA_4_1.dart';
-import 'package:capstone/Module%20Contents/Funji,%20Protists,%20and%20Bacteria/Bacteria_Topics/Bacteria_Topic_4_1_1.dart';
 import 'package:capstone/Module%20Contents/Funji,%20Protists,%20and%20Bacteria/Bacteria_Topics/Bacteria_Topic_4_1_5.dart';
 import 'package:capstone/categories/bacteria_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:capstone/globals/global_variables_notifier.dart';
 import 'package:video_player/video_player.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'dart:async';
 
 class Bacteria_Topic_4_2 extends StatefulWidget {
@@ -15,8 +15,10 @@ class Bacteria_Topic_4_2 extends StatefulWidget {
 
 class _Bacteria_Topic_4_2State extends State<Bacteria_Topic_4_2> {
   late VideoPlayerController _videoController;
+  late FlutterTts flutterTts;
   Timer? _sliderTimer;
   bool _isDragging = false;
+  bool isTTSEnabled = false;
 
   @override
   void initState() {
@@ -28,6 +30,9 @@ class _Bacteria_Topic_4_2State extends State<Bacteria_Topic_4_2> {
     )..initialize().then((_) {
         setState(() {});
       });
+
+    // Initialize TTS
+    flutterTts = FlutterTts();
 
     // Start timer to update the slider
     _sliderTimer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
@@ -41,7 +46,26 @@ class _Bacteria_Topic_4_2State extends State<Bacteria_Topic_4_2> {
   void dispose() {
     _sliderTimer?.cancel();
     _videoController.dispose();
+    flutterTts.stop();
     super.dispose();
+  }
+
+  Future<void> speakText() async {
+    if (isTTSEnabled) {
+      String content = '''
+      Protists, just like fungi, plants, and animals, are eukaryotic organisms. 
+      This group consists of diverse groups of organisms that have different cellular structures, with different means of locomotion and belonging to different trophic levels. 
+      Protists consist mostly of unicellular organisms. There are multicellular members but with simple cellular organization because they lack specialized tissues. 
+      Based on their slight similarities to the organisms of the other three kingdoms, they are subdivided into three distinct groups: 
+      the animal-like protists, the plant-like protists, and the fungus-like protists. 
+      This section introduces the protists that affect humans and other organisms, including disease-causing and beneficial protists.
+      ''';
+      await flutterTts.speak(content);
+    }
+  }
+
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
   }
 
   @override
@@ -51,6 +75,7 @@ class _Bacteria_Topic_4_2State extends State<Bacteria_Topic_4_2> {
     return WillPopScope(
       onWillPop: () async {
         if (_videoController.value.isPlaying) _videoController.pause();
+        stopTextToSpeech();
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -132,12 +157,31 @@ class _Bacteria_Topic_4_2State extends State<Bacteria_Topic_4_2> {
                           if (_videoController.value.isPlaying) {
                             _videoController.pause();
                           }
+                          stopTextToSpeech();
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => Bacteria_Screen(),
                           ));
                         },
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isTTSEnabled = !isTTSEnabled;
+                            if (isTTSEnabled) {
+                              speakText();
+                            } else {
+                              stopTextToSpeech();
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate(
@@ -862,39 +906,35 @@ class _Bacteria_Topic_4_2State extends State<Bacteria_Topic_4_2> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15.0),
-                    child: FloatingActionButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Bacteria_Topic_4_1_5(),
-                          ),
-                        );
-                      },
-                      heroTag: 'prevBtn',
-                      child: Icon(Icons.navigate_before, color: Colors.white),
-                      backgroundColor: Color(0xFFFF6A6A),
-                    ),
+                  FloatingActionButton(
+                    onPressed: () {
+                      stopTextToSpeech();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Bacteria_Topic_4_1_5(),
+                        ),
+                      );
+                    },
+                    heroTag: 'prevBtn',
+                    child: Icon(Icons.navigate_before, color: Colors.white),
+                    backgroundColor: Color(0xFFFF6A6A),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 15.0),
-                    child: FloatingActionButton(
-                      onPressed: () {
-                        globalVariables.setTopic('lesson4', 8, true);
+                  FloatingActionButton(
+                    onPressed: () {
+                      stopTextToSpeech();
+                      globalVariables.setTopic('lesson4', 8, true);
 
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Bacteria_TLA_4_1(),
-                          ),
-                        );
-                      },
-                      heroTag: 'nextBtn',
-                      child: Icon(Icons.navigate_next, color: Colors.white),
-                      backgroundColor: Color(0xFFFF6A6A),
-                    ),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Bacteria_TLA_4_1(),
+                        ),
+                      );
+                    },
+                    heroTag: 'nextBtn',
+                    child: Icon(Icons.navigate_next, color: Colors.white),
+                    backgroundColor: Color(0xFFFF6A6A),
                   ),
                 ],
               ),
@@ -946,10 +986,7 @@ class _Bacteria_Topic_4_2State extends State<Bacteria_Topic_4_2> {
               ),
             ),
             Text(
-              "${controller.value.position.inMinutes}:${(controller.value.position.inSeconds % 60).toString().padLeft(2, '0')}",
-            ),
-            Text(
-              " / ${controller.value.duration.inMinutes}:${(controller.value.duration.inSeconds % 60).toString().padLeft(2, '0')}",
+              "${controller.value.position.inMinutes}:${(controller.value.position.inSeconds % 60).toString().padLeft(2, '0')} / ${controller.value.duration.inMinutes}:${(controller.value.duration.inSeconds % 60).toString().padLeft(2, '0')}",
             ),
           ],
         ),

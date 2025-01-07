@@ -3,14 +3,47 @@ import 'package:capstone/categories/bacteria_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:capstone/globals/global_variables_notifier.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
-class Bacteria_ILO_Screen extends StatelessWidget {
+class Bacteria_ILO_Screen extends StatefulWidget {
+  @override
+  _Bacteria_ILO_ScreenState createState() => _Bacteria_ILO_ScreenState();
+}
+
+class _Bacteria_ILO_ScreenState extends State<Bacteria_ILO_Screen> {
+  final FlutterTts flutterTts = FlutterTts();
+  bool isTTSEnabled = false;
+
+  // Text-to-Speech function
+  Future<void> speakText() async {
+    if (isTTSEnabled) {
+      String content = '''
+      ILO: 
+      At the end of this lesson, students should attain the following: 
+      Identify beneficial and harmful microorganisms.
+      ''';
+      await flutterTts.speak(content);
+    }
+  }
+
+  // Stop TTS
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
+  }
+
+  @override
+  void dispose() {
+    stopTextToSpeech(); // Stop TTS when widget is disposed
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var globalVariables = Provider.of<GlobalVariables>(context);
 
     return WillPopScope(
       onWillPop: () async {
+        stopTextToSpeech(); // Stop TTS when navigating back
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -23,60 +56,56 @@ class Bacteria_ILO_Screen extends StatelessWidget {
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
-              backgroundColor: Color(0xFFFF6A6A), // Background color of appbar
-              pinned: true, // Make the appbar pinned
-              expandedHeight: 120.0, // Height of the appbar
+              backgroundColor: Color(0xFFFF6A6A), // Appbar background color
+              pinned: true,
+              expandedHeight: 120.0,
               flexibleSpace: Padding(
                 padding: const EdgeInsets.only(
                   top: 10,
-                  left: 50, // Adjusted left padding
-                  right: 10, // Adjusted right padding
+                  left: 50,
+                  right: 10,
                   bottom: 16,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment:
-                      MainAxisAlignment.end, // Align title at the bottom
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      'Funji, Protists, and Bacteria', // Title text for the appbar
+                      'Funji, Protists, and Bacteria',
                       style: TextStyle(
                         fontSize: 12.0,
                         fontWeight: FontWeight.normal,
-                        color: Colors.white, // Set text color to white
-                      ),
-                    ),
-                    SizedBox(height: 5), // Adjusted spacing between texts
-                    Text(
-                      'Intended Learning Outcomes', // Subtitle text for the appbar
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white, // Set text color to white
+                        color: Colors.white,
                       ),
                     ),
                     SizedBox(height: 5),
-
                     Text(
-                      'ILO 4.1', // Additional text for the appbar
+                      'Intended Learning Outcomes',
                       style: TextStyle(
                         fontSize: 12.0,
                         fontWeight: FontWeight.w600,
-                        color: Colors.white, // Set text color to white
+                        color: Colors.white,
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      'ILO 4.1',
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
                       ),
                     ),
                   ],
                 ),
               ),
               leading: Padding(
-                padding: const EdgeInsets.only(
-                  top: 20, // Adjusted top padding of the leading icon
-                ),
+                padding: const EdgeInsets.only(top: 20),
                 child: IconButton(
-                  icon: Icon(Icons.arrow_back_ios), // Back button icon
-                  color: Colors.white, // Back button icon
-
+                  icon: Icon(Icons.arrow_back_ios),
+                  color: Colors.white,
                   onPressed: () {
+                    stopTextToSpeech(); // Stop TTS
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -86,6 +115,24 @@ class Bacteria_ILO_Screen extends StatelessWidget {
                   },
                 ),
               ),
+              actions: [
+                IconButton(
+                  icon: Icon(
+                    isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isTTSEnabled = !isTTSEnabled;
+                      if (isTTSEnabled) {
+                        speakText();
+                      } else {
+                        stopTextToSpeech();
+                      }
+                    });
+                  },
+                ),
+              ],
             ),
             SliverList(
               delegate: SliverChildListDelegate(
@@ -96,7 +143,7 @@ class Bacteria_ILO_Screen extends StatelessWidget {
                       30.0,
                       25.0,
                       80.0,
-                    ), // Padding for content
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -107,8 +154,9 @@ class Bacteria_ILO_Screen extends StatelessWidget {
                         ),
                         SizedBox(height: 16),
                         Text(
-                            '• identify beneficial and harmful microorganisms;',
-                            style: TextStyle(fontSize: 14)),
+                          '• Identify beneficial and harmful microorganisms;',
+                          style: TextStyle(fontSize: 14),
+                        ),
                       ],
                     ),
                   ),
@@ -119,8 +167,8 @@ class Bacteria_ILO_Screen extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
+            stopTextToSpeech(); // Stop TTS
             globalVariables.setTopic('lesson4', 1, true);
-            // Navigate to Microscopy_Topic_1_1
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -130,13 +178,20 @@ class Bacteria_ILO_Screen extends StatelessWidget {
           },
           child: const Icon(
             Icons.navigate_next,
-            color: Colors.white, // Set icon color to white
+            color: Colors.white,
           ),
-          backgroundColor: Color(0xFFFF6A6A), // Button color set to hex #729B79
+          backgroundColor: Color(0xFFFF6A6A),
         ),
-        floatingActionButtonLocation:
-            FloatingActionButtonLocation.endFloat, // Positioning the button
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       ),
     );
   }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      body: Bacteria_ILO_Screen(),
+    ),
+  ));
 }

@@ -3,14 +3,47 @@ import 'package:capstone/categories/microscopy_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:capstone/globals/global_variables_notifier.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
-class MicroscopyILOScreen extends StatelessWidget {
+class MicroscopyILOScreen extends StatefulWidget {
+  @override
+  State<MicroscopyILOScreen> createState() => _MicroscopyILOScreenState();
+}
+
+class _MicroscopyILOScreenState extends State<MicroscopyILOScreen> {
+  final FlutterTts flutterTts = FlutterTts();
+  bool isTTSEnabled = false; // TTS enable/disable toggle
+
+  // Function to handle text-to-speech
+  Future<void> speakText() async {
+    if (isTTSEnabled) {
+      String content = '''
+        ILO: At the end of this lesson, students should attain the following:
+        • Identify parts of the microscope and their functions;
+        • Focus specimens using the compound microscope;
+      ''';
+      await flutterTts.speak(content);
+    }
+  }
+
+  // Function to stop text-to-speech
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
+  }
+
+  @override
+  void dispose() {
+    stopTextToSpeech(); // Ensure TTS stops when the widget is disposed
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var globalVariables = Provider.of<GlobalVariables>(context);
 
     return WillPopScope(
       onWillPop: () async {
+        stopTextToSpeech(); // Stop TTS when navigating back
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
@@ -57,7 +90,6 @@ class MicroscopyILOScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 5),
-
                     Text(
                       'ILO 1.1  I   Identify the parts of the microscope and their function', // Additional text for the appbar
                       style: TextStyle(
@@ -75,9 +107,9 @@ class MicroscopyILOScreen extends StatelessWidget {
                 ),
                 child: IconButton(
                   icon: Icon(Icons.arrow_back_ios), // Back button icon
-                  color: Colors.white, // Back button icon
-
+                  color: Colors.white,
                   onPressed: () {
+                    stopTextToSpeech(); // Stop TTS before navigating back
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -87,6 +119,24 @@ class MicroscopyILOScreen extends StatelessWidget {
                   },
                 ),
               ),
+              actions: [
+                IconButton(
+                  icon: Icon(
+                    isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isTTSEnabled = !isTTSEnabled;
+                      if (isTTSEnabled) {
+                        speakText(); // Start TTS when enabled
+                      } else {
+                        stopTextToSpeech(); // Stop TTS when disabled
+                      }
+                    });
+                  },
+                ),
+              ],
             ),
             SliverList(
               delegate: SliverChildListDelegate(
@@ -108,11 +158,14 @@ class MicroscopyILOScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 16),
                         Text(
-                            '• Identify parts of the microscope and their functions;',
-                            style: TextStyle(fontSize: 14)),
+                          '• Identify parts of the microscope and their functions;',
+                          style: TextStyle(fontSize: 14),
+                        ),
                         SizedBox(height: 12),
-                        Text('• Focus specimens using the compound microscope;',
-                            style: TextStyle(fontSize: 14)),
+                        Text(
+                          '• Focus specimens using the compound microscope;',
+                          style: TextStyle(fontSize: 14),
+                        ),
                       ],
                     ),
                   ),
@@ -122,9 +175,9 @@ class MicroscopyILOScreen extends StatelessWidget {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
+          onPressed: () async {
+            stopTextToSpeech(); // Stop TTS before navigating to the next page
             globalVariables.setTopic('lesson1', 1, true);
-            // Navigate to Microscopy_Topic_1_1
             Navigator.push(
               context,
               MaterialPageRoute(

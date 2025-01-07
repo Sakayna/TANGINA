@@ -4,6 +4,7 @@ import 'package:capstone/categories/ecosystem.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:capstone/globals/global_variables_notifier.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:video_player/video_player.dart';
 import 'dart:async';
 
@@ -16,6 +17,8 @@ class _Ecosystem_Topic_6_2_1State extends State<Ecosystem_Topic_6_2_1> {
   late VideoPlayerController _videoController;
   Timer? _sliderTimer;
   bool _isDragging = false;
+  late FlutterTts flutterTts;
+  bool isTTSEnabled = false;
 
   @override
   void initState() {
@@ -34,13 +37,32 @@ class _Ecosystem_Topic_6_2_1State extends State<Ecosystem_Topic_6_2_1> {
         setState(() {});
       }
     });
+
+    // Initialize FlutterTts
+    flutterTts = FlutterTts();
   }
 
   @override
   void dispose() {
     _sliderTimer?.cancel();
     _videoController.dispose();
+    flutterTts.stop();
     super.dispose();
+  }
+
+  Future<void> speakText() async {
+    if (isTTSEnabled) {
+      String content = '''
+Climatic factors pertain to the factors in the environment that affect the weather. These factors include light, temperature, water, and wind.
+Light is the visible portion of solar radiation. It is the primary source of energy in almost all ecosystems. This is the energy that is trapped by plants and used in the food manufacturing process (photosynthesis). 
+Wavelength, intensity, and duration are the factors of light that play an important part in any ecosystem.
+''';
+      await flutterTts.speak(content);
+    }
+  }
+
+  Future<void> stopTextToSpeech() async {
+    await flutterTts.stop();
   }
 
   @override
@@ -49,6 +71,7 @@ class _Ecosystem_Topic_6_2_1State extends State<Ecosystem_Topic_6_2_1> {
 
     return WillPopScope(
       onWillPop: () async {
+        stopTextToSpeech();
         if (_videoController.value.isPlaying) _videoController.pause();
         Navigator.push(
           context,
@@ -128,6 +151,7 @@ class _Ecosystem_Topic_6_2_1State extends State<Ecosystem_Topic_6_2_1> {
                         icon: Icon(Icons.arrow_back_ios),
                         color: Colors.white,
                         onPressed: () {
+                          stopTextToSpeech();
                           if (_videoController.value.isPlaying) {
                             _videoController.pause();
                           }
@@ -137,6 +161,24 @@ class _Ecosystem_Topic_6_2_1State extends State<Ecosystem_Topic_6_2_1> {
                         },
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          isTTSEnabled ? Icons.volume_up : Icons.volume_off,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isTTSEnabled = !isTTSEnabled;
+                            if (isTTSEnabled) {
+                              speakText();
+                            } else {
+                              stopTextToSpeech();
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate(
@@ -850,6 +892,7 @@ class _Ecosystem_Topic_6_2_1State extends State<Ecosystem_Topic_6_2_1> {
                     padding: const EdgeInsets.only(left: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -866,6 +909,7 @@ class _Ecosystem_Topic_6_2_1State extends State<Ecosystem_Topic_6_2_1> {
                     padding: const EdgeInsets.only(right: 15.0),
                     child: FloatingActionButton(
                       onPressed: () {
+                        stopTextToSpeech();
                         globalVariables.setTopic('lesson6', 4, true);
                         Navigator.push(
                           context,
