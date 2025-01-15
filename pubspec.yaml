@@ -438,6 +438,16 @@ flutter:
     - assets/AT images/week 7/
     - assets/AT images/week 9/
     - assets/AT images/week12/
+    - assets/lesson3/assets/blocks/new/biomes.gltf
+    - assets/lesson3/assets/blocks/new/biosphere.gltf
+    - assets/lesson3/assets/blocks/new/cells.gltf
+    - assets/lesson3/assets/blocks/new/community.gltf
+    - assets/lesson3/assets/blocks/new/ecosystem.gltf
+    - assets/lesson3/assets/blocks/new/organisms.gltf
+    - assets/lesson3/assets/blocks/new/organs.gltf
+    - assets/lesson3/assets/blocks/new/organsystem.gltf
+    - assets/lesson3/assets/blocks/new/population.gltf
+    - assets/lesson3/assets/blocks/new/tissues.gltf
 #    - assets/lesson7/assets/
 #    - assets/lesson7/lesson7Subitles/AT/
 #    - assets/lesson7/lesson7Subitles/TLA/

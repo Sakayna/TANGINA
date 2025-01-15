@@ -1227,56 +1227,85 @@ class _ModuleScreen1Page extends State<ModuleScreen1> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
+                          // Title
                           Text(
                             'Quiz Completed!',
                             style: TextStyle(
-                              fontSize: 24,
+                              fontSize: 24, // Increased font size
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
                             textAlign: TextAlign.center,
                           ),
-                          SizedBox(height: 10),
+
+                          SizedBox(height: 20),
+
+                          // Pass/Fail Image or Icon
+                          (correctAnswers - wrongAnswers) >= 7
+                              ? Image.asset(
+                                  'assets/lesson1&2/congratulation.png',
+                                  width: 120,
+                                  height: 120,
+                                )
+                              : Icon(
+                                  Icons.cancel_outlined,
+                                  color: Colors.red,
+                                  size: 120.0,
+                                ),
+
+                          SizedBox(height: 20),
+
+                          // Score Text (larger)
                           Text(
                             'Your Score: ${correctAnswers - wrongAnswers} / ${agendas.length}',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 24, // Increased font size
+                              fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
                             textAlign: TextAlign.center,
                           ),
+
                           SizedBox(height: 10),
+
+                          // Pass or Fail Text with Color
                           Text(
-                            correctAnswers - wrongAnswers >= 7
-                                ? 'You Passed!'
+                            (correctAnswers - wrongAnswers) >= 7
+                                ? 'Congratulations! You Passed!'
                                 : 'You Did Not Pass. Try Again.',
                             style: TextStyle(
-                              fontSize: 20,
-                              color: correctAnswers - wrongAnswers >= 7
+                              fontSize: 22, // Larger and bolder text
+                              fontWeight: FontWeight.bold,
+                              color: (correctAnswers - wrongAnswers) >= 7
                                   ? Colors.green
                                   : Colors.red,
                             ),
                             textAlign: TextAlign.center,
                           ),
+
                           SizedBox(height: 20),
+
+                          // Incorrect Answers List
                           if (wrongAgendas.isNotEmpty) ...[
                             Text(
                               'Incorrect Answers:',
-                              style: TextStyle(fontSize: 18, color: Colors.red),
+                              style: TextStyle(fontSize: 20, color: Colors.red),
                             ),
                             SizedBox(height: 10),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                for (var wrongAgenda in wrongAgendas)
-                                  Text(
-                                    wrongAgenda,
-                                    style: TextStyle(color: Colors.red),
-                                  ),
-                              ],
+                              children: wrongAgendas
+                                  .map((agenda) => Text(
+                                        '• $agenda',
+                                        style: TextStyle(
+                                            color: Colors.red, fontSize: 16),
+                                      ))
+                                  .toList(),
                             ),
                             SizedBox(height: 20),
                           ],
+
+                          // Next Button
                           ElevatedButton(
                             onPressed: () {
                               setState(() {
@@ -1284,7 +1313,14 @@ class _ModuleScreen1Page extends State<ModuleScreen1> {
                                 showTotalScore = false;
                               });
                             },
-                            child: Text('Next'),
+                            child: Text(
+                              'Next',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 30, vertical: 12),
+                            ),
                           ),
                         ],
                       ),

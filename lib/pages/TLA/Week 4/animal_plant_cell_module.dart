@@ -1032,9 +1032,9 @@ class _ModuleScreen4Page extends State<ModuleScreen4> {
 
   void _showScore() {
     int finalScore = correctAnswers - incorrectAnswers;
-    if (finalScore < 0)
-      finalScore = 0; // Ensure the score does not go below zero
-    String passOrFail = finalScore >= 7 ? 'Passed' : 'Failed';
+    if (finalScore < 0) finalScore = 0; // Prevent negative scores
+    bool isPassed = finalScore >= 7;
+    String passOrFail = isPassed ? 'Passed' : 'Failed';
 
     showDialog(
       context: context,
@@ -1045,29 +1045,91 @@ class _ModuleScreen4Page extends State<ModuleScreen4> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('Your Score: $finalScore / ${questionAnswerPairs.length}'),
-                Text('You have $passOrFail'),
+                // Passed/Failed Image or Icon
+                isPassed
+                    ? Image.asset(
+                        'assets/lesson1&2/congratulation.png',
+                        width: 120,
+                        height: 120,
+                      )
+                    : Icon(
+                        Icons.cancel_outlined,
+                        color: Colors.red,
+                        size: 120.0,
+                      ),
                 SizedBox(height: 20),
-                Text('Incorrect Answers:'),
-                for (String wrongAnswer in wrongAnswers) Text(wrongAnswer),
+
+                // Score Text
+                Text(
+                  'Your Score: $finalScore / ${questionAnswerPairs.length}',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 10),
+
+                // Pass/Fail Status
+                Text(
+                  'Result: You have $passOrFail',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: isPassed ? Colors.green : Colors.red,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
               ],
             ),
           ),
           actions: <Widget>[
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Click on the button to go back to the module.',
-                  textAlign: TextAlign.center,
-                ),
-              ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close this dialog
+                _showIncorrectAnswers(); // Show Incorrect Answers dialog
+              },
+              child: Text('View Incorrect Answers'),
             ),
             TextButton(
               onPressed: () {
-                // Close the dialog
-                Navigator.of(context).pop();
-                // Navigate back to the initial screen
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                      builder: (context) => Animal_and_Plant_TLA_3_1()),
+                  (Route<dynamic> route) => false,
+                );
+              },
+              child: Text('Exit'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showIncorrectAnswers() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Incorrect Answers'),
+          content: SingleChildScrollView(
+            child: wrongAnswers.isNotEmpty
+                ? Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: wrongAnswers
+                        .map((answer) => Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 4.0),
+                              child: Text(answer),
+                            ))
+                        .toList(),
+                  )
+                : Text('Congratulations! You got all the answers correct!'),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
                 Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
                       builder: (context) => Animal_and_Plant_TLA_3_1()),
