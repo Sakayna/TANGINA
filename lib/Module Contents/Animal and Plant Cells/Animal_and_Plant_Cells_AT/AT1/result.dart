@@ -1,4 +1,5 @@
 import 'package:capstone/Module%20Contents/Animal%20and%20Plant%20Cells/Animal_and_Plant_Cells_AT/AT1/Animal_and_Plant_Cells_AT_3_1.dart';
+import 'package:capstone/Module%20Contents/Animal%20and%20Plant%20Cells/Animal_and_Plant_Cells_Topics/Animal_and_Plant_Topic_3_3.dart';
 import 'package:flutter/material.dart';
 
 class Plant_Animal_ResultsPage extends StatelessWidget {
@@ -72,13 +73,13 @@ class Plant_Animal_ResultsPage extends StatelessWidget {
               child: ListView(
                 children: [
                   buildResultSection('Plant Only', userAnswers['Plant Only']!,
-                      correctAnswers['Plant Only']!),
+                      correctAnswers['Plant Only']!, context),
                   const SizedBox(height: 20),
                   buildResultSection(
-                      'Both', userAnswers['Both']!, correctAnswers['Both']!),
+                      'Both', userAnswers['Both']!, correctAnswers['Both']!, context),
                   const SizedBox(height: 20),
                   buildResultSection('Animal Only', userAnswers['Animal Only']!,
-                      correctAnswers['Animal Only']!),
+                      correctAnswers['Animal Only']!, context),
                 ],
               ),
             ),
@@ -89,7 +90,7 @@ class Plant_Animal_ResultsPage extends StatelessWidget {
   }
 
   Widget buildResultSection(
-      String title, List<String> userAnswers, List<String> correctAnswers) {
+      String title, List<String> userAnswers, List<String> correctAnswers, BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16.0),
       padding: const EdgeInsets.all(16.0),
@@ -126,14 +127,36 @@ class Plant_Animal_ResultsPage extends StatelessWidget {
           for (var answer in userAnswers)
             Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
-              child: Text(
-                answer,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: correctAnswers.contains(answer)
-                      ? Colors.green
-                      : Colors.red,
-                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    answer,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: correctAnswers.contains(answer)
+                          ? Colors.green
+                          : Colors.red,
+                    ),
+                  ),
+                  if (!correctAnswers.contains(answer))
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Animal_and_Plant_Topic_3_3(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Click this link to review your wrong answer',
+                        style: TextStyle(
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
+                ],
               ),
             ),
           const SizedBox(height: 10),

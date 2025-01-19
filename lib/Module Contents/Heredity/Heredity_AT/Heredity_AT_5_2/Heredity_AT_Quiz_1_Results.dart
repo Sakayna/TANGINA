@@ -1,4 +1,5 @@
 import 'package:capstone/Module%20Contents/Heredity/Heredity_AT/Heredity_AT_5_2/Heredity_AT_5_2.dart';
+import 'package:capstone/Module%20Contents/Heredity/Heredity_Topics/Heredity_Topic_5_1_1.dart';
 import 'package:flutter/material.dart';
 
 class Heredity_AT_5_1_2_Results extends StatelessWidget {
@@ -102,11 +103,29 @@ class Heredity_AT_5_1_2_Results extends StatelessWidget {
                             color: isCorrect ? Colors.green : Colors.red,
                           ),
                         ),
-                        if (!isCorrect)
+                        if (!isCorrect) ...[
                           Text(
                             'Correct Answer: ${stages[index]}',
                             style: const TextStyle(color: Colors.green),
                           ),
+                          const SizedBox(height: 8),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Heredity_Topic_5_1_1(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'Click this link to review your wrong answer',
+                              style: TextStyle(
+                                color: Colors.blue,
+                              ),
+                            ),
+                          ),
+                        ],
                       ],
                     ),
                   );

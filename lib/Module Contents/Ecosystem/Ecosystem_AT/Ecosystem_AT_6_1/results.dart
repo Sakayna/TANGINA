@@ -1,3 +1,4 @@
+import 'package:capstone/Module%20Contents/Ecosystem/Ecosystem_Topics/Ecosystem_Topic_6_1.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/Module%20Contents/Ecosystem/Ecosystem_AT/Ecosystem_AT_6_1/Ecosystem_AT_6_1.dart';
 import 'package:capstone/Module%20Contents/Ecosystem/Ecosystem_AT/Ecosystem_AT_6_1/item.dart';
@@ -74,7 +75,6 @@ class Ecosystem_AT_6_1_Results extends StatelessWidget {
                         userAnswers.first == quizItems[index].correctAnswer;
 
                     final pointsText = isCorrect ? '1/1 point' : '0/1 point';
-                    final selectedChoices = userAnswers ?? [];
 
                     return Container(
                       margin: const EdgeInsets.only(bottom: 16.0),
@@ -179,7 +179,7 @@ class Ecosystem_AT_6_1_Results extends StatelessWidget {
                               );
                             }).toList(),
                           ),
-                          if (!isCorrect)
+                          if (!isCorrect) ...[
                             Padding(
                               padding: const EdgeInsets.only(top: 8.0),
                               child: Text(
@@ -191,6 +191,24 @@ class Ecosystem_AT_6_1_Results extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            const SizedBox(height: 8),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Ecosystem_Topic_6_1(),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                'Click this link to review your wrong answer',
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                ),
+                              ),
+                            ),
+                          ],
                         ],
                       ),
                     );

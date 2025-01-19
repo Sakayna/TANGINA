@@ -1,5 +1,6 @@
 import 'package:capstone/Module%20Contents/Animal%20and%20Plant%20Cells/Animal_and_Plant_Cells_AT/Animal_and_Plant_Cells_AT_3_2/Animal_and_Plant_Cells_AT_3_2.dart';
 import 'package:capstone/Module%20Contents/Animal%20and%20Plant%20Cells/Animal_and_Plant_Cells_AT/Animal_and_Plant_Cells_AT_3_2/Animal_and_Plant_Cells_AT_Quiz_1_Score.dart';
+import 'package:capstone/Module%20Contents/Animal%20and%20Plant%20Cells/Animal_and_Plant_Cells_Topics/Animal_and_Plant_Topic_3_2.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/Module%20Contents/Animal%20and%20Plant%20Cells/Animal_and_Plant_Cells_AT/Animal_and_Plant_Cells_AT_3_2/Animal_and_Plant_Cells_AT_Quiz_1_Items.dart';
 
@@ -37,12 +38,12 @@ class Animal_and_Plant_AT_3_1_2_Results extends StatelessWidget {
         appBar: AppBar(
           title: Text(
             'Lesson 3 Quiz 2 Results',
-            style: TextStyle(color: Colors.white), // Set text color to white
+            style: TextStyle(color: Colors.white),
           ),
           backgroundColor: Color(0xFFA1C084),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
-            color: Colors.white, // Set icon color to white
+            color: Colors.white,
             onPressed: () {
               Navigator.pushReplacement(
                 context,
@@ -75,7 +76,6 @@ class Animal_and_Plant_AT_3_1_2_Results extends StatelessWidget {
                       userAnswers.first == quizItems[index].correctAnswer;
 
                   final pointsText = isCorrect ? '1/1 point' : '0/1 point';
-                  final selectedChoices = userAnswers ?? [];
 
                   return Container(
                     margin: const EdgeInsets.symmetric(
@@ -171,7 +171,7 @@ class Animal_and_Plant_AT_3_1_2_Results extends StatelessWidget {
                             );
                           }).toList(),
                         ),
-                        if (!isCorrect)
+                        if (!isCorrect) ...[
                           Padding(
                             padding: const EdgeInsets.only(top: 8.0),
                             child: Text(
@@ -183,6 +183,25 @@ class Animal_and_Plant_AT_3_1_2_Results extends StatelessWidget {
                               ),
                             ),
                           ),
+                          const SizedBox(height: 8),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      Animal_and_Plant_Topic_3_2(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'Click this link to review your wrong answer',
+                              style: TextStyle(
+                                color: Colors.blue,
+                              ),
+                            ),
+                          ),
+                        ],
                       ],
                     ),
                   );

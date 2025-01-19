@@ -1,5 +1,6 @@
 import 'package:capstone/Module%20Contents/Microscopy/Microscopy_AT/Microscopy_AT_1_2/Microscopy_AT_1_2.dart';
 import 'package:capstone/Module%20Contents/Microscopy/Microscopy_AT/Microscopy_AT_1_2/score.dart';
+import 'package:capstone/Module%20Contents/Microscopy/Microscopy_Topics/Microscopy_Topic_1_2.dart';
 import 'package:flutter/material.dart';
 import 'item.dart' as quizItemsFile;
 
@@ -60,9 +61,8 @@ class Microscopy_AT_Quiz_2_Results extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(
-              0xFFFFA551), // Match color from `Microscopy_AT_Quiz_2_Score`
-          elevation: 4, // Add shadow for depth
+          backgroundColor: Color(0xFFFFA551),
+          elevation: 4,
           title: Text(
             'Lesson 1 Quiz 1 Results',
             style: TextStyle(
@@ -136,11 +136,30 @@ class Microscopy_AT_Quiz_2_Results extends StatelessWidget {
                               color: isCorrect ? Colors.green : Colors.red,
                             ),
                           ),
-                          if (!isCorrect)
+                          if (!isCorrect) ...[
                             Text(
                               'Correct Answer: $correctAnswer',
                               style: TextStyle(color: Colors.green),
                             ),
+                            SizedBox(height: 8),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        Microscopy_Topic_1_2(),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                'Click this link to review your wrong answer',
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                ),
+                              ),
+                            ),
+                          ],
                         ],
                       ),
                     );

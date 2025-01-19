@@ -1,6 +1,7 @@
 import 'package:capstone/Module%20Contents/Funji,%20Protists,%20and%20Bacteria/Bacteria_AT/Bactera_AT_4_2/Bacteria_AT_4_2.dart';
 import 'package:capstone/Module%20Contents/Funji,%20Protists,%20and%20Bacteria/Bacteria_AT/Bactera_AT_4_2/Bacteria_AT_Quiz_1_Content.dart';
 import 'package:capstone/Module%20Contents/Funji,%20Protists,%20and%20Bacteria/Bacteria_AT/Bactera_AT_4_2/Bacteria_AT_Quiz_1_Score.dart';
+import 'package:capstone/Module%20Contents/Funji,%20Protists,%20and%20Bacteria/Bacteria_Topics/Bacteria_Topic_4_1_4.dart';
 import 'package:flutter/material.dart';
 
 class Bacteria_AT_Quiz_1_Results extends StatelessWidget {
@@ -58,7 +59,7 @@ class Bacteria_AT_Quiz_1_Results extends StatelessWidget {
             children: [
               // Overall Score Section
               Text(
-                'Overall Score: $userScore/ $totalQuestions',
+                'Overall Score: $userScore / $totalQuestions',
                 style: TextStyle(
                   fontSize: 16,
                 ),
@@ -74,7 +75,6 @@ class Bacteria_AT_Quiz_1_Results extends StatelessWidget {
                         userAnswers.first == quizItems[index].correctAnswer;
 
                     final pointsText = isCorrect ? '1/1 point' : '0/1 point';
-                    final selectedChoices = userAnswers ?? [];
 
                     return Container(
                       margin: const EdgeInsets.symmetric(
@@ -179,7 +179,7 @@ class Bacteria_AT_Quiz_1_Results extends StatelessWidget {
                               );
                             }).toList(),
                           ),
-                          if (!isCorrect)
+                          if (!isCorrect) ...[
                             Padding(
                               padding: const EdgeInsets.only(top: 8.0),
                               child: Text(
@@ -191,6 +191,25 @@ class Bacteria_AT_Quiz_1_Results extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            const SizedBox(height: 8),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        Bacteria_Topic_4_1_4(),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                'Click this link to review your wrong answer',
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                ),
+                              ),
+                            ),
+                          ],
                         ],
                       ),
                     );

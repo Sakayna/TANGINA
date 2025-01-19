@@ -1,4 +1,5 @@
 import 'package:capstone/Module%20Contents/Microscopy/Microscopy_AT/Microscopy_AT_1_3/Microscopy_AT_1_3.dart';
+import 'package:capstone/Module%20Contents/Microscopy/Microscopy_Topics/Microscopy_Topic_1_2.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:capstone/globals/global_variables_notifier.dart';
@@ -116,11 +117,29 @@ class Microscopy_AT_Quiz_1_Results extends StatelessWidget {
                             color: isCorrect ? Colors.green : Colors.red,
                           ),
                         ),
-                        if (!isCorrect)
+                        if (!isCorrect) ...[
                           Text(
                             'Correct Answer: ${correctAnswers[index]}',
                             style: TextStyle(color: Colors.green),
                           ),
+                          SizedBox(height: 8),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Microscopy_Topic_1_2(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'Click this link to review your wrong answer',
+                              style: TextStyle(
+                                color: Colors.blue,
+                              ),
+                            ),
+                          ),
+                        ],
                       ],
                     ),
                   );

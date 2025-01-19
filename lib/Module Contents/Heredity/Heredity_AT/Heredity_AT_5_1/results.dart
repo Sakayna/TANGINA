@@ -1,5 +1,6 @@
 import 'package:capstone/Module%20Contents/Heredity/Heredity_AT/Heredity_AT_5_1/item.dart';
 import 'package:capstone/Module%20Contents/Heredity/Heredity_AT/Heredity_AT_5_1/Heredity_AT_5_1.dart';
+import 'package:capstone/Module%20Contents/Heredity/Heredity_Topics/Heredity_Topic_5_1_1.dart';
 import 'package:flutter/material.dart';
 
 class Heredity_AT_5_1_Results extends StatelessWidget {
@@ -31,7 +32,7 @@ class Heredity_AT_5_1_Results extends StatelessWidget {
         appBar: AppBar(
           title: const Text(
             'Lesson 5 Quiz 1 Results',
-            style: TextStyle(color: Colors.white), // Set text color to white
+            style: TextStyle(color: Colors.white),
           ),
           backgroundColor: const Color(0xFF64B6AC),
         ),
@@ -42,12 +43,11 @@ class Heredity_AT_5_1_Results extends StatelessWidget {
             children: [
               // Overall Score Section
               Text(
-                'Overall Score: $userScore/ $totalQuestions',
+                'Overall Score: $userScore / $totalQuestions',
                 style: TextStyle(
                   fontSize: 16,
                 ),
               ),
-              // List of questions and answers
               // List of Questions and Answers
               Expanded(
                 child: ListView.builder(
@@ -60,7 +60,6 @@ class Heredity_AT_5_1_Results extends StatelessWidget {
                         userAnswers.first == quizItems[index].correctAnswer;
 
                     final pointsText = isCorrect ? '1/1 point' : '0/1 point';
-                    final selectedChoices = userAnswers ?? [];
 
                     return Container(
                       margin: const EdgeInsets.only(bottom: 16.0),
@@ -170,7 +169,7 @@ class Heredity_AT_5_1_Results extends StatelessWidget {
                               );
                             }).toList(),
                           ),
-                          if (!isCorrect)
+                          if (!isCorrect) ...[
                             Padding(
                               padding: const EdgeInsets.only(top: 8.0),
                               child: Text(
@@ -182,6 +181,25 @@ class Heredity_AT_5_1_Results extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            const SizedBox(height: 8),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        Heredity_Topic_5_1_1(),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                'Click this link to review your wrong answer',
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                ),
+                              ),
+                            ),
+                          ],
                         ],
                       ),
                     );

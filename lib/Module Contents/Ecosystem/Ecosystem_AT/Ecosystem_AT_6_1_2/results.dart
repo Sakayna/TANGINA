@@ -1,4 +1,5 @@
 import 'package:capstone/Module%20Contents/Ecosystem/Ecosystem_AT/Ecosystem_AT_6_1_2/Ecosystem_AT_6_1_2.dart';
+import 'package:capstone/Module%20Contents/Ecosystem/Ecosystem_Topics/Ecosystem_Topic_6_5.dart';
 import 'package:flutter/material.dart';
 
 class Ecosystem_AT_Quiz_1_Results extends StatelessWidget {
@@ -60,13 +61,12 @@ class Ecosystem_AT_Quiz_1_Results extends StatelessWidget {
           children: [
             // Overall Score Section
             Text(
-              'Overall Score: $userScore/ $totalQuestions',
+              'Overall Score: $userScore / $totalQuestions',
               style: TextStyle(
                 fontSize: 16,
               ),
             ),
             // List of questions and answers
-            // Questions and Answers
             Expanded(
               child: ListView.builder(
                 itemCount: totalQuestions,
@@ -116,22 +116,35 @@ class Ecosystem_AT_Quiz_1_Results extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 8),
-                        if (!isPredatorCorrect || !isPreyCorrect)
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              if (!isPredatorCorrect)
-                                Text(
-                                  'Correct Predator: ${questions[index]['predator']}',
-                                  style: const TextStyle(color: Colors.green),
+                        if (!isPredatorCorrect || !isPreyCorrect) ...[
+                          if (!isPredatorCorrect)
+                            Text(
+                              'Correct Predator: ${questions[index]['predator']}',
+                              style: const TextStyle(color: Colors.green),
+                            ),
+                          if (!isPreyCorrect)
+                            Text(
+                              'Correct Prey: ${questions[index]['prey']}',
+                              style: const TextStyle(color: Colors.green),
+                            ),
+                          const SizedBox(height: 8),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Ecosystem_Topic_6_5(),
                                 ),
-                              if (!isPreyCorrect)
-                                Text(
-                                  'Correct Prey: ${questions[index]['prey']}',
-                                  style: const TextStyle(color: Colors.green),
-                                ),
-                            ],
+                              );
+                            },
+                            child: Text(
+                              'Click this link to review your wrong answer',
+                              style: TextStyle(
+                                color: Colors.blue,
+                              ),
+                            ),
                           ),
+                        ],
                       ],
                     ),
                   );

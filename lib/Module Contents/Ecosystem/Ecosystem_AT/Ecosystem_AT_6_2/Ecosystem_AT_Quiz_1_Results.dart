@@ -1,5 +1,7 @@
 import 'package:capstone/Module%20Contents/Ecosystem/Ecosystem_AT/Ecosystem_AT_6_2/Ecosystem_AT_6_2.dart';
 import 'package:capstone/Module%20Contents/Ecosystem/Ecosystem_AT/Ecosystem_AT_6_2/Ecosystem_AT_Quiz_1_Items.dart';
+import 'package:capstone/Module%20Contents/Ecosystem/Ecosystem_Topics/Ecosystem_Topic_6_1.dart';
+import 'package:capstone/Module%20Contents/Ecosystem/Ecosystem_Topics/Ecosystem_Topic_6_2_1.dart';
 import 'package:flutter/material.dart';
 
 class Ecosystem_AT_Quiz_3_Results extends StatelessWidget {
@@ -166,7 +168,7 @@ class Ecosystem_AT_Quiz_3_Results extends StatelessWidget {
                             );
                           }).toList(),
                         ),
-                        if (!isCorrect)
+                        if (!isCorrect) ...[
                           Padding(
                             padding: const EdgeInsets.only(top: 8.0),
                             child: Text(
@@ -178,6 +180,24 @@ class Ecosystem_AT_Quiz_3_Results extends StatelessWidget {
                               ),
                             ),
                           ),
+                          const SizedBox(height: 8),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Ecosystem_Topic_6_2_1(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'Click this link to review your wrong answer',
+                              style: TextStyle(
+                                color: Colors.blue,
+                              ),
+                            ),
+                          ),
+                        ],
                       ],
                     ),
                   );

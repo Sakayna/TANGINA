@@ -276,6 +276,7 @@ flutter:
     - assets/lesson1&2/lesson2Subtitles/TLA/
     - assets/lesson3/assets/org/
     - assets/lesson3/assets/blocks/
+    - assets/lesson3/assets/blocks/new/
     - assets/lesson3/lesson3Subtitles/AT/
     - assets/lesson3/lesson3Subtitles/TLA/
     - assets/lesson3/levels.png
