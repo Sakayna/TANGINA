@@ -20,15 +20,22 @@ class Plant_Animal_ScorePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       final globalVariables =
           Provider.of<GlobalVariables>(context, listen: false);
-      globalVariables.incrementQuizTakeCount('quiz4');
-      globalVariables.setGlobalScore('quiz4', score);
-      globalVariables.updateGlobalRemarks('quiz4', score, 12);
-      globalVariables.setQuizItemCount('quiz4', 12);
+
+      // Consistent with the reference structure
+      const lessonId = 'lesson3';
+      const quizId = 'quiz1';
+
+      globalVariables.incrementQuizTakeCount(lessonId, quizId);
+      globalVariables.setGlobalScore(lessonId, quizId, score);
+      globalVariables.updateGlobalRemarks(lessonId, quizId, score, 12);
+      globalVariables.setQuizItemCount(lessonId, quizId, 12);
+
       globalVariables.printGlobalVariables();
     });
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFFA1C084),

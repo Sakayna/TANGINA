@@ -23,15 +23,21 @@ class Heredity_AT_Quiz_0_Score extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       final globalVariables =
           Provider.of<GlobalVariables>(context, listen: false);
-      globalVariables.incrementQuizTakeCount('quiz7');
-      globalVariables.setGlobalScore('quiz7', userScore);
-      globalVariables.updateGlobalRemarks('quiz7', userScore, totalQuestions);
-      globalVariables.setQuizItemCount('quiz7', totalQuestions);
+
+      const lessonId = 'lesson5';
+      const quizId = 'quiz1';
+
+      globalVariables.incrementQuizTakeCount(lessonId, quizId);
+      globalVariables.setGlobalScore(lessonId, quizId, userScore);
+      globalVariables.updateGlobalRemarks(
+          lessonId, quizId, userScore, totalQuestions);
+      globalVariables.setQuizItemCount(lessonId, quizId, totalQuestions);
       globalVariables.printGlobalVariables();
     });
+
     return WillPopScope(
       onWillPop: () async {
         Navigator.pushReplacement(
@@ -46,16 +52,15 @@ class Heredity_AT_Quiz_0_Score extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Color(0xFF64B6AC), // Retain original color
           elevation: 4, // Adds shadow for depth
-          title: 
-             Text(
-              'Lesson 5 Quiz 1 Score',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
+          title: Text(
+            'Lesson 5 Quiz 1 Score',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
             ),
-          
+          ),
+
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             color: Colors.white,

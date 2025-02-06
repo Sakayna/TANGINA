@@ -265,26 +265,25 @@ class Microscopy_AT_1_3 extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 15.0),
                 child: Opacity(
-                  opacity: globalVariables.getQuizTaken('lesson1', 'quiz2')
+                  opacity: globalVariables.hasPassedQuiz('lesson1', 'quiz2')
                       ? 1.0
                       : 0.5,
                   child: FloatingActionButton(
                     onPressed: () {
-                      if (globalVariables.getQuizTaken('lesson1', 'quiz2')) {
+                      if (globalVariables.hasPassedQuiz('lesson1', 'quiz2')) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                Levels_of_biological_organization_Screen(),
-                          ),
+                              builder: (context) =>
+                                  Levels_of_biological_organization_Screen()),
                         );
                       } else {
                         showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                            title: Text('Quiz not taken'),
+                            title: Text('Quiz not passed'),
                             content: Text(
-                                'Please take the quiz for this lesson before proceeding to the next lesson.'),
+                                'You need to score at least 50% to unlock the next lesson.'),
                             actions: [
                               TextButton(
                                 child: Text('OK'),
@@ -298,10 +297,7 @@ class Microscopy_AT_1_3 extends StatelessWidget {
                       }
                     },
                     heroTag: 'nextBtn',
-                    child: Icon(
-                      Icons.navigate_next,
-                      color: Colors.white,
-                    ),
+                    child: Icon(Icons.navigate_next, color: Colors.white),
                     backgroundColor: Color(0xFFFFA551),
                   ),
                 ),

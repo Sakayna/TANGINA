@@ -111,12 +111,18 @@ class _Heredity_AT_Quiz_2_ContentState
     bool passed = score >= 5;
 
     var globalVariables = Provider.of<GlobalVariables>(context, listen: false);
-    globalVariables.setQuizTaken('lesson5', 'quiz2', true);
-    globalVariables.unlockNextLesson('lesson5');
-    globalVariables.incrementQuizTakeCount('lesson5_quiz2');
-    globalVariables.updateGlobalRemarks('lesson5_quiz2', score, stages.length);
-    globalVariables.setGlobalScore('lesson5_quiz2', score);
-    globalVariables.setQuizItemCount('lesson5_quiz2', stages.length);
+    const lessonId = 'lesson5';
+    const quizId = 'quiz2';
+
+    globalVariables.setQuizTaken(lessonId, quizId, true);
+    globalVariables.incrementQuizTakeCount(lessonId, quizId);
+    globalVariables.updateGlobalRemarks(lessonId, quizId, score, stages.length);
+    globalVariables.setGlobalScore(lessonId, quizId, score);
+    globalVariables.setQuizItemCount(lessonId, quizId, stages.length);
+
+    if (globalVariables.hasPassedQuiz(lessonId, quizId)) {
+      globalVariables.unlockNextLesson(lessonId);
+    }
 
     Navigator.push(
       context,

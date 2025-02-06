@@ -212,16 +212,20 @@ class _HorizontalScrollableListState extends State<HorizontalScrollableList> {
               6,
               (index) => GestureDetector(
                 onTap: () {
+                  // Check if the lesson is complete (previous lesson's quizzes are passed)
                   if (globalVariables.isLessonComplete('lesson${index + 1}')) {
+                    debugPrint(
+                        'Lesson ${index + 1} is unlocked. Proceeding...');
                     navigateToLessonScreen(context, index);
                   } else {
+                    debugPrint('Lesson ${index + 1} is locked.');
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
                           title: Text('Lesson Locked'),
                           content: Text(
-                              'Please complete the previous Lesson before proceeding to this lesson.'),
+                              'Please complete all quizzes in the previous lesson before accessing this lesson.'),
                           actions: <Widget>[
                             TextButton(
                               child: Text('OK'),

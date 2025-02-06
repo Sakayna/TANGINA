@@ -23,13 +23,17 @@ class Ecosystem_AT_Quiz_3_Score extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      const lessonId = 'lesson6';
+      const quizId = 'quiz4';
+
       final globalVariables =
           Provider.of<GlobalVariables>(context, listen: false);
-      globalVariables.incrementQuizTakeCount('quiz12');
-      globalVariables.setGlobalScore('quiz12', userScore);
-      globalVariables.updateGlobalRemarks('quiz12', userScore, totalQuestions);
-      globalVariables.setQuizItemCount('quiz12', totalQuestions);
+      globalVariables.incrementQuizTakeCount(lessonId, quizId);
+      globalVariables.setGlobalScore(lessonId, quizId, userScore);
+      globalVariables.updateGlobalRemarks(
+          lessonId, quizId, userScore, totalQuestions);
+      globalVariables.setQuizItemCount(lessonId, quizId, totalQuestions);
       globalVariables.printGlobalVariables();
     });
 

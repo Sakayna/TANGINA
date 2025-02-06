@@ -22,13 +22,18 @@ class Animal_and_Plant_AT_3_1_2_Score extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       final globalVariables =
           Provider.of<GlobalVariables>(context, listen: false);
-      globalVariables.incrementQuizTakeCount('quiz5');
-      globalVariables.setGlobalScore('quiz5', userScore);
-      globalVariables.updateGlobalRemarks('quiz5', userScore, totalQuestions);
-      globalVariables.setQuizItemCount('quiz5', totalQuestions);
+
+      const lessonId = 'lesson3';
+      const quizId = 'quiz2';
+
+      globalVariables.incrementQuizTakeCount(lessonId, quizId);
+      globalVariables.setGlobalScore(lessonId, quizId, userScore);
+      globalVariables.updateGlobalRemarks(
+          lessonId, quizId, userScore, totalQuestions);
+      globalVariables.setQuizItemCount(lessonId, quizId, totalQuestions);
       globalVariables.printGlobalVariables();
     });
 

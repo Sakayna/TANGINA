@@ -68,13 +68,16 @@ class _AnimalAndPlantState extends State<AnimalAndPlant> {
 
     bool passed = score >= 8;
 
+    final lessonId = 'lesson3';
+    final quizId = 'quiz1';
+
     var globalVariables = Provider.of<GlobalVariables>(context, listen: false);
-    globalVariables.setQuizTaken('lesson3', 'quiz1', true);
-    globalVariables.incrementQuizTakeCount('lesson3_quiz1');
+    globalVariables.setQuizTaken(lessonId, quizId, true);
+    globalVariables.incrementQuizTakeCount(lessonId, quizId);
     globalVariables.updateGlobalRemarks(
-        'lesson3_quiz1', score, allItems.length);
-    globalVariables.setGlobalScore('lesson3_quiz1', score);
-    globalVariables.setQuizItemCount('lesson3_quiz1', allItems.length);
+        lessonId, quizId, score, allItems.length);
+    globalVariables.setGlobalScore(lessonId, quizId, score);
+    globalVariables.setQuizItemCount(lessonId, quizId, allItems.length);
 
     Navigator.push(
       context,

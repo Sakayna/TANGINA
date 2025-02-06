@@ -181,16 +181,21 @@ class _Levels_of_biological_organization_ScreenState
                   title: 'Assessment Tasks',
                   items: [
                     GestureDetector(
-                      onTap: topics[3]
+                      onTap: topics[3] &&
+                              globalVariables.hasPassedQuiz('lesson2', 'quiz1')
                           ? () {
                               Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) =>
                                     Biological_Organization_AT_2_2(),
                               ));
                             }
-                          : null,
+                          : null, // Disable the onTap if the quiz is not passed
                       child: Opacity(
-                        opacity: topics[3] ? 1 : 0.5,
+                        opacity: topics[3] &&
+                                globalVariables.hasPassedQuiz(
+                                    'lesson2', 'quiz1')
+                            ? 1
+                            : 0.5, // Dim the item if not accessible
                         child: const Text(
                           'Assessment 2.1 - Sequencing of Biological Levels',
                           style: TextStyle(

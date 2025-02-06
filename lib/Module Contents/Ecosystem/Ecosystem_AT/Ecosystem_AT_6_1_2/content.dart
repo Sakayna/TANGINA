@@ -109,14 +109,16 @@ class _Ecosystem_AT_Quiz_1_ContentState
     }
 
     // Update global variables
+    const lessonId = 'lesson6';
+    const quizId = 'quiz2';
     var globalVariables = Provider.of<GlobalVariables>(context, listen: false);
-    globalVariables.setQuizTaken('lesson6', 'quiz2', true);
-    globalVariables.allowQuiz('lesson6', 'quiz3');
-    globalVariables.incrementQuizTakeCount('lesson6_quiz2');
+    globalVariables.setQuizTaken(lessonId, quizId, true);
+    globalVariables.allowQuiz(lessonId, 'quiz3'); // Allow the next quiz
+    globalVariables.incrementQuizTakeCount(lessonId, quizId);
     globalVariables.updateGlobalRemarks(
-        'lesson6_quiz2', score, questions.length);
-    globalVariables.setGlobalScore('lesson6_quiz2', score);
-    globalVariables.setQuizItemCount('lesson6_quiz2', questions.length);
+        lessonId, quizId, score, questions.length);
+    globalVariables.setGlobalScore(lessonId, quizId, score);
+    globalVariables.setQuizItemCount(lessonId, quizId, questions.length);
 
     // Navigate to the score page
     Navigator.push(

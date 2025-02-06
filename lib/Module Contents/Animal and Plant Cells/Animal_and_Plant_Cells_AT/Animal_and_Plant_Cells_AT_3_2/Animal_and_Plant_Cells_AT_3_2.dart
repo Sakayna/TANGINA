@@ -257,12 +257,12 @@ class Animal_and_Plant_AT_3_2 extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 15.0),
                 child: Opacity(
-                  opacity: globalVariables.getQuizTaken('lesson3', 'quiz2')
+                  opacity: globalVariables.hasPassedQuiz('lesson3', 'quiz2')
                       ? 1.0
                       : 0.5,
                   child: FloatingActionButton(
                     onPressed: () {
-                      if (globalVariables.getQuizTaken('lesson3', 'quiz2')) {
+                      if (globalVariables.hasPassedQuiz('lesson3', 'quiz2')) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -275,7 +275,8 @@ class Animal_and_Plant_AT_3_2 extends StatelessWidget {
                           builder: (context) => AlertDialog(
                             title: Text('Quiz not taken'),
                             content: Text(
-                                'Please take the quiz for this lesson before proceeding to the next lesson.'),
+                              'You need to score at least 50% to unlock the next lesson.',
+                            ),
                             actions: [
                               TextButton(
                                 child: Text('OK'),

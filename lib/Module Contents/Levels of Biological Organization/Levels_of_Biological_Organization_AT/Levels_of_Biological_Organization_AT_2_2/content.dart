@@ -85,12 +85,18 @@ class _LevelsOfOrganizationDragDropState
     bool passed = score >= 6;
 
     var globalVariables = Provider.of<GlobalVariables>(context, listen: false);
-    globalVariables.setQuizTaken('lesson2', 'quiz1', true);
-    globalVariables.unlockNextLesson('lesson2');
-    globalVariables.incrementQuizTakeCount('lesson2_quiz1');
-    globalVariables.updateGlobalRemarks('lesson2_quiz1', score, levels.length);
-    globalVariables.setGlobalScore('lesson2_quiz1', score);
-    globalVariables.setQuizItemCount('lesson2_quiz1', levels.length);
+    const lessonId = 'lesson2';
+    const quizId = 'quiz1';
+
+    globalVariables.setQuizTaken(lessonId, quizId, true);
+    globalVariables.incrementQuizTakeCount(lessonId, quizId);
+    globalVariables.updateGlobalRemarks(lessonId, quizId, score, levels.length);
+    globalVariables.setGlobalScore(lessonId, quizId, score);
+    globalVariables.setQuizItemCount(lessonId, quizId, levels.length);
+
+    if (globalVariables.hasPassedQuiz(lessonId, quizId)) {
+      globalVariables.unlockNextLesson(lessonId);
+    }
 
     Navigator.push(
       context,

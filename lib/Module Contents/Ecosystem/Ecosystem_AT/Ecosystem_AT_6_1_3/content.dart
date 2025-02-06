@@ -169,17 +169,22 @@ class _Ecosystem_AT_Quiz_2_ContentState
         currentQuestionIndex++;
       });
     } else {
-      // Integrate GlobalVariables for progress tracking
+      // Define lessonId and quizId
+      const lessonId = 'lesson6';
+      const quizId = 'quiz3';
+
+      // Update global variables
       var globalVariables =
           Provider.of<GlobalVariables>(context, listen: false);
-      globalVariables.setQuizTaken('lesson6', 'quiz3', true);
-      globalVariables.allowQuiz('lesson6', 'quiz3');
-      globalVariables.incrementQuizTakeCount('lesson6_quiz3');
+      globalVariables.setQuizTaken(lessonId, quizId, true);
+      globalVariables.allowQuiz(lessonId, 'quiz4'); // Unlock the next quiz
+      globalVariables.incrementQuizTakeCount(lessonId, quizId);
       globalVariables.updateGlobalRemarks(
-          'lesson6_quiz3', userScore, quizItems.length);
-      globalVariables.setGlobalScore('lesson6_quiz3', userScore);
-      globalVariables.setQuizItemCount('lesson6_quiz3', quizItems.length);
+          lessonId, quizId, userScore, quizItems.length);
+      globalVariables.setGlobalScore(lessonId, quizId, userScore);
+      globalVariables.setQuizItemCount(lessonId, quizId, quizItems.length);
 
+      // Navigate to the score page
       Navigator.push(
         context,
         MaterialPageRoute(

@@ -252,7 +252,8 @@ class _MicroscopyScreenState extends State<MicroscopyScreen> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: globalVariables.canTakeQuiz('lesson1', 'quiz2')
+                      onTap: globalVariables.canTakeQuiz('lesson1', 'quiz2') &&
+                              globalVariables.hasPassedQuiz('lesson1', 'quiz1')
                           ? () {
                               Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => Microscopy_AT_1_3(),
@@ -260,9 +261,12 @@ class _MicroscopyScreenState extends State<MicroscopyScreen> {
                             }
                           : null,
                       child: Opacity(
-                        opacity: globalVariables.canTakeQuiz('lesson1', 'quiz2')
-                            ? 1
-                            : 0.5,
+                        opacity:
+                            globalVariables.canTakeQuiz('lesson1', 'quiz2') &&
+                                    globalVariables.hasPassedQuiz(
+                                        'lesson1', 'quiz1')
+                                ? 1
+                                : 0.5,
                         child: const Text(
                           'Assessment 1.2 - Sequencing of how to focus specimen on a compound microscope ',
                           style: TextStyle(

@@ -264,12 +264,12 @@ class Ecosystem_AT_6_1_3 extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 15.0),
                 child: Opacity(
-                  opacity: globalVariables.getQuizTaken('lesson6', 'quiz3')
+                  opacity: globalVariables.hasPassedQuiz('lesson6', 'quiz3')
                       ? 1.0
                       : 0.5,
                   child: FloatingActionButton(
                     onPressed: () {
-                      if (globalVariables.getQuizTaken('lesson6', 'quiz3')) {
+                      if (globalVariables.hasPassedQuiz('lesson6', 'quiz3')) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -282,7 +282,8 @@ class Ecosystem_AT_6_1_3 extends StatelessWidget {
                           builder: (context) => AlertDialog(
                             title: Text('Quiz not taken'),
                             content: Text(
-                                'Please take the quiz for this lesson before proceeding to the next lesson.'),
+                              'You need to score at least 50% to unlock the next lesson.',
+                            ),
                             actions: [
                               TextButton(
                                 child: Text('OK'),

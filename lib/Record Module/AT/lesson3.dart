@@ -7,10 +7,11 @@ import 'package:capstone/components/graph_details_screen.dart';
 class LessonRecordAT3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final globalVariables = Provider.of<GlobalVariables>(context, listen: false);
+    final globalVariables =
+        Provider.of<GlobalVariables>(context, listen: false);
     final List<Map<String, dynamic>> quizData = [
-      {'lesson': 3, 'quiz': 1, 'title': 'Lesson 3 Quiz 1', 'key': 'quiz4'},
-      {'lesson': 3, 'quiz': 2, 'title': 'Lesson 3 Quiz 2', 'key': 'quiz5'},
+      {'lesson': 3, 'quiz': 1, 'title': 'Lesson 3 Quiz 1'},
+      {'lesson': 3, 'quiz': 2, 'title': 'Lesson 3 Quiz 2'},
     ];
 
     return Scaffold(
@@ -23,11 +24,15 @@ class LessonRecordAT3 extends StatelessWidget {
           itemCount: quizData.length,
           itemBuilder: (context, index) {
             final quiz = quizData[index];
-            final itemCount = globalVariables.quizItemCount[quiz['key']] ?? 0;
-            final takeCount = globalVariables.quizTakeCount[quiz['key']] ?? 0;
-            final remarks = globalVariables.globalRemarks[quiz['key']] ?? [];
-            final scores = globalVariables.globalScores[quiz['key']] ?? [0];
-            final dateTaken = globalVariables.quizTakenDates[quiz['key']] ?? [];
+            final String uniqueQuizKey =
+                'lesson${quiz['lesson']}_quiz${quiz['quiz']}'; // Adjusted key
+
+            final itemCount = globalVariables.quizItemCount[uniqueQuizKey] ?? 0;
+            final takeCount = globalVariables.quizTakeCount[uniqueQuizKey] ?? 0;
+            final remarks = globalVariables.globalRemarks[uniqueQuizKey] ?? [];
+            final scores = globalVariables.globalScores[uniqueQuizKey] ?? [0];
+            final dateTaken =
+                globalVariables.quizTakenDates[uniqueQuizKey] ?? [];
 
             bool canTakeQuiz = globalVariables.getQuizTaken(
                 'lesson${quiz['lesson']}', 'quiz${quiz['quiz']}');

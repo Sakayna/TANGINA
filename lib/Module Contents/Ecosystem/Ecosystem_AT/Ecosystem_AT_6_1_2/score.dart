@@ -21,13 +21,17 @@ class Ecosystem_AT_Quiz_1_Score extends StatelessWidget {
   Widget build(BuildContext context) {
     bool passed = score >= 7; // Example passing criteria
 
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      const lessonId = 'lesson6';
+      const quizId = 'quiz2';
       final globalVariables =
           Provider.of<GlobalVariables>(context, listen: false);
-      globalVariables.incrementQuizTakeCount('quiz10');
-      globalVariables.setGlobalScore('quiz10', score);
-      globalVariables.updateGlobalRemarks('quiz10', score, questions.length);
-      globalVariables.setQuizItemCount('quiz10', questions.length);
+
+      globalVariables.incrementQuizTakeCount(lessonId, quizId);
+      globalVariables.setGlobalScore(lessonId, quizId, score);
+      globalVariables.updateGlobalRemarks(
+          lessonId, quizId, score, questions.length);
+      globalVariables.setQuizItemCount(lessonId, quizId, questions.length);
       globalVariables.printGlobalVariables();
     });
 
@@ -35,16 +39,15 @@ class Ecosystem_AT_Quiz_1_Score extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Color(0xFFA846A0), // Retain the original color
         elevation: 4, // Adds shadow for depth
-        title: 
-          Text(
-            'Lesson 6 Quiz 2 Score',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
+        title: Text(
+          'Lesson 6 Quiz 2 Score',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
           ),
-        
+        ),
+
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           color: Colors.white,

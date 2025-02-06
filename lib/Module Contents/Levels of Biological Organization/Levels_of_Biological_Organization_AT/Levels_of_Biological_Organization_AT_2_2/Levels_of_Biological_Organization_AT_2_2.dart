@@ -257,12 +257,12 @@ class Biological_Organization_AT_2_2 extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 15.0),
                 child: Opacity(
-                  opacity: globalVariables.getQuizTaken('lesson2', 'quiz1')
+                  opacity: globalVariables.hasPassedQuiz('lesson2', 'quiz1')
                       ? 1.0
                       : 0.5,
                   child: FloatingActionButton(
                     onPressed: () {
-                      if (globalVariables.getQuizTaken('lesson2', 'quiz1')) {
+                      if (globalVariables.hasPassedQuiz('lesson2', 'quiz1')) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -273,9 +273,10 @@ class Biological_Organization_AT_2_2 extends StatelessWidget {
                         showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                            title: Text('Quiz not taken'),
+                            title: Text('Quiz Not Passed'),
                             content: Text(
-                                'Please take the quiz for this lesson before proceeding to the next lesson.'),
+                              'You need to score at least 50% to unlock the next lesson.',
+                            ),
                             actions: [
                               TextButton(
                                 child: Text('OK'),

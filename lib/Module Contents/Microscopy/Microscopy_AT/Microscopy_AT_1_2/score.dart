@@ -49,16 +49,21 @@ class Microscopy_AT_Quiz_2_Score extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final globalVariables =
           Provider.of<GlobalVariables>(context, listen: false);
-      globalVariables.incrementQuizTakeCount('quiz1');
-      globalVariables.setGlobalScore('quiz1', finalCorrectAnswers);
+
+      // Use both `lessonId` and `quizId` in all function calls
+      const lessonId = 'lesson1'; // Update this to match your lesson structure
+      const quizId = 'quiz1';
+
+      globalVariables.incrementQuizTakeCount(lessonId, quizId);
+      globalVariables.setGlobalScore(lessonId, quizId, finalCorrectAnswers);
       globalVariables.updateGlobalRemarks(
-          'quiz1', finalCorrectAnswers, totalQuestions);
-      globalVariables.setQuizItemCount('quiz1', totalQuestions);
+          lessonId, quizId, finalCorrectAnswers, totalQuestions);
+      globalVariables.setQuizItemCount(lessonId, quizId, totalQuestions);
+
       globalVariables.printGlobalVariables();
     });
 
     bool passed = (finalCorrectAnswers / totalQuestions) >= 0.5;
-
     return WillPopScope(
       onWillPop: () async {
         Navigator.push(
@@ -72,13 +77,13 @@ class Microscopy_AT_Quiz_2_Score extends StatelessWidget {
           backgroundColor: Color(0xFFFFA551), // Solid background color
           elevation: 4, // Adds shadow for depth
           title: Text(
-                'Lesson 1 Quiz 1 Score',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-              ),
+            'Lesson 1 Quiz 1 Score',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          ),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             color: Colors.white,

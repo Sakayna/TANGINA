@@ -128,37 +128,79 @@ class GlobalVariables extends ChangeNotifier {
     prefs.setString('quizTakenStatus', jsonEncode(quizTakenStatus));
   }
 
-  void setGlobalScore(String quizKey, int score) {
-    globalScores.putIfAbsent(quizKey, () => []).add(score);
+  void setGlobalScore(String lessonId, String quizId, int score) {
+    String uniqueQuizKey = '${lessonId}_$quizId';
+    globalScores.putIfAbsent(uniqueQuizKey, () => []).add(score);
+
+    // Debug log
+    debugPrint(
+        'Updated Scores for $uniqueQuizKey: ${globalScores[uniqueQuizKey]}');
+
     _saveAll();
     notifyListeners();
   }
 
-  void incrementQuizTakeCount(String quizKey) {
-    quizTakeCount.update(quizKey, (count) => count + 1, ifAbsent: () => 1);
-    setQuizTakenDate(quizKey);
-    quizTakenStatus[quizKey] = true;
+  void incrementQuizTakeCount(String lessonId, String quizId) {
+    String uniqueQuizKey = '${lessonId}_$quizId';
+    DateTime now = DateTime.now();
+
+    // Check if the quiz has previous take records
+    if (quizTakenDates.containsKey(uniqueQuizKey) &&
+        quizTakenDates[uniqueQuizKey]!.isNotEmpty) {
+      DateTime lastTaken = quizTakenDates[uniqueQuizKey]!.last;
+
+      // Prevent increment if the last take was at the exact same second
+      if (lastTaken.difference(now).inSeconds == 0) {
+        debugPrint(
+            'Quiz $uniqueQuizKey was taken at the same time. Skipping increment.');
+        return;
+      }
+    }
+
+    // Increment the take count if the timestamp is new
+    quizTakeCount.update(uniqueQuizKey, (count) => count + 1,
+        ifAbsent: () => 1);
+
+    // Save the new take timestamp
+    setQuizTakenDate(lessonId, quizId);
+    quizTakenStatus[uniqueQuizKey] = true;
+
+    debugPrint(
+        'Quiz Take Count for $uniqueQuizKey: ${quizTakeCount[uniqueQuizKey]}');
     _saveAll();
     notifyListeners();
   }
 
   void updateGlobalRemarks(
-      String quizKey, int correctAnswers, int totalQuestions) {
+      String lessonId, String quizId, int correctAnswers, int totalQuestions) {
+    String uniqueQuizKey = '${lessonId}_$quizId';
     String remarks =
         (correctAnswers / totalQuestions) >= 0.5 ? 'Passed' : 'Failed';
-    globalRemarks.putIfAbsent(quizKey, () => []).add(remarks);
+    globalRemarks.putIfAbsent(uniqueQuizKey, () => []).add(remarks);
+
+    // Debug log
+    debugPrint(
+        'Updated Remarks for $uniqueQuizKey: ${globalRemarks[uniqueQuizKey]}');
+
     _saveAll();
     notifyListeners();
   }
 
-  void setQuizItemCount(String quizKey, int itemCount) {
-    quizItemCount[quizKey] = itemCount;
+  void setQuizItemCount(String lessonId, String quizId, int itemCount) {
+    String uniqueQuizKey = '${lessonId}_$quizId';
+    quizItemCount[uniqueQuizKey] = itemCount;
     _saveAll();
     notifyListeners();
   }
 
-  void setQuizTakenDate(String quizKey) {
-    quizTakenDates.putIfAbsent(quizKey, () => []).add(DateTime.now());
+  void setQuizTakenDate(String lessonId, String quizId) {
+    String uniqueQuizKey = '${lessonId}_$quizId';
+    quizTakenDates.putIfAbsent(uniqueQuizKey, () => []).add(DateTime.now());
+
+    // Debug log
+    debugPrint(
+        'Updated DateTaken for $uniqueQuizKey: ${quizTakenDates[uniqueQuizKey]}');
+
     _saveAll();
     notifyListeners();
   }
@@ -170,18 +212,56 @@ class GlobalVariables extends ChangeNotifier {
   }
 
   bool isLessonComplete(String lessonId) {
-    return userProgress[lessonId]?['isComplete'] ?? false;
+    // Lesson 1 is always accessible
+    if (lessonId == 'lesson1') return true;
+
+    // Get the current lesson number (e.g., lesson2 -> 2)
+    int currentLessonNumber = int.parse(lessonId.replaceAll(RegExp(r'\D'), ''));
+
+    // Identify the previous lesson (e.g., lesson2 -> lesson1)
+    String previousLessonId = 'lesson${currentLessonNumber - 1}';
+
+    // Check if all quizzes in the previous lesson are passed
+    for (int i = 1; i <= 4; i++) {
+      String quizKey = 'quiz$i';
+      if (userProgress[previousLessonId]?.containsKey('canTakeQuiz$i') ==
+          true) {
+        if (!hasPassedQuiz(previousLessonId, quizKey)) {
+          return false; // Return false if any quiz is not passed
+        }
+      }
+    }
+
+    return true; // Mark as complete if all quizzes in the previous lesson are passed
   }
 
-  void unlockNextLesson(String completedLessonId) {
-    int completedLessonNumber =
-        int.parse(completedLessonId.replaceAll(RegExp(r'\D'), ''));
-    String nextLessonId = 'lesson' + (completedLessonNumber + 1).toString();
-    if (userProgress.containsKey(nextLessonId)) {
-      userProgress[nextLessonId]?['isComplete'] = true;
+  void unlockNextLesson(String lessonId) {
+    // Ensure all quizzes for the current lesson are passed
+    bool allQuizzesPassed = true;
+
+    for (int i = 1; i <= 4; i++) {
+      String quizKey = 'quiz$i';
+      if (userProgress[lessonId]?.containsKey('canTakeQuiz$i') == true) {
+        if (!hasPassedQuiz(lessonId, quizKey)) {
+          allQuizzesPassed = false;
+          break;
+        }
+      }
     }
-    _saveAll();
-    notifyListeners();
+
+    // If all quizzes are passed, unlock the next lesson
+    if (allQuizzesPassed) {
+      int currentLessonNumber =
+          int.parse(lessonId.replaceAll(RegExp(r'\D'), ''));
+      String nextLessonId = 'lesson${currentLessonNumber + 1}';
+
+      if (userProgress.containsKey(nextLessonId)) {
+        userProgress[nextLessonId]?['isComplete'] =
+            true; // Unlock the next lesson
+        _saveAll();
+        notifyListeners();
+      }
+    }
   }
 
   void allowQuiz(String lessonId, String quizId) {
@@ -217,17 +297,37 @@ class GlobalVariables extends ChangeNotifier {
   }
 
   bool getQuizTaken(String lessonId, String quizId) {
-    String key;
-    if (quizId == 'quiz1')
-      key = 'quiz1Taken';
-    else if (quizId == 'quiz2')
-      key = 'quiz2Taken';
-    else if (quizId == 'quiz3')
-      key = 'quiz3Taken';
-    else
-      key = 'quiz4Taken';
+    String uniqueQuizKey = '${lessonId}_$quizId';
+    return quizTakenStatus[uniqueQuizKey] ?? false;
+  }
 
-    return userProgress[lessonId]?[key] ?? false;
+  bool hasPassedQuiz(String lessonId, String quizId) {
+    String uniqueQuizKey = '${lessonId}_$quizId';
+
+    List<int> scores = globalScores[uniqueQuizKey] ?? [];
+    int totalQuestions = quizItemCount[uniqueQuizKey] ?? 0;
+
+    // Debugging logs
+    print('Checking pass status for $uniqueQuizKey:');
+    print('Scores: $scores');
+    print('Total Questions: $totalQuestions');
+
+    if (scores.isEmpty) {
+      print('Result: No attempts made yet.');
+      return false;
+    }
+
+    int latestScore = scores.last; // Use the latest score
+    print('Latest Score: $latestScore');
+
+    if (totalQuestions == 0) {
+      print('Result: Total questions is zero, cannot pass.');
+      return false;
+    }
+
+    bool passed = (latestScore / totalQuestions) >= 0.5;
+    print('Result: ${passed ? "Passed" : "Failed"}');
+    return passed;
   }
 
   bool canTakeQuiz(String lessonId, String quizId) {

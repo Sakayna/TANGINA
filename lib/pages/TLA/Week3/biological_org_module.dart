@@ -470,8 +470,6 @@ class _ModuleScreen3Page extends State<ModuleScreen3> {
           var translation = singleHitTestResult.worldTransform.getTranslation();
           var rotation = singleHitTestResult.worldTransform.getRotation();
           var rotationQuaternion = vector.Quaternion.fromRotation(rotation);
-
-          // Updated sceneNodes list
           List<SceneNode> sceneNodes = [
             SceneNode(
               name: "Cells",
@@ -482,55 +480,55 @@ class _ModuleScreen3Page extends State<ModuleScreen3> {
             SceneNode(
               name: "Tissues",
               modelPath: "assets/lesson3/assets/blocks/new/tissues.gltf",
-              position: vector.Vector3(0, 0.18, 0),
+              position: vector.Vector3(0, 0.22, 0), // Adjusted gap
               scale: vector.Vector3(0.07, 0.07, 0.07),
             ),
             SceneNode(
               name: "Organs",
               modelPath: "assets/lesson3/assets/blocks/new/organs.gltf",
-              position: vector.Vector3(0, 0.21, 0),
+              position: vector.Vector3(0, 0.29, 0), // Adjusted gap
               scale: vector.Vector3(0.07, 0.07, 0.07),
             ),
             SceneNode(
               name: "Organ System",
               modelPath: "assets/lesson3/assets/blocks/new/organsystem.gltf",
-              position: vector.Vector3(0, 0.24, 0),
+              position: vector.Vector3(0, 0.36, 0), // Adjusted gap
               scale: vector.Vector3(0.07, 0.07, 0.07),
             ),
             SceneNode(
               name: "Organism",
               modelPath: "assets/lesson3/assets/blocks/new/organisms.gltf",
-              position: vector.Vector3(0, 0.27, 0),
+              position: vector.Vector3(0, 0.43, 0), // Adjusted gap
               scale: vector.Vector3(0.07, 0.07, 0.07),
             ),
             SceneNode(
               name: "Population",
               modelPath: "assets/lesson3/assets/blocks/new/population.gltf",
-              position: vector.Vector3(0, 0.30, 0),
+              position: vector.Vector3(0, 0.50, 0), // Adjusted gap
               scale: vector.Vector3(0.07, 0.07, 0.07),
             ),
             SceneNode(
               name: "Communities",
               modelPath: "assets/lesson3/assets/blocks/new/community.gltf",
-              position: vector.Vector3(0, 0.33, 0),
+              position: vector.Vector3(0, 0.57, 0), // Adjusted gap
               scale: vector.Vector3(0.07, 0.07, 0.07),
             ),
             SceneNode(
               name: "Ecosystem",
               modelPath: "assets/lesson3/assets/blocks/new/ecosystem.gltf",
-              position: vector.Vector3(0, 0.36, 0),
+              position: vector.Vector3(0, 0.64, 0), // Adjusted gap
               scale: vector.Vector3(0.07, 0.07, 0.07),
             ),
             SceneNode(
               name: "Biomes",
               modelPath: "assets/lesson3/assets/blocks/new/biomes.gltf",
-              position: vector.Vector3(0, 0.39, 0),
+              position: vector.Vector3(0, 0.71, 0), // Adjusted gap
               scale: vector.Vector3(0.07, 0.07, 0.07),
             ),
             SceneNode(
               name: "Biosphere",
               modelPath: "assets/lesson3/assets/blocks/new/biosphere.gltf",
-              position: vector.Vector3(0, 0.42, 0),
+              position: vector.Vector3(0, 0.78, 0), // Adjusted gap
               scale: vector.Vector3(0.07, 0.07, 0.07),
             ),
           ];

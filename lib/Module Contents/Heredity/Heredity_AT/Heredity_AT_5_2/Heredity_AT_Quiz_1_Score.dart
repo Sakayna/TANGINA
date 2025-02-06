@@ -23,10 +23,15 @@ class Heredity_AT_5_1_2_Score extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final globalVariables =
           Provider.of<GlobalVariables>(context, listen: false);
-      globalVariables.incrementQuizTakeCount('quiz8');
-      globalVariables.setGlobalScore('quiz8', score);
-      globalVariables.updateGlobalRemarks('quiz8', score, stages.length);
-      globalVariables.setQuizItemCount('quiz8', stages.length);
+
+      const lessonId = 'lesson5';
+      const quizId = 'quiz2';
+
+      globalVariables.incrementQuizTakeCount(lessonId, quizId);
+      globalVariables.setGlobalScore(lessonId, quizId, score);
+      globalVariables.updateGlobalRemarks(
+          lessonId, quizId, score, stages.length);
+      globalVariables.setQuizItemCount(lessonId, quizId, stages.length);
       globalVariables.printGlobalVariables();
     });
 

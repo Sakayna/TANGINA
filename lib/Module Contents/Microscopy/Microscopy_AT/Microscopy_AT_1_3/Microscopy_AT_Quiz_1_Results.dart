@@ -31,16 +31,28 @@ class Microscopy_AT_Quiz_1_Results extends StatelessWidget {
     int correctAnswersCount = calculateScore();
     int totalQuestions = questions.length;
 
-    // Update global variables with the results
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final globalVariables =
           Provider.of<GlobalVariables>(context, listen: false);
-      globalVariables.setGlobalScore('quiz2', correctAnswersCount);
-      globalVariables.setQuizItemCount('quiz2', totalQuestions);
+
+      // Specify both lessonId and quizId for all operations
+      const lessonId = 'lesson1';
+      const quizId = 'quiz2';
+
+      // Store the score and quiz completion data
+      globalVariables.setGlobalScore(lessonId, quizId, correctAnswersCount);
+      globalVariables.setQuizItemCount(lessonId, quizId, totalQuestions);
       globalVariables.updateGlobalRemarks(
-          'quiz2', correctAnswersCount, totalQuestions);
-      globalVariables.incrementQuizTakeCount('quiz2');
-      globalVariables.printGlobalVariables(); // Optional: for debugging
+          lessonId, quizId, correctAnswersCount, totalQuestions);
+      globalVariables.incrementQuizTakeCount(lessonId, quizId);
+
+      // Unlock Lesson 2 only if both quizzes in Lesson 1 are passed
+      if (globalVariables.hasPassedQuiz(lessonId, 'quiz1') &&
+          globalVariables.hasPassedQuiz(lessonId, 'quiz2')) {
+        globalVariables.unlockNextLesson(lessonId);
+      }
+
+      globalVariables.printGlobalVariables(); // Debugging purposes
     });
 
     return Scaffold(

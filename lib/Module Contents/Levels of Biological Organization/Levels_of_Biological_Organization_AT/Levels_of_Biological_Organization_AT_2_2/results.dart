@@ -30,17 +30,32 @@ class ResultsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     int correctAnswersCount = calculateScore();
     int totalQuestions = questions.length;
-
-    // Update global variables with the results
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final globalVariables =
           Provider.of<GlobalVariables>(context, listen: false);
-      globalVariables.setGlobalScore('quiz3', correctAnswersCount);
-      globalVariables.setQuizItemCount('quiz3', totalQuestions);
-      globalVariables.updateGlobalRemarks(
-          'quiz3', correctAnswersCount, totalQuestions);
-      globalVariables.incrementQuizTakeCount('quiz3');
-      globalVariables.printGlobalVariables(); // Optional: for debugging
+      const lessonId = 'lesson2';
+      const quizId = 'quiz1';
+
+      // Ensure the quiz is only incremented once
+      if (!globalVariables.getQuizTaken(lessonId, quizId)) {
+        globalVariables.setGlobalScore(lessonId, quizId, correctAnswersCount);
+        globalVariables.setQuizItemCount(lessonId, quizId, totalQuestions);
+        globalVariables.updateGlobalRemarks(
+            lessonId, quizId, correctAnswersCount, totalQuestions);
+        globalVariables.incrementQuizTakeCount(lessonId, quizId);
+        globalVariables.setQuizTaken(lessonId, quizId, true);
+
+        // Unlock the next lesson only if the quiz is passed
+        if (globalVariables.hasPassedQuiz(lessonId, quizId)) {
+          globalVariables.unlockNextLesson(lessonId);
+        }
+
+        // Debug logs for easier tracking
+        debugPrint('Updated progress for $lessonId $quizId:');
+        globalVariables.printGlobalVariables();
+      } else {
+        debugPrint('Quiz $lessonId $quizId already taken. Skipping increment.');
+      }
     });
 
     return Scaffold(
