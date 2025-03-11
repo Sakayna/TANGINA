@@ -39,12 +39,19 @@ class _Microscopy_Topic_1_1State extends State<Microscopy_Topic_1_1> {
 
     // Combine all TTS text content
     final List<String> ttsContents = [
-      'The microscope is a precision instrument and the commonly used tool in conducting biological researches and in studying objects or organisms or parts of organisms that are invisible or only slightly visible to the naked eye. '
-          'This part will discuss the historical development of the microscope, the parts and functions of a light compound microscope, and their proper use and care.',
-      'The discovery of lenses started during the first century AD when glass had been invented. The Romans discovered that clear glass shaped like a lentil bean could enlarge objects. They called it lens.',
-      'In 1590, Zaccharias Janssen and his brother Hans invented the compound microscope.',
-      'Anton Van Leeuwenhoek made a simple microscope with powerful magnification and observed bacteria, yeasts, and red blood cells. He was called the Father of Microscopy.',
-      'Robert Hooke discovered compartments in cork using a compound microscope and called them cells.'
+      'How Can We See the Details of Bacteria?',
+      'With the naked eye, bacteria just look like a slimy smear on a petri dish. The invention of the microscope allows us to see bacteria, cells, and other microscopic structures.'
+          'The Microscope',
+      'Microscopes are essential tools in biology. They help us study objects that are too small to be seen by the human eye. Microscopy is the study of small objects using microscopes.'
+          'Invention of the Microscope',
+      'Over 400 years ago, Zacharias Janssen and his son Hans experimented with lenses and discovered magnification. '
+          'This led to the creation of the first compound microscope.'
+          'Robert Hooke and the Discovery of Cells',
+      'In 1665, Robert Hooke used a microscope to examine cork. He discovered small structures, which he called "cells," '
+          'leading to the development of cell theory.'
+          'Antonie van Leeuwenhoek and Microorganisms',
+      'Antonie van Leeuwenhoek created one of the first microscopes. '
+          'He observed bacteria, single-celled protists, and sperm cells, pioneering microbiology.'
     ];
 
     return WillPopScope(
@@ -161,262 +168,50 @@ class _Microscopy_Topic_1_1State extends State<Microscopy_Topic_1_1> {
                     delegate: SliverChildListDelegate(
                       [
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(
-                            25.0,
-                            30.0,
-                            25.0,
-                            80.0,
-                          ),
+                          padding:
+                              const EdgeInsets.fromLTRB(25.0, 30.0, 25.0, 80.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    WidgetSpan(
-                                      child: SizedBox(
-                                        width: 40,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: 'The ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                    TextSpan(
-                                      text: 'microscope',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          ' is a precision instrument and the commonly used tool in conducting biological researches and in studying objects or organisms or parts of organisms that are invisible or only slightly visible to the naked eye. '
-                                          'This part will discuss the historical development of the microscope, the parts and functions of a light compound microscope, and their proper use and care.',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.justify,
-                              ),
-                              SizedBox(height: 20),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    WidgetSpan(
-                                      child: SizedBox(
-                                        width: 40,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          ' The discovery of lenses started during the first century AD (year 100), when glass had been invented. The Romans, after looking through and testing the different shapes of glasses, were able to discover a clear glass that was thick in the middle and thin on the edges. They discovered that if you look through an object using this glass, the object would look larger. They called this clear glass ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                    TextSpan(
-                                      text: 'lens',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontStyle: FontStyle.italic),
-                                    ),
-                                    TextSpan(
-                                      text: ', derived from the Latin term ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                    TextSpan(
-                                      text: 'lentil',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontStyle: FontStyle.italic),
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          ' because it resembled the shape of a lentil bean.',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.justify,
-                              ),
-                              SizedBox(height: 20),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    WidgetSpan(
-                                      child: SizedBox(
-                                        width: 40,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          'In 1590, two Dutch eyeglass makers named ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                    TextSpan(
-                                      text: 'Zaccharias Janssen',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          ' and his brother Hans started experimenting using lenses. They got a tube and put lenses on each end and started observing objects. The Janssens were amazed that the object they observed was greatly enlarged, much larger than a magnifying glass can enlarge. The Janssen brothers made a very important discovery, a compound microscope. Compound because it uses two or more lenses.',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.justify,
-                              ),
-                              SizedBox(height: 20),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    WidgetSpan(
-                                      child: SizedBox(
-                                        width: 40,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: 'Anton Van Leeuwenhoek',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          ' (1632-1723) during his time was able to make a simple microscope, and he made several biological breakthroughs using it. Although Leeuwenhoek\'s microscope is composed only of a single lens, its magnification is so powerful that it can enlarge objects 270 times. He was the first to observe bacteria, yeasts, red blood cells, and he described colonies of protozoans teeming in a drop of rainwater which he called ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                    TextSpan(
-                                      text: 'animalcules',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontStyle: FontStyle.italic),
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          '. These breakthroughs earned him the title "Father of Microscopy."',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.justify,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: 30.0), // Add left padding
-                                child: Container(
-                                  width: 300, // Adjust width as needed
-                                  height: 350, // Adjust height as needed
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        'assets/images/Microscopy/Zacharias.jpg',
-                                        height: 250, // Adjust height as needed
-                                        width: 300, // Adjust width as needed
-                                        fit: BoxFit
-                                            .contain, // Ensure the image is fully visible
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text(
-                                        'Zaccharias Janssen',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: 18.0), // Add left padding
-                                child: Container(
-                                  width: 400, // Adjust width as needed
-                                  height: 250, // Adjust height as needed
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Image.asset(
-                                          'assets/images/Microscopy/compound_.jpg',
-                                          height:
-                                              200, // Adjust height as needed
-                                          width: 400, // Adjust width as needed
-                                          fit: BoxFit
-                                              .contain, // Ensure the image is fully visible
-                                        ),
-                                        SizedBox(height: 10),
-                                        Text(
-                                          'Janssen\'s compound microscope',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              buildLessonText(
+                                  'How Can We See the Details of Bacteria?',
+                                  'With the naked eye, bacteria just look like a slimy smear on a petri dish. The invention of the microscope allows us to see bacteria, cells, and other microscopic structures.'),
+
+                              buildLessonText('The Microscope',
+                                  'Microscopes are essential tools in biology. They help us study objects that are too small to be seen by the human eye. Microscopy is the study of small objects using microscopes.'),
+
+                              buildLessonText(
+                                  'Invention of the Microscope',
+                                  'Over 400 years ago, Zacharias Janssen and his son Hans experimented with lenses and discovered magnification. '
+                                      'This led to the creation of the first compound microscope.'),
+
+                              buildImage(
+                                  'assets/images/Microscopy/Zacharias.jpg',
+                                  'Zacharias Janssen'),
                               SizedBox(height: 10),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    WidgetSpan(
-                                      child: SizedBox(
-                                        width: 40,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: 'Robert Hooke',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          ', an Englishman, also spent much of his life working with microscopes improving their design and capabilities. Hooke, using his improved compound microscope, discovered tiny compartments in a thin slice of cork. He called these compartments ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                    TextSpan(
-                                      text: 'cells.',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.justify,
-                              ),
+
+                              buildLessonText(
+                                  'Robert Hooke and the Discovery of Cells',
+                                  'In 1665, Robert Hooke used a microscope to examine cork. He discovered small structures, which he called "cells," '
+                                      'leading to the development of cell theory.'),
                               SizedBox(height: 10),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: 18.0), // Add left padding
-                                child: Container(
-                                  width: 400, // Adjust width as needed
-                                  height: 200, // Adjust height as needed
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Image.asset(
-                                          'assets/images/Microscopy/Collage.png',
-                                          height:
-                                              200, // Adjust height as needed
-                                          width: 400, // Adjust width as needed
-                                          fit: BoxFit
-                                              .contain, // Ensure the image is fully visible
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
+
+                              buildImage('assets/images/Microscopy/Collage.png',
+                                  'Robert Hooke\'s Discovery of Cells'),
+                              SizedBox(height: 10),
+
+                              buildLessonText(
+                                  'Antonie van Leeuwenhoek and Microorganisms',
+                                  'Antonie van Leeuwenhoek created one of the first microscopes. '
+                                      'He observed bacteria, single-celled protists, and sperm cells, pioneering microbiology.'),
+
+                              SizedBox(height: 20),
+
+                              // Website Reference
+                              Text(
+                                'Reference: https://flexbooks.ck12.org/cbook/ck-12-middle-school-life-science-2.0/section/1.6/primary/lesson/microscopes-ms-ls/',
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.black54),
                               ),
                             ],
                           ),
@@ -482,6 +277,37 @@ class _Microscopy_Topic_1_1State extends State<Microscopy_Topic_1_1> {
       ),
     );
   }
+}
+
+// Helper function for lesson text
+Widget buildLessonText(String title, String content) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 10.0),
+    child: Text.rich(
+      TextSpan(
+        children: [
+          TextSpan(
+              text: '$title\n',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+          TextSpan(text: content, style: TextStyle(fontSize: 14)),
+        ],
+      ),
+      textAlign: TextAlign.justify,
+    ),
+  );
+}
+
+// Helper function for images
+Widget buildImage(String imagePath, String caption) {
+  return Column(
+    children: [
+      Image.asset(imagePath,
+          width: double.infinity, height: 250, fit: BoxFit.contain),
+      SizedBox(height: 10),
+      Text(caption,
+          textAlign: TextAlign.center, style: TextStyle(fontSize: 14)),
+    ],
+  );
 }
 
 void main() {

@@ -24,25 +24,25 @@ class _Biological_Organization_Topic_2_1State
   bool isTTSEnabled = false;
 
   final String ttsContent =
-      'There are many levels of organization. Biologists differ in terms of the number of levels they consider. '
-      'In this section, we will look into thirteen levels of organization. '
-      'The levels will be presented from the simplest to the most complex level in a hierarchy. '
-      'Take note, however, that these levels are all related to each other, and the level below is more complex than the level before it, '
-      'or the level below contains all the levels above it. Subatomic particles are the particles, protons, neutrons, and electrons, that compose an atom. '
-      'Protons are the positively charged particles; neutrons have no charge; while the electrons are the negatively charged particles. '
-      'An atom is the smallest unit of matter that possesses physical and chemical properties. Matter that is composed of only one kind of atom is called an element. '
-      'A molecule consists of two or more atoms that are chemically bonded together. They range from small molecules to micromolecules to large, gigantic macromolecules. '
-      'Organelles are highly organized assemblies of several macromolecules bonded together to perform a specific function in the cell. '
-      'Cells are collections of organelles functioning together as the basic unit of life capable of all living functions. '
-      'Tissues are groups of distinct and similar cells working together to perform specific functions. '
-      'Organs consist of different tissues organized together to perform specific functions. '
-      'Organ systems consist of several organs working together to perform broad functions. '
-      'Organisms are aggregations of organ systems performing various life activities. '
-      'Populations are groups of organisms of the same species freely interacting within a given area. '
-      'Communities include all populations of different species interacting in a given area. '
-      'Ecosystems consist of communities of organisms interacting with the non-living components of their environment. '
-      'Biomes are collections of ecosystems with similar climates, covering large geographical areas. '
-      'The biosphere consists of the totality of the ecosystems on Earth, encompassing all areas where life exists.';
+      'Biology, the study of life and living organisms, is a vast and complex field that covers a multitude of structures, systems, and processes. One fundamental aspect of biology is understanding how life organizes from the simplest to the most complex forms. This concept of hierarchical organization helps us comprehend the vast diversity of life, how different biological structures interact, and how they function both individually and collectively.'
+      'Why Understanding Organization is Important'
+      'Understanding the levels of biological organization assists in making sense of the complexity of life forms, their interactions, and their environments. It provides a framework for biologists to classify and study organisms. Also, it helps in understanding how different components of an ecosystem work together. This knowledge is essential for fields like medicine, environmental science, and genetics.'
+      'Levels of Organization in Biology'
+      'From the simplest to the most complex, the levels of organization in biology are: atoms, molecules, macromolecules, cells, tissues, organs, organ systems, organisms, populations, communities, and the biosphere. Eukaryotic cells (plants, animals, fungi) display all of these levels, while prokaryotic cells (bacteria and archaea) don’t have tissues, organs, or organ systems.'
+      'This is the most basic level, involving the smallest units of matter that make up the chemical composition of living organisms.'
+      'Molecular subunits connect via covalent bonds (polymerize) and form large, complex organic molecules called macromolecules.'
+      'A configuration of a molecule. The different colors represent the different atoms that compose the molecule.'
+      'are highly organized assemblies of several macromolecules bonded together to perform a specific function in the cell. The organelles are most often membrane-bound. Examples of organelles are mitochondria, nucleus, chloroplasts, and lysosomes. '
+      'The animal cell is composed of various parts called organelles that perform specific functions.'
+      'is the basic units of life. Some exist independently in unicellular organisms, while others are part of a larger multicellular organism.'
+      'Organs are structures that consist of two or more types of tissues that work together to perform specific, complex functions. '
+      'An organ system is a group of organs that work together to perform major functions or meet physiological needs of the body. '
+      'An organism is an individual living entity that functions on its own.'
+      'A population is a group of organisms of the same species living in a specific geographical area and capable of interbreeding.'
+      'A community is the collection of all the different populations that live together in an area.'
+      'Ecosystems include all the living things in a given area, interacting with each other, and also with their non-living environments. In other words, an ecosystem includes both biotic and abiotic factors.'
+      'pertains to a collection of ecosystems with similar climates and covering a large geographical area. Grasslands, savanna, deserts, and tropical rainforests are examples of ecosystems that cover a large geographical area. '
+      'The biosphere is the global ecological system integrating all living beings and their relationships, including their interaction with the elements of the lithosphere, hydrosphere, and atmosphere.';
 
   @override
   void initState() {
@@ -219,26 +219,67 @@ class _Biological_Organization_Topic_2_1State
                                     ),
                                     TextSpan(
                                       text:
-                                          'There are many levels of organization. Biologists differ in terms of the number of levels they consider In this section, we will look into thirteen levels of organization. '
-                                          'The levels will be presented from the simplest to the most complex level in a hierarchy. Take note, however, that these levels are all related to each other and that the level below is more complex than the level before it or the level below contains all the levels above it.',
+                                          'Biology, the study of life and living organisms, is a vast and complex field that covers a multitude of structures, systems, and processes. One fundamental aspect of biology is understanding how life organizes from the simplest to the most complex forms. This concept of hierarchical organization helps us comprehend the vast diversity of life, how different biological structures interact, and how they function both individually and collectively.',
                                       style: TextStyle(fontSize: 14),
                                     ),
                                   ],
                                 ),
                                 textAlign: TextAlign.justify,
                               ),
-                              SizedBox(height: 20),
+                              SizedBox(height: 10),
                               Text.rich(
                                 TextSpan(
                                   children: [
                                     WidgetSpan(
-                                      child: SizedBox(
-                                        width: 40,
-                                      ),
+                                      child: SizedBox(width: 40),
                                     ),
                                     TextSpan(
                                       text:
-                                          'Subatomic particles are the particles (protons, neutrons, and electrons) that compose an atom. Protons are the positively charged particles; neutrons have no charge; while the electrons are the negatively charged particles.',
+                                          'Why Understanding Organization is Important\n\n',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.justify,
+                              ),
+                              Text.rich(
+                                TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text:
+                                          'Understanding the levels of biological organization assists in making sense of the complexity of life forms, their interactions, and their environments. It provides a framework for biologists to classify and study organisms. Also, it helps in understanding how different components of an ecosystem work together. This knowledge is essential for fields like medicine, environmental science, and genetics.',
+                                      style: TextStyle(fontSize: 14),
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.justify,
+                              ),
+                              SizedBox(height: 10),
+                              Text.rich(
+                                TextSpan(
+                                  children: [
+                                    WidgetSpan(
+                                      child: SizedBox(width: 40),
+                                    ),
+                                    TextSpan(
+                                      text:
+                                          'Levels of Organization in Biology\n\n',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.justify,
+                              ),
+                              Text.rich(
+                                TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text:
+                                          'From the simplest to the most complex, the levels of organization in biology are: atoms, molecules, macromolecules, cells, tissues, organs, organ systems, organisms, populations, communities, and the biosphere. Eukaryotic cells (plants, animals, fungi) display all of these levels, while prokaryotic cells (bacteria and archaea) don’t have tissues, organs, or organ systems.',
                                       style: TextStyle(fontSize: 14),
                                     ),
                                   ],
@@ -262,7 +303,7 @@ class _Biological_Organization_Topic_2_1State
                                     ),
                                     TextSpan(
                                       text:
-                                          'is the smallest unit of matter that possesses physical and chemical properties. Matter that is composed of only one kind of atom is called an element. An atom contains the nucleus at its center. The protons and the neutrons are found within it. The electrons are located outside the nucleus moving around a path called orbit, shell, or energy level.',
+                                          'This is the most basic level, involving the smallest units of matter that make up the chemical composition of living organisms.',
                                       style: TextStyle(fontSize: 14),
                                     ),
                                   ],
@@ -321,7 +362,7 @@ class _Biological_Organization_Topic_2_1State
                                     ),
                                     TextSpan(
                                       text:
-                                          'consists of two or more atoms that are chemically bonded together. They range from small molecules to micromolecules to large, gigantic macromolecules. Small molecules may be composed of only two atoms like oxygen (O2) or three atoms like carbon dioxide (CO2). Micromolecules are composed of many atoms that function as subunits from where large molecules are built. An example of micromolecule is glucose (C6H12O6), which serves as the subunit of a carbohydrate molecule. Macromolecules are molecules that are made up of many subunits like carbohydrates, protein, fats, and DNA.',
+                                          'Molecular subunits connect via covalent bonds (polymerize) and form large, complex organic molecules called macromolecules.',
                                       style: TextStyle(fontSize: 14),
                                     ),
                                   ],
@@ -430,7 +471,7 @@ class _Biological_Organization_Topic_2_1State
                                     ),
                                     TextSpan(
                                       text:
-                                          'is a collection of organelles that are functioning together. It is considered as the basic unit of life that is capable of carrying out all the functions of living things. Cells have varied sizes and shapes.',
+                                          'is the basic units of life. Some exist independently in unicellular organisms, while others are part of a larger multicellular organism.',
                                       style: TextStyle(fontSize: 14),
                                     ),
                                   ],
@@ -454,7 +495,7 @@ class _Biological_Organization_Topic_2_1State
                                     ),
                                     TextSpan(
                                       text:
-                                          'is a group of distinct and similar cells that work together to perform a specific set of functions. Examples of tissues in plants are parenchyma, collenchyma, and sclerenchyma tissues. Examples of tissues in animals are epithelial, connective, muscular, and nervous tissues. ',
+                                          'are groups of similar eukaryotic cells that work together to perform a specific function. ',
                                       style: TextStyle(fontSize: 14),
                                     ),
                                   ],
@@ -617,7 +658,7 @@ class _Biological_Organization_Topic_2_1State
                                     ),
                                     TextSpan(
                                       text:
-                                          'consists of different tissues organized together to perform a certain function. For example, the heart is made up of different tissues that enables it to perform the task of pumping blood to all parts of the body. ',
+                                          'are structures that consist of two or more types of tissues that work together to perform specific, complex functions. ',
                                       style: TextStyle(fontSize: 14),
                                     ),
                                   ],
@@ -641,7 +682,7 @@ class _Biological_Organization_Topic_2_1State
                                     ),
                                     TextSpan(
                                       text:
-                                          'consists of several different organs that work together to perform a broad spectrum of functions. For example, the excretory system is composed of the kidneys, ureters, urinary bladder, and blood vessels that function in removing wastes from the various parts of the body and eliminating them through sweating and urination. ',
+                                          'is a group of organs that work together to perform major functions or meet physiological needs of the body. ',
                                       style: TextStyle(fontSize: 14),
                                     ),
                                   ],
@@ -665,7 +706,7 @@ class _Biological_Organization_Topic_2_1State
                                     ),
                                     TextSpan(
                                       text:
-                                          'is an aggregation of the organ systems that work together to bring about various life activities. Humans have eleven organ systems. An organism is an individual belonging to a particular species that has its own distinct existence as a complex, self-reproducing unit. ',
+                                          'is an individual living entity that functions on its own.',
                                       style: TextStyle(fontSize: 14),
                                     ),
                                   ],
@@ -708,7 +749,7 @@ class _Biological_Organization_Topic_2_1State
                                     ),
                                     TextSpan(
                                       text:
-                                          'is a group of organisms of the same species occupying a given area. These organisms are freely interacting with one another. Populations are sometimes composed of small groups-a pack of wolves, pride of lions, towns of squirrels, herd of cattle, and colony of termites. ',
+                                          'is a group of organisms of the same species living in a specific geographical area and capable of interbreeding.',
                                       style: TextStyle(fontSize: 14),
                                     ),
                                   ],
@@ -750,7 +791,7 @@ class _Biological_Organization_Topic_2_1State
                                     ),
                                     TextSpan(
                                       text:
-                                          'consists of all the populations of different species of organisms living together in a given area. These organisms are interacting with one another. Their interactions may be harmful, symbiotic, or cooperative. Examples are all the living things in a freshwater pond, all the species in a rice field, and all the living things in a prairie. ',
+                                          'is the collection of all the different populations that live together in an area.',
                                       style: TextStyle(fontSize: 14),
                                     ),
                                   ],
@@ -801,7 +842,7 @@ class _Biological_Organization_Topic_2_1State
                                     ),
                                     TextSpan(
                                       text:
-                                          'consists of all the communities of organisms (biotic components) that inhabit the same area, as well as the nonliving (abiotic components) of the area and the sets of interactions that exist between these two components. ',
+                                          'include all the living things in a given area, interacting with each other, and also with their non-living environments. In other words, an ecosystem includes both biotic and abiotic factors.',
                                       style: TextStyle(fontSize: 14),
                                     ),
                                   ],
@@ -946,7 +987,7 @@ class _Biological_Organization_Topic_2_1State
                                     ),
                                     TextSpan(
                                       text:
-                                          'consists of the totality of the ecosystems of planet Earth. It also pertains to any part of Earth\'s sphere where life exists. It is also referred to as the world of life ',
+                                          'is the global ecological system integrating all living beings and their relationships, including their interaction with the elements of the lithosphere, hydrosphere, and atmosphere.',
                                       style: TextStyle(fontSize: 14),
                                     ),
                                   ],
@@ -970,6 +1011,14 @@ class _Biological_Organization_Topic_2_1State
                               SizedBox(height: 10),
                               Text(
                                 'Reference: https://www.youtube.com/watch?v=52B7Edcc7y4',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                              SizedBox(height: 20),
+                              Text(
+                                'Reference: https://sciencenotes.org/levels-of-organization-in-biology/',
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Colors.black54,

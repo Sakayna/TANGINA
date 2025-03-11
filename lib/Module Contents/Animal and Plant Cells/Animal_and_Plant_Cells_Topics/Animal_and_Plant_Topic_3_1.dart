@@ -20,12 +20,17 @@ class _Animal_and_Plant_Topic_3_1State
   // Function to speak text
   Future<void> speakText() async {
     if (isTTSEnabled) {
-      String content = '''
-      Living things vary in terms of the number of cells they have. Some living things are multicellular, made up of many cells. Others are single-celled or unicellular. 
-      Two types of cells compose living things. Some living things, as in the case of bacteria and cyanobacteria, have prokaryotic cells. These organisms are called prokaryotes. Prokaryotic cells lack distinct nuclei and have few organelles that are not membrane-bound. In contrast, eukaryotic cells have distinct nuclei and contain several membrane-bound organelles. Animals, plants, fungi, and protists have eukaryotic cells; and they are called eukaryotes.
-      However, whether the cells are prokaryotic or eukaryotic, they share some common features. Take note of the location of the DNA molecule. The DNA molecule in both cells is contained within the chromosomes. In plant cells, the chromosomes are in the nucleus, which is bound by a double membrane. Bacterial cells have their chromosomes in a non-membrane-bound region called the nucleoid. This indicates that the internal organization of eukaryotic cells is more complex than prokaryotic cells.
-      What are the common features of the two cells? The functions of these structures found in both cells will be discussed later in this section. Take note of the location of the DNA molecule. The DNA molecule in both cells is contained within the chromosomes. However, in the plant cell, the chromosomes are contained within the nucleus that is bound by a double membrane, and there are numerous organelles that are also membrane-bound. Whereas in the bacterial cell, the chromosomes are simply contained in a non-membrane-bound region called the nucleoid, and there are few organelles found in the cell. This tells us that the internal organization of the cells of eukaryotes is more complex than the cells of prokaryotes. 
-      ''';
+      String content = 
+      
+                                          'Cells function differently in unicellular and multicellular organisms. A unicellular organism depends upon just one cell for all of its functions while a multicellular organism has cells specialized to perform different functions that collectively support the organism. '
+                                                                                    'Biotic components of the environment include all forms of life from minute bacteria to towering giant Sequoias. However, at the microscopic level, all living organisms are made up of the same basic unit – the cell.'
+                                                                                                                              'As a result, the cell is referred to as the structural and functional unit of all living organisms. The word cell has its origins in Latin, and when translated, it means “small room” and was first observed by Robert Hooke – an English natural philosopher in the year 1665. '
+                                                                                                                                                                        'Eventual advancements in science and technology shed more light into the cell, with new findings and discoveries about its structure and cellular components. During the 1950s, scientists postulated the concept of prokaryotic cells and eukaryotic cells, with earlier groundwork being laid by Edouard Chatton, a French Biologist in 1925.'
+                                                                                                                                                                                                                  'Eventual advancements in science and technology shed more light into the cell, with new findings and discoveries about its structure and cellular components. During the 1950s, scientists postulated the concept of prokaryotic cells and eukaryotic cells, with earlier groundwork being laid by Edouard Chatton, a French Biologist in 1925.'
+                                                                                                                                                                                                                        
+      
+      
+      ;
       await flutterTts.speak(content);
     }
   }
@@ -170,62 +175,7 @@ class _Animal_and_Plant_Topic_3_1State
                                     ),
                                     TextSpan(
                                       text:
-                                          'Living things vary in terms of the number of cells they have. Some living things are ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                    TextSpan(
-                                      text: 'multicellular ',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          'made up of many cells. Others are single-celled or ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                    TextSpan(
-                                      text: 'unicellular ',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.justify,
-                              ),
-                              SizedBox(height: 20),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    WidgetSpan(
-                                      child: SizedBox(width: 40),
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          'Two types of cells compose living things. Some living things as in the case of bacteria and cyanobacteria have prokaryotic cells (pro = before; karyon = nucleus). These organisms are called prokaryotes. ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                    TextSpan(
-                                      text: 'Prokaryotic cells ',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          'lack distinct nuclei and have few organelles that are not membrane-bound. In contrast, ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                    TextSpan(
-                                      text: 'Eukaryotic cells ',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          '(eu = true; karyon = nucleus) have distinct nuclei and contain several membrane-bound organelles. Animals, plants, fungi, and protists have eukaryotic cells; and they are called eukaryotes. ',
+                                          'Cells function differently in unicellular and multicellular organisms. A unicellular organism depends upon just one cell for all of its functions while a multicellular organism has cells specialized to perform different functions that collectively support the organism. ',
                                       style: TextStyle(fontSize: 14),
                                     ),
                                   ],
@@ -241,7 +191,7 @@ class _Animal_and_Plant_Topic_3_1State
                                     ),
                                     TextSpan(
                                       text:
-                                          'However, whether the cells are prokaryotic or eukaryotic, they share some common features. Take a look at the image below that shows the cell structure of a bacterium representing a prokaryotic cell and a plant cell representing a eukaryotic cell. ',
+                                          'Biotic components of the environment include all forms of life from minute bacteria to towering giant Sequoias. However, at the microscopic level, all living organisms are made up of the same basic unit – the cell.',
                                       style: TextStyle(fontSize: 14),
                                     ),
                                   ],
@@ -257,7 +207,24 @@ class _Animal_and_Plant_Topic_3_1State
                                     ),
                                     TextSpan(
                                       text:
-                                          'What are the common features of the two cells? The functions of these structures found in both cells will be discussed later in this section. Take note of the location of the DNA molecule. The DNA molecule in both cells is contained within the chromosomes. However, in the plant cell, the chromosomes are contained within the nucleus that is bound by a double membrane, and there are numerous organelles that are also membrane-bound. Whereas in the bacterial cell, the chromosomes are simply contained in a non-membrane-bound region called the nucleoid, and there are few organelles found in the cell. This tells us that the internal organization of the cells of eukaryotes is more complex than the cells of prokaryotes. ',
+                                          'As a result, the cell is referred to as the structural and functional unit of all living organisms. The word cell has its origins in Latin, and when translated, it means “small room” and was first observed by Robert Hooke – an English natural philosopher in the year 1665. ',
+                                      style: TextStyle(fontSize: 14),
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.justify,
+                              ),
+                              SizedBox(height: 20),
+                              Text.rich(
+                                TextSpan(
+                                  children: [
+                                    WidgetSpan(
+                                      child: SizedBox(width: 40),
+                                    ),
+                                    TextSpan(
+                                      text:
+                                          'Eventual advancements in science and technology shed more light into the cell, with new findings and discoveries about its structure and cellular components. During the 1950s, scientists postulated the concept of prokaryotic cells and eukaryotic cells, with earlier groundwork being laid by Edouard Chatton, a French Biologist in 1925.'
+                                          'Anatomically, cells vary with respect to their classification, therefore, prokaryotic cells and eukaryotic cells differ from each other quite drastically. Read on to explore how they differ from each other. ',
                                       style: TextStyle(fontSize: 14),
                                     ),
                                   ],
@@ -352,6 +319,14 @@ class _Animal_and_Plant_Topic_3_1State
                               SizedBox(
                                   height:
                                       20), // Space between cells and the text
+
+                              Text(
+                                'Reference: https://byjus.com/biology/prokaryotic-and-eukaryotic-cells/',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black54,
+                                ),
+                              ),
                             ],
                           ),
                         ),

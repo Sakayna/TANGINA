@@ -44,10 +44,32 @@ class _Animal_and_Plant_Topic_3_2State
 
   Future<void> speakText() async {
     if (isTTSEnabled) {
-      String content = '''
-      Cells of eukaryotes are complex and highly organized. This is because of the presence of numerous and varied structures called organelles. Organelles are small membrane-bound structures that perform specific functions that make life possible. The functions of the organelles are much like the functions of the different organs in multicellular organisms. Organelles exist in various shapes and sizes, and they are embedded in the cytoplasm.
-      The numbered parts in the figure are the different organelles. The table below identifies and gives the functions of the different numbered organelles.
-      The numbered parts in the figure are the different organelles. The table below identifies and gives the functions of the different numbered organelles. 1. Ribosomes that are found attached to the endoplasmic reticulum or free floating in the cytoplasm (free ribosomes). They use the RNA synthesized by the nucleolus in making specific amino acid, They are referred to as the "protein factories. 3. Microbodies are the very tiny, membrane-bound organelles that are scattered throughout the cytoplasm together with the free ribosomes. They contain enzymes that are essential in neutralizing toxic materials that are products of cellular metabolism. Examples are the enzymes peroxisomes that break down hydrogen peroxide and proteasomes that break down damaged or unwanted proteins in the cell.''';
+      String content =
+          'Right now your body is doing a million things at once. It’s sending electrical impulses, pumping blood, filtering urine, digesting food, making protein, storing fat, and that’s just the stuff you’re not thinking about! You can do all this because you are made of cells — tiny units of life that are like specialized factories, full of machinery designed to accomplish the business of life. Cells make up every living thing, from blue whales to the archaebacteria that live inside volcanos. Just like the organisms they make up, cells can come in all shapes and sizes. Nerve cells in giant squids can reach up to 12m [39 ft] in length, while human eggs (the largest human cells) are about 0.1mm across. Plant cells have protective walls made of cellulose (which also makes up the strings in celery that make it so hard to eat) while fungal cell walls are made from the same stuff as lobster shells. However, despite this vast range in size, shape, and function, all these little factories have the same basic machinery. '
+          'There are two main types of cells, prokaryotic and eukaryotic. Prokaryotes are cells that do not have membrane bound nuclei, whereas eukaryotes do. The rest of our discussion will strictly be on eukaryotes. Think about what a factory needs in order to function effectively. At its most basic, a factory needs a building, a product, and a way to make that product. All cells have membranes (the building), DNA (the various blueprints), and ribosomes (the production line), and so are able to make proteins (the product - let’s say we’re making toys). This article will focus on eukaryotes, since they are the cell type that contains organelles.'
+          'The Parts of a Typical Cell and Their Function '
+          'Organelle Structure Function'
+          '1. Cell wall'
+          'Nonliving component composed of cellulose, a polysaccharide.'
+          'Provides mechanical support and maintains cell shape in plant cells.'
+          '2. Plasma membrane'
+          ' Flexible and elastic; composed of a phospholipid bilayer with proteins, carbohydrates, and steroids. '
+          'Acts as a barrier to protect the cell and regulates the movement of substances in and out..'
+          '3. Mitochondrion'
+          'Double-membrane structure with inner membrane folded into cristae.'
+          'Generates ATP through cellular respiration, serving as the energy powerhouse of the cell. '
+          '4. Vacuole'
+          '5. Golgi apparatus'
+          'Stacks of single membranes (cisternae) connected to the plasma membrane and endoplasmic reticulum.'
+          'Modifies, sorts, and packages proteins and lipids for secretion or delivery to other organelles.'
+          '6. Cytoplasm'
+          'Gel-like fluid that fills the cell; contains organelles and cytoskeleton.'
+          'Provides a medium for biochemical reactions and supports organelles within the cell.'
+          '7. Nuclear membrane'
+          'Double-layered membrane enclosing the nucleus; outer membrane is porous. '
+          'Protects the nucleus and regulates the exchange of materials between the nucleus and cytoplasm. '
+          '8. Nucleolus'
+          'Dense, spherical body within the nucleus; rich in RNA. ';
       await flutterTts.speak(content);
     }
   }
@@ -196,18 +218,7 @@ class _Animal_and_Plant_Topic_3_2State
                                     ),
                                     TextSpan(
                                       text:
-                                          'Cells of eukaryotes are complex and highly organized. This is because of the presence of numerous and varied structures called ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                    TextSpan(
-                                      text: 'organelles. ',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontStyle: FontStyle.italic),
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          'Organelles are small membrane-bound structures that perform specific functions that make life possible. The functions of the organelles are much like the functions of the different organs in multicellular organisms. Organelles exist in various shapes and sizes, and they are embedded in the cytoplasm. Below shows the schematic diagram of the ultrastructure of a plant cell and an animal cell.',
+                                          'Right now your body is doing a million things at once. It’s sending electrical impulses, pumping blood, filtering urine, digesting food, making protein, storing fat, and that’s just the stuff you’re not thinking about! You can do all this because you are made of cells — tiny units of life that are like specialized factories, full of machinery designed to accomplish the business of life. Cells make up every living thing, from blue whales to the archaebacteria that live inside volcanos. Just like the organisms they make up, cells can come in all shapes and sizes. Nerve cells in giant squids can reach up to 12m [39 ft] in length, while human eggs (the largest human cells) are about 0.1mm across. Plant cells have protective walls made of cellulose (which also makes up the strings in celery that make it so hard to eat) while fungal cell walls are made from the same stuff as lobster shells. However, despite this vast range in size, shape, and function, all these little factories have the same basic machinery. ',
                                       style: TextStyle(fontSize: 14),
                                     ),
                                   ],
@@ -223,7 +234,7 @@ class _Animal_and_Plant_Topic_3_2State
                                     ),
                                     TextSpan(
                                       text:
-                                          'The numbered parts in the figure are the different organelles. The table below identifies and gives the functions of the different numbered organelles.',
+                                          'There are two main types of cells, prokaryotic and eukaryotic. Prokaryotes are cells that do not have membrane bound nuclei, whereas eukaryotes do. The rest of our discussion will strictly be on eukaryotes. Think about what a factory needs in order to function effectively. At its most basic, a factory needs a building, a product, and a way to make that product. All cells have membranes (the building), DNA (the various blueprints), and ribosomes (the production line), and so are able to make proteins (the product - let’s say we’re making toys). This article will focus on eukaryotes, since they are the cell type that contains organelles.',
                                       style: TextStyle(fontSize: 14),
                                     ),
                                   ],
@@ -295,7 +306,7 @@ class _Animal_and_Plant_Topic_3_2State
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'It is a nonliving component composed of cellulose, a polysaccharide.'),
+                                                'Nonliving component composed of cellulose, a polysaccharide.'),
                                           ),
                                         ),
                                         TableCell(
@@ -317,14 +328,14 @@ class _Animal_and_Plant_Topic_3_2State
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'It is flexible and elastic. It is composed of double layers of phospholipid, proteins, carbohydrates, and steroids.'),
+                                                ' Flexible and elastic; composed of a phospholipid bilayer with proteins, carbohydrates, and steroids. '),
                                           ),
                                         ),
                                         TableCell(
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'Selectively permeable; regulates the entry and exit of materials like ions and organic molecules.'),
+                                                'Acts as a barrier to protect the cell and regulates the movement of substances in and out..'),
                                           ),
                                         )
                                       ]),
@@ -339,14 +350,14 @@ class _Animal_and_Plant_Topic_3_2State
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'It is a double-membrane structure. The inner membrane is folded forming cristae.'),
+                                                'Double-membrane structure with inner membrane folded into cristae.'),
                                           ),
                                         ),
                                         TableCell(
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'Provides energy for the cell in the form of Adenosine Triphosphate (ATP).'),
+                                                'Generates ATP through cellular respiration, serving as the energy powerhouse of the cell. '),
                                           ),
                                         )
                                       ]),
@@ -361,14 +372,14 @@ class _Animal_and_Plant_Topic_3_2State
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'A compartment covered by a single membrane called tonoplast.'),
+                                                'Compartment covered by a single membrane called tonoplast.'),
                                           ),
                                         ),
                                         TableCell(
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'Stores water, food, or waste for the cells.'),
+                                                'Stores nutrients, waste products, and helps maintain turgor pressure in plant cells.'),
                                           ),
                                         )
                                       ]),
@@ -383,14 +394,14 @@ class _Animal_and_Plant_Topic_3_2State
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'Consists of stacks of single membranes that are connected to the plasma membrane and endoplasmic reticulum.'),
+                                                'Stacks of single membranes (cisternae) connected to the plasma membrane and endoplasmic reticulum.'),
                                           ),
                                         ),
                                         TableCell(
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'Sorts, packages, and modifies proteins for secretion.'),
+                                                'Modifies, sorts, and packages proteins and lipids for secretion or delivery to other organelles.'),
                                           ),
                                         )
                                       ]),
@@ -405,14 +416,14 @@ class _Animal_and_Plant_Topic_3_2State
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'The complex fluid that fills the cell. The outer cytoplasm (exoplasm) is gel-like, while the inner cytoplasm is fluid (sol-like). The fluid part is capable of streaming (cyclosis).'),
+                                                'Gel-like fluid that fills the cell; contains organelles and cytoskeleton.'),
                                           ),
                                         ),
                                         TableCell(
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'Matrix of the different cellular organelles; distribution of materials throughout the cell due to cyclosis.'),
+                                                'Provides a medium for biochemical reactions and supports organelles within the cell.'),
                                           ),
                                         )
                                       ]),
@@ -427,14 +438,14 @@ class _Animal_and_Plant_Topic_3_2State
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'It is a double-layered membrane that encloses the nucleus. The outer membrane is porous.'),
+                                                'Double-layered membrane enclosing the nucleus; outer membrane is porous. '),
                                           ),
                                         ),
                                         TableCell(
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'Separates the nuclear contents from the contents of the cytoplasm.'),
+                                                'Protects the nucleus and regulates the exchange of materials between the nucleus and cytoplasm. '),
                                           ),
                                         )
                                       ]),
@@ -449,14 +460,14 @@ class _Animal_and_Plant_Topic_3_2State
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'It is the dense, spherical body inside the nucleus. It contains the nucleic acid RNA.'),
+                                                'Dense, spherical body within the nucleus; rich in RNA. '),
                                           ),
                                         ),
                                         TableCell(
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'Synthesis of RNA and production of ribosomes.'),
+                                                'Produces ribosomal RNA (rRNA) and assembles ribosomes for protein synthesis. '),
                                           ),
                                         )
                                       ]),
@@ -472,14 +483,14 @@ class _Animal_and_Plant_Topic_3_2State
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'It is the gel-like material that fills the nucleus.'),
+                                                'Gel-like substance filling the nucleus; contains chromatin and nucleolus.'),
                                           ),
                                         ),
                                         TableCell(
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'Functions as the matrix of the chromosomes and nucleolus.'),
+                                                'Serves as a suspension medium for nuclear components and facilitates the organization of genetic material.'),
                                           ),
                                         )
                                       ]),
@@ -494,14 +505,14 @@ class _Animal_and_Plant_Topic_3_2State
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'They are highly coiled structures that form a network over the nucleoplasm.'),
+                                                'Highly coiled structures made of DNA and proteins; visible during cell division.'),
                                           ),
                                         ),
                                         TableCell(
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'Carriers of genes responsible for transmitting hereditary characteristics.'),
+                                                'Carries genetic information and is essential for inheritance and cell division.'),
                                           ),
                                         )
                                       ]),
@@ -516,14 +527,14 @@ class _Animal_and_Plant_Topic_3_2State
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'It is the spherical body that is composed of organelles 7 to 10.'),
+                                                'Spherical structure containing the cell\'s genetic material.'),
                                           ),
                                         ),
                                         TableCell(
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'The control center of the cell; directs and coordinates all cellular activities.'),
+                                                'Acts as the control center of the cell, regulating gene expression and cellular activities. '),
                                           ),
                                         )
                                       ]),
@@ -539,14 +550,14 @@ class _Animal_and_Plant_Topic_3_2State
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'It is the network of channels composed of a single membrane that may be bumpy if it contains ribosomes (Rough ER) or smooth (SER) if it does not contain ribosomes.'),
+                                                'Network of membranes (rough with ribosomes, smooth without) extending from the nuclear envelope. '),
                                           ),
                                         ),
                                         TableCell(
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'They play an important role in the formation of the skeletal framework.'),
+                                                'Synthesizes proteins (Rough ER) and lipids (Smooth ER); involved in detoxification and calcium storage. '),
                                           ),
                                         )
                                       ]),
@@ -561,14 +572,14 @@ class _Animal_and_Plant_Topic_3_2State
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'It is the double-membrane structure that contains chlorophyll pigments.'),
+                                                'Double-membrane structure containing chlorophyll and thylakoids.'),
                                           ),
                                         ),
                                         TableCell(
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'Provides the green color of plants; functions for photosynthesis.'),
+                                                'Conducts photosynthesis, converting light energy into chemical energy stored in glucose.'),
                                           ),
                                         )
                                       ]),
@@ -583,14 +594,14 @@ class _Animal_and_Plant_Topic_3_2State
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'They are two small rods that lie at right angles to each other. Each rod is surrounded with tiny microtubules arranged like the spokes of a wheel.'),
+                                                'Pair of small, cylindrical structures made of microtubules, arranged in a 9+0 pattern. '),
                                           ),
                                         ),
                                         TableCell(
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'Formation of spindle fibers during cell division; function as the anchor for the cytoskeletons.'),
+                                                'Organizes microtubules during cell division, facilitating the separation of chromosomes.'),
                                           ),
                                         )
                                       ]),
@@ -605,84 +616,20 @@ class _Animal_and_Plant_Topic_3_2State
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'It is a single membrane compartment containing powerful hydrolytic enzymes. It is referred to as the "suicide bag" of the cell.'),
+                                                'Single membrane-bound vesicle containing hydrolytic enzymes.'),
                                           ),
                                         ),
                                         TableCell(
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'Simplifies/Breaks down complex materials.'),
+                                                'Digests macromolecules, recycles cellular components, and eliminates waste materials.'),
                                           ),
                                         )
                                       ]),
                                     ],
                                   ),
                                 ),
-                              ),
-                              SizedBox(height: 30),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    WidgetSpan(
-                                      child: SizedBox(width: 40),
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          'The numbered parts in the figure are the different organelles. The table below identifies and gives the functions of the different numbered organelles.',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.justify,
-                              ),
-                              SizedBox(height: 20),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    WidgetSpan(
-                                      child: SizedBox(width: 40),
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          '1. Ribosomes that are found attached to the endoplasmic reticulum or free floating in the cytoplasm (free ribosomes). They use the RNA synthesized by the nucleolus in making specific amino acid, They are referred to as the "protein factories."',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.justify,
-                              ),
-                              SizedBox(height: 20),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    WidgetSpan(
-                                      child: SizedBox(width: 40),
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          '2. Cytoskeletons are the network of fibers that are scattered throughout the entire cytoplasm and interconnecting some organelles. One type, the microtubules, functions in maintaining the shape of the cells and aids in the movement of some organelles. The second type are the microfilaments, which provide contractility to some cells and aid in the changing of shapes of some cells.',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.justify,
-                              ),
-                              SizedBox(height: 20),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    WidgetSpan(
-                                      child: SizedBox(width: 40),
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          '3. Microbodies are the very tiny, membrane-bound organelles that are scattered throughout the cytoplasm together with the free ribosomes. They contain enzymes that are essential in neutralizing toxic materials that are products of cellular metabolism. Examples are the enzymes peroxisomes that break down hydrogen peroxide and proteasomes that break down damaged or unwanted proteins in the cell.',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.justify,
                               ),
                               SizedBox(height: 30),
                               Text(
@@ -701,6 +648,38 @@ class _Animal_and_Plant_Topic_3_2State
                               SizedBox(height: 10),
                               Text(
                                 'Reference: https://www.youtube.com/watch?v=-TkC7BmdGcY',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                              SizedBox(height: 20),
+                              Text(
+                                'Reference: https://training.seer.cancer.gov/anatomy/cells_tissues_membranes/cells/structure.html',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                              SizedBox(height: 20),
+                              Text(
+                                'Reference: https://sepup.lawrencehallofscience.org/cells-unit-modeling-cell-structure-and-function/',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                              SizedBox(height: 20),
+                              Text(
+                                'Reference: https://www.khanacademy.org/test-prep/mcat/cells/eukaryotic-cells/a/organelles-article',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                              SizedBox(height: 20),
+                              Text(
+                                'Reference: https://byjus.com/biology/cell-organelles/',
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Colors.black54,

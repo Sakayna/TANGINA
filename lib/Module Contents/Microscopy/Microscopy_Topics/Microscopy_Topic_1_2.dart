@@ -35,6 +35,27 @@ class _Microscopy_Topic_1_2State extends State<Microscopy_Topic_1_2> {
     await flutterTts.stop();
   }
 
+  Widget buildLessonText(String title, String content) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10.0),
+      child: Text.rich(
+        TextSpan(
+          children: [
+            TextSpan(
+              text: '$title\n',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            ),
+            TextSpan(
+              text: content,
+              style: TextStyle(fontSize: 14),
+            ),
+          ],
+        ),
+        textAlign: TextAlign.justify,
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -82,13 +103,31 @@ class _Microscopy_Topic_1_2State extends State<Microscopy_Topic_1_2> {
 
     // TTS content
     final List<String> ttsContents = [
-      'There are two types of microscopes: the simple and the compound microscopes. '
-          'Simple microscopes are composed of one lens and provide relatively low magnifying power. '
-          'Compound microscopes are composed of two or more lenses that provide powerful magnification.',
-      'The parts of a compound light microscope are categorized into illuminating parts, magnifying parts, and mechanical parts.',
-      'The illuminating parts provide light for the object to be seen. Examples include the mirror and diaphragm.',
-      'The magnifying parts include the ocular lens and objective lenses. These enlarge the object being observed.',
-      'The mechanical parts support, adjust, and connect other components. Examples include the base, arm, and adjustment screws.',
+      'Function of each Microscope Part',
+      '1. Eyepiece or Ocular Lens',
+      'Eyepiece lens magnifies the image of the specimen. This part is also known as ocular. Most school microscopes have an eyepiece with 10X magnification.'
+          '2. Eyepiece Tube or Body Tube',
+      'The tube holds the eyepiece.'
+          '3. Nosepiece',
+      'Nosepiece holds the objective lenses and is sometimes called a revolving turret. You choose the objective lens by rotating to the specific lens one you want to use.'
+          '4. Objective Lenses',
+      'Most compound microscopes come with three or four objective lenses that revolve on the nosepiece. The most common objective lenses have power of 4X, 10X, and 40X, resulting in total magnifications of 40X, 100X, and 400X. Some advanced microscopes include an additional 100X lens, allowing for 1,000X magnification.'
+          '5. Arm',
+      'The Arm connects the base to the nosepiece and eyepiece. It is the structural part that is also used to carry the microscope.'
+          '6. Stage',
+      'The stage is where the specimen is placed for observation.'
+          '7. Stage Clips',
+      'Stage clips are the supports that hold the slides in place on the stage.'
+          '8. Diaphragm (sometimes called the Iris'
+          'The diaphragm controls the amount of light passing through the slide. It is located below the stage and is usually controlled by a round dial.'
+          '9. Illuminator',
+      'Most light microscopes use a low voltage bulb which supplies light through the stage onto the specimen. Mirrors are sometimes used instead of built-in light sources.'
+          '10. Coarse Focus',
+      'Coarse focus moves the stage to provide general focus on the specimen. It is the first adjustment used when focusing a specimen.'
+          '11. Fine Focus',
+      'Fine focus moves the stage in smaller increments to provide a clear view of the specimen. It is used for fine adjustments after the coarse focus.'
+          '12. Base',
+      'The base is the main support of the microscope. It is the bottom part where all the other parts of the microscope stand.'
     ];
 
     return WillPopScope(
@@ -222,60 +261,9 @@ class _Microscopy_Topic_1_2State extends State<Microscopy_Topic_1_2> {
                             children: [
                               // Your Text.rich and content sections go here...
                               // Example Text with TTS functionality:
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    WidgetSpan(
-                                      child: SizedBox(
-                                        width: 40,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          'There are two types of microscopes: the simple and the compound microscopes. Simple microscopes are composed of one lens and provide relatively low magnifying power (5x). A magnifying glass is a good example of a simple microscope. Compound microscopes are composed of two or more lenses that provide powerful magnification.',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.justify,
-                              ),
-                              SizedBox(height: 20),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    WidgetSpan(
-                                      child: SizedBox(
-                                        width: 40,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          'The parts of a CLM are categorized into three: ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                    TextSpan(
-                                      text: 'illuminating parts, ',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontStyle: FontStyle.italic),
-                                    ),
-                                    TextSpan(
-                                      text: 'magnifying parts, ',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontStyle: FontStyle.italic),
-                                    ),
-                                    TextSpan(
-                                      text: 'and mechanical parts. ',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontStyle: FontStyle.italic),
-                                    ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.justify,
-                              ),
-                              SizedBox(height: 20),
+                              // Title for the Lesson
+
+                              // PNG Image (Placed Below the Title)
                               Padding(
                                 padding: EdgeInsets.only(
                                     left: 18.0), // Add left padding
@@ -298,11 +286,9 @@ class _Microscopy_Topic_1_2State extends State<Microscopy_Topic_1_2> {
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 10.0),
                                         child: Text(
-                                          'A Compound light microscope',
+                                          'A Compound Light Microscope',
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                          ),
+                                          style: TextStyle(fontSize: 14),
                                         ),
                                       ),
                                     ],
@@ -310,322 +296,62 @@ class _Microscopy_Topic_1_2State extends State<Microscopy_Topic_1_2> {
                                 ),
                               ),
                               SizedBox(height: 20),
+
                               Text.rich(
                                 TextSpan(
                                   children: [
                                     WidgetSpan(
-                                      child: SizedBox(
-                                        width: 40,
-                                      ),
+                                      child: SizedBox(width: 40),
                                     ),
                                     TextSpan(
-                                      text: 'The ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                    TextSpan(
-                                      text: 'Illuminating Parts ',
+                                      text:
+                                          'Function of each Microscope Part\n\n',
                                       style: TextStyle(
-                                          fontSize: 14,
+                                          fontSize: 16,
                                           fontWeight: FontWeight.bold),
                                     ),
-                                    TextSpan(
-                                      text:
-                                          ' are the parts that provide light. Light is important for the object/specimen to be seen. The light may come from two sources: natural source, reflected sunlight; artificial source, light bulb. ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
                                   ],
                                 ),
                                 textAlign: TextAlign.justify,
                               ),
-                              SizedBox(height: 20),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text:
-                                          '\u2022 Mirror - reflects the light from the source to the specimen ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.justify,
-                              ),
-                              SizedBox(height: 10),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text:
-                                          '\u2022 Diaphragm - regulates the amount of light striking the specimen  ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.justify,
-                              ),
-                              SizedBox(height: 10),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text:
-                                          '\u2022 Ocular/Eyepiece - focuses light to the eye; where the observer peeps through ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.justify,
-                              ),
-                              SizedBox(height: 10),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: '\u2022 Objectives - gather light ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(height: 40),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    WidgetSpan(
-                                      child: SizedBox(
-                                        width: 40,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: 'The ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                    TextSpan(
-                                      text: 'Magnifying Parts ',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          ' are the parts that enlarge the object or specimen.',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.justify,
-                              ),
-                              SizedBox(height: 20),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text:
-                                          '\u2022 Ocular lens - enlarges the object six times (6x) or ten times (10x) ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.justify,
-                              ),
-                              SizedBox(height: 10),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text:
-                                          '\u2022 Objective lenses - aside from gathering light, they magnify the image. Most often, a CLM has three objectives: ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: 60), // Add left padding
-                                child: Text.rich(
-                                  TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text:
-                                            '- Low Power Objective (LPO) that locates and enlarges the specimen 10x ',
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                    ],
-                                  ),
-                                  textAlign: TextAlign.justify,
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: 60), // Add left padding
-                                child: Text.rich(
-                                  TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text:
-                                            '- High Power Objective (HPO) that enlarges the specimen 40x, 43x, or 45x ',
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                    ],
-                                  ),
-                                  textAlign: TextAlign.justify,
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: 60), // Add left padding
-                                child: Text.rich(
-                                  TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text:
-                                            '- Oil Immersion Objective (OIO) that enlarges the object 100x ',
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                    ],
-                                  ),
-                                  textAlign: TextAlign.justify,
-                                ),
-                              ),
-                              SizedBox(height: 40),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    WidgetSpan(
-                                      child: SizedBox(
-                                        width: 40,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: 'The ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                    TextSpan(
-                                      text: 'Mechanical Parts ',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          'are the parts of the microscope that support, adjust, connect, and move other.',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.justify,
-                              ),
-                              SizedBox(height: 10),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text:
-                                          '\u2022 Base - supports the entire weight of the microscope ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.justify,
-                              ),
-                              SizedBox(height: 10),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text:
-                                          '\u2022 Arm - supports the body tube and the part that is held when the microscope is carried from one place to another ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text:
-                                          '\u2022 Body tube - connects the lenses of the objectives and the ocular Stage-holds the slide ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text:
-                                          '\u2022 Stage clips - hold the slide firmly in place ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text:
-                                          '\u2022 Adjustment screws - move the objectives to bring the specimen into focus ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: 60), // Add left padding
-                                child: Text.rich(
-                                  TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text:
-                                            '- Coarse adjustment screw - is the large knob that moves the body tube faster to focus the specimen ',
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                    ],
-                                  ),
-                                  textAlign: TextAlign.justify,
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: 60), // Add left padding
-                                child: Text.rich(
-                                  TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text:
-                                            '- Fine adjustment screw - is the smaller knob that is used to get a sharp focus of the specimen being viewed ',
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                    ],
-                                  ),
-                                  textAlign: TextAlign.justify,
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text:
-                                          '\u2022 Revolving nosepiece - is a rotating disc that holds the different objectives and allows for the shifting from one objective to the next ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                              ),
+
+                              buildLessonText('1. Eyepiece or Ocular Lens',
+                                  'Eyepiece lens magnifies the image of the specimen. This part is also known as ocular. Most school microscopes have an eyepiece with 10X magnification.'),
+
+                              buildLessonText('2. Eyepiece Tube or Body Tube',
+                                  'The tube holds the eyepiece.'),
+
+                              buildLessonText('3. Nosepiece',
+                                  'Nosepiece holds the objective lenses and is sometimes called a revolving turret. You choose the objective lens by rotating to the specific lens one you want to use.'),
+
+                              buildLessonText('4. Objective Lenses',
+                                  'Most compound microscopes come with three or four objective lenses that revolve on the nosepiece. The most common objective lenses have power of 4X, 10X, and 40X, resulting in total magnifications of 40X, 100X, and 400X. Some advanced microscopes include an additional 100X lens, allowing for 1,000X magnification.'),
+
+                              buildLessonText('5. Arm',
+                                  'The Arm connects the base to the nosepiece and eyepiece. It is the structural part that is also used to carry the microscope.'),
+
+                              buildLessonText('6. Stage',
+                                  'The stage is where the specimen is placed for observation.'),
+
+                              buildLessonText('7. Stage Clips',
+                                  'Stage clips are the supports that hold the slides in place on the stage.'),
+
+                              buildLessonText(
+                                  '8. Diaphragm (sometimes called the Iris)',
+                                  'The diaphragm controls the amount of light passing through the slide. It is located below the stage and is usually controlled by a round dial.'),
+
+                              buildLessonText('9. Illuminator',
+                                  'Most light microscopes use a low voltage bulb which supplies light through the stage onto the specimen. Mirrors are sometimes used instead of built-in light sources.'),
+
+                              buildLessonText('10. Coarse Focus',
+                                  'Coarse focus moves the stage to provide general focus on the specimen. It is the first adjustment used when focusing a specimen.'),
+
+                              buildLessonText('11. Fine Focus',
+                                  'Fine focus moves the stage in smaller increments to provide a clear view of the specimen. It is used for fine adjustments after the coarse focus.'),
+
+                              buildLessonText('12. Base',
+                                  'The base is the main support of the microscope. It is the bottom part where all the other parts of the microscope stand.'),
+
                               SizedBox(height: 20),
                               Text(
                                 'Watch this video to learn more about the parts and functions of the microscope:',
@@ -667,6 +393,15 @@ class _Microscopy_Topic_1_2State extends State<Microscopy_Topic_1_2> {
                               // Reference for second video
                               Text(
                                 'Reference: https://youtu.be/zzamomqlwxU?si=1u_WitjzxcgwKhJ',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black54,
+                                ),
+                              ),
+
+                              SizedBox(height: 20),
+                              Text(
+                                'Reference: https://smartschoolsystems.com/parts-of-a-microscope-2/',
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Colors.black54,

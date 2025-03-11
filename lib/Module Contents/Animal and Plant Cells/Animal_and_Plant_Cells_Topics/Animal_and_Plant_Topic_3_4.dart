@@ -20,9 +20,37 @@ class _Animal_and_Plant_Topic_3_4State
   // Function to handle text-to-speech
   Future<void> speakText() async {
     if (isTTSEnabled) {
-      String content = '''
-      Cells are the basic structural units of life. You have seen the shapes of the plant and animal cells. However, shapes of cells can vary widely. Cells have different shapes because they do different things. Their shapes enable them to perform the task assigned to them properly and efficiently. There are more than 200 different shapes and sizes of cells in your body doing many different jobs.
-      ''';
+      String content = 
+      
+                                          ' Living organisms are made up of different types of cells, of different shapes and sizes. A unicellular organism differs in shape from another unicellular organism. Within a multicellular organism, there are a variety of cells. Some are long while others are short; some are circular while some are oval. Shape and size vary from cell to cell according to their functions and composition. For example, a nerve cell is long and branched, meant for the transmission of signals throughout our body while a muscle cell is small and spindle-shaped which helps in movement.'
+                                          'Variation in Cell Shape'
+                                          'Cell Shapes'
+                                          'Description'
+                                          'Examples'
+                                          'Spherical'
+                                          'Round or oval'
+                                          'Human red blood cells (erythrocytes)'
+                                          'Squamous'
+                                          'Flat or tilelike'
+                                          'Human squamous cells'
+                                          'Stellate'
+                                          'Nerve cell or neuron'
+                                          'Spiderlike'
+                                           'With several cytoplasmic extensions'
+                                           'Bone cells'
+                                           'Columnar'
+                                           'Rectangular set upright'
+                                           'Columnar cells'
+                                           'Fusiform/Spindle'
+                                           'Tapering at both ends'
+                                           
+
+
+
+
+
+
+      ;
       await flutterTts.speak(content);
     }
   }
@@ -171,7 +199,7 @@ class _Animal_and_Plant_Topic_3_4State
                                     ),
                                     TextSpan(
                                       text:
-                                          'Cells are the basic structural units of life. You have seen the shapes of the plant and animal cells.However, shapes of cells can vary widely. Cells have different shapes because they do different things. Their shapes enable them to perform the task assigned to them properly and efficiently. There are more than 200 different shapes and sizes of cell in your body doing many different jobs. ',
+                                          ' Living organisms are made up of different types of cells, of different shapes and sizes. A unicellular organism differs in shape from another unicellular organism. Within a multicellular organism, there are a variety of cells. Some are long while others are short; some are circular while some are oval. Shape and size vary from cell to cell according to their functions and composition. For example, a nerve cell is long and branched, meant for the transmission of signals throughout our body while a muscle cell is small and spindle-shaped which helps in movement.',
                                       style: TextStyle(fontSize: 14),
                                     ),
                                   ],
@@ -466,6 +494,14 @@ class _Animal_and_Plant_Topic_3_4State
                                       ],
                                     ),
                                   ),
+                                ),
+                              ),
+                              SizedBox(height: 10),
+                              Text(
+                                'Reference: https://byjus.com/biology/cells-size-shape-count/',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black54,
                                 ),
                               ),
                             ],

@@ -44,15 +44,18 @@ class _Animal_and_Plant_Topic_3_3State
   // Function to handle text-to-speech
   Future<void> speakText() async {
     if (isTTSEnabled) {
-      String content = '''
-      The image below shows the comparative structure of a plant and an animal cell. Both cells are eukaryotic in nature, having several well-defined membrane-bound organelles. There are parts or organelles that are specific only to a particular type of cell, and some points of differences exist between the two cells. 
+      String content =
       
-      Plant cells are usually larger with a fixed polygonal shape due to the presence of the cell wall, while animal cells are smaller and vary in shape. The cell wall strengthens the plant cell, protects it from mechanical injury, and provides rigidity. Animal cells lack a cell wall, making them softer and more flexible in shape.
-
-      Plastids, like chloroplasts, exist in plant cells, providing the green color and facilitating photosynthesis. Animal cells, on the other hand, have centrioles that assist in cell division. Vacuoles in plant cells are large, occupying much of the cell's volume, while in animal cells, vacuoles are smaller and temporary.
-
-      Watch the video below to learn more about the differences between plant and animal cells.
-      ''';
+                                          ' Each eukaryotic cell has a plasma membrane, cytoplasm, a nucleus, ribosomes, mitochondria, peroxisomes, and in some, vacuoles; however, there are some striking differences between animal and plant cells. While both animal and plant cells have microtubule organizing centers (MTOCs), animal cells also have centrioles associated with the MTOC: a complex called the centrosome. Animal cells each have a centrosome and lysosomes, whereas plant cells do not. Plant cells have a cell wall, chloroplasts and other specialized plastids, and a large central vacuole, whereas animal cells do not.'
+                                                                                    'Both plant and animal cells comprise membrane-bound organelles, such as endoplasmic reticulum, mitochondria, the nucleus, Golgi apparatus, and lysosomes. The plant cell can also be larger than the animal cell. The normal range of the animal cell varies from about 10 – 30 micrometres and that of plant cell range between 10 – 100 micrometres.'
+                                                                                    'Centrioles '  
+                                                                                                                              'are paired barrel-shaped organelles located in the cytoplasm of animal cells near the nuclear envelope. Centrioles play a role in organizing microtubules that serve as the cell\'s skeletal system. They help determine the locations of the nucleus and other organelles within the cell.'
+                                                                                                                              'Vacuoles '
+                                                                                                                                                                        'Vacuoles are membrane-bound cell organelles seen in plants and fungi. Some bacterial, protist and animal cells also have vacuoles. They usually maintain the hydrostatic pressure within the cell.'
+                                                                                                                                                                                                                  'The plant vacuoles are larger in size and occupy approximately 90% of the cell space. They are one huge structure that is surrounded by a tonoplast. This tonoplast avoids the intermixing of substances from the cytoplasm. The vacuole acts as an organelle that maintains the turgor pressure of the cell. Also, they store water, metabolites and nutrients. Their function is significant in plant cells as they cannot move to find nutrients and water. Thus, plant cells have larger vacuoles than animal cells. '
+                                                                                                                                                                                                                                                            'The animal cell has several small and scattered vacuoles. They usually contain fluid and food. They are temporary structures of less significance. They aid in the endocytosis and exocytosis processes. Their main function in animal cells is osmoregulation, storage, excretion and digestion. Moreover, there are also animal cells with no vacuoles.'
+                                                                                                                                                                                                                                                            
+                                                                                        ;
       await flutterTts.speak(content);
     }
   }
@@ -202,8 +205,7 @@ class _Animal_and_Plant_Topic_3_3State
                                     ),
                                     TextSpan(
                                       text:
-                                          'The image below shows the comparative structure of a plant and an animal cell. Take note that both cells are eukaryotic in nature, having several well-defined membrane-bound organelles.'
-                                          ' Take note that in the numbered organelles, there are parts/organelles that are specific only to a particular type of cell. Thus, although the basic structure and most of the features are the same, there are some points of differences between the two cells.',
+                                          ' Each eukaryotic cell has a plasma membrane, cytoplasm, a nucleus, ribosomes, mitochondria, peroxisomes, and in some, vacuoles; however, there are some striking differences between animal and plant cells. While both animal and plant cells have microtubule organizing centers (MTOCs), animal cells also have centrioles associated with the MTOC: a complex called the centrosome. Animal cells each have a centrosome and lysosomes, whereas plant cells do not. Plant cells have a cell wall, chloroplasts and other specialized plastids, and a large central vacuole, whereas animal cells do not.',
                                       style: TextStyle(fontSize: 14),
                                     ),
                                   ],
@@ -221,8 +223,7 @@ class _Animal_and_Plant_Topic_3_3State
                                     ),
                                     TextSpan(
                                       text:
-                                          'In terms of size and shape, the plant cell is usually larger and has a somewhat fixed shape (polygonal), whereas an animal cell is smaller and has various shapes. Biologists believe that the more fixed shape of plant cells is due to the presence of the cell wall. The cell wall (number 1 in the image) is a tough, rigid structure composed of cellulose, a type of polysaccharide. '
-                                          'The cell wall, aside from maintaining the shape of the cell, also strengthens the cell and protects it from mechanical injury and adverse environmental conditions. Animal cells do not have cell walls. The plasma membrane serves as its outer boundary. The absence of the cell wall makes the animal cell softer, which is the reason why animal cells can assume different shapes.',
+                                          'Both plant and animal cells comprise membrane-bound organelles, such as endoplasmic reticulum, mitochondria, the nucleus, Golgi apparatus, and lysosomes. The plant cell can also be larger than the animal cell. The normal range of the animal cell varies from about 10 – 30 micrometres and that of plant cell range between 10 – 100 micrometres.',
                                       style: TextStyle(fontSize: 14),
                                     ),
                                   ],
@@ -272,30 +273,6 @@ class _Animal_and_Plant_Topic_3_3State
                                       ),
                                     ),
                                     TextSpan(
-                                      text: 'Plastids ',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          'are organelles that contain pigments and store food materials. The pigments give the leaves of the plants their characteristic colors. The most popular among them are the chloroplasts (number 12 in the image), which contain the chlorophyll pigments. These pigments give many plants their characteristic green color. Chlorophyll pigments are also light-trapping. During photosynthesis, carbon dioxide and water, with the help of light energy, are chemically changed into food. The photosynthetic ability of plants is the reason why they are called photosynthetic autotrophs.',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.justify,
-                              ),
-                              SizedBox(height: 20),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    WidgetSpan(
-                                      child: SizedBox(
-                                        width: 40,
-                                      ),
-                                    ),
-                                    TextSpan(
                                       text: 'Centrioles ',
                                       style: TextStyle(
                                           fontSize: 14,
@@ -303,7 +280,7 @@ class _Animal_and_Plant_Topic_3_3State
                                     ),
                                     TextSpan(
                                       text:
-                                          'are organelles that become prominent only during cell division. Only animal cells have centrioles (number 13 in the image). During cell division, centrioles help move chromosomes towards their respective poles. Plant cells do not need centrioles. Their more fixed shape can safely and correctly position the chromosomes in their supposed places. In unicellular organisms, such as the paramecium and euglena, the centrioles control the formation of locomotor structures respectively called cilia and flagella. This is also the origin of the flagellum that enables sperm cells to swim.',
+                                          'are paired barrel-shaped organelles located in the cytoplasm of animal cells near the nuclear envelope. Centrioles play a role in organizing microtubules that serve as the cell\'s skeletal system. They help determine the locations of the nucleus and other organelles within the cell.',
                                       style: TextStyle(fontSize: 14),
                                     ),
                                   ],
@@ -327,18 +304,7 @@ class _Animal_and_Plant_Topic_3_3State
                                     ),
                                     TextSpan(
                                       text:
-                                          'are membrane-bound and fluid-filled organelles that function as a storage tank for food, water, waste products, and other materials. Vacuoles can be found both in plant and animal cells. However, in plant cells, the vacuoles are large and built-in, and they almost fill the entire volume of the plant cell. When they are filled with water, they exert internal pressure called ',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                    TextSpan(
-                                      text: 'turgor pressure ',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          'against the cell wall. This pressure presses the cell wall tightly against the plasma membrane that causes the characteristic rigidity of plant cells. Moreover, in plant cells, the vacuoles usually store useful materials (starch grains, essential oils, water, etc.), water-soluble pigments as well as crystals of various geometric designs that are composed of molecules that can be potentially toxic to herbivores.',
+                                          'Vacuoles are membrane-bound cell organelles seen in plants and fungi. Some bacterial, protist and animal cells also have vacuoles. They usually maintain the hydrostatic pressure within the cell.',
                                       style: TextStyle(fontSize: 14),
                                     ),
                                   ],
@@ -356,18 +322,12 @@ class _Animal_and_Plant_Topic_3_3State
                                     ),
                                     TextSpan(
                                       text:
-                                          'Conversely, in animal cells, the vacuoles are temporary small structures scattered within the cytoplasm. Take a look at the diagram of the animal cell in the image. Where are the vacuoles located? The vacuoles are formed near the plasma membrane. Take note that vacuoles form near the part of the plasma membrane wherein a pocketing is formed. This in pocketing is called a ',
+                                          'The plant vacuoles are larger in size and occupy approximately 90% of the cell space. They are one huge structure that is surrounded by a tonoplast. This tonoplast avoids the intermixing of substances from the cytoplasm. The vacuole acts as an organelle that maintains the turgor pressure of the cell. Also, they store water, metabolites and nutrients. Their function is significant in plant cells as they cannot move to find nutrients and water. Thus, plant cells have larger vacuoles than animal cells. ',
                                       style: TextStyle(fontSize: 14),
                                     ),
                                     TextSpan(
-                                      text: 'pinocytotic vesicle. ',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    TextSpan(
                                       text:
-                                          'Materials sometimes forcibly enter the cell\'s interior via this in pocketing in the plasma membrane. The materials that enter the animal cell are sometimes so complex that the cell cannot use them. It does not pose a problem because the lysosomes are always there to simplify these materials into forms which the cell can use.',
+                                          'The animal cell has several small and scattered vacuoles. They usually contain fluid and food. They are temporary structures of less significance. They aid in the endocytosis and exocytosis processes. Their main function in animal cells is osmoregulation, storage, excretion and digestion. Moreover, there are also animal cells with no vacuoles.',
                                       style: TextStyle(fontSize: 14),
                                     ),
                                   ],
@@ -391,6 +351,42 @@ class _Animal_and_Plant_Topic_3_3State
                               SizedBox(height: 10),
                               Text(
                                 'Reference: https://www.youtube.com/watch?v=HjC-eMiMDfo&t=68s',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                                                               SizedBox(height: 20),
+
+                              Text(
+                                'Reference: https://bio.libretexts.org/Bookshelves/Introductory_and_General_Biology/General_Biology_(Boundless)/04%3A_Cell_Structure/4.10%3A_Eukaryotic_Cells_-_Comparing_Plant_and_Animal_Cells',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                                                            SizedBox(height: 20),
+
+                              Text(
+                                'Reference: https://byjus.com/biology/difference-between-plant-and-animal-vacuoles/',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                                                            SizedBox(height: 20),
+
+                              Text(
+                                'Reference: https://byjus.com/biology/difference-between-plant-cell-and-animal-cell/',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                                                            SizedBox(height: 20),
+
+                              Text(
+                                'Reference: https://www.genome.gov/genetics-glossary/Centriole#:~:text=Definition&text=Centrioles%20are%20paired%20barrel-shaped,other%20organelles%20within%20the%20cell.',
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Colors.black54,
